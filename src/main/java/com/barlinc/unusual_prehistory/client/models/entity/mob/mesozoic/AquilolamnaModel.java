@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -100,18 +99,14 @@ public class AquilolamnaModel extends UP2Model<Aquilolamna> {
         this.animateIdleSmooth(entity.swimIdleAnimationState, AquilolamnaAnimations.SWIM, ageInTicks, partialTicks, limbSwingAmount, 2.5F, 0.5F);
 		this.animateSmooth(entity.flopAnimationState, AquilolamnaAnimations.FLOP, ageInTicks, partialTicks);
 
-        if (entity.isInWaterOrBubble()) {
-            float rollAmount = entity.getRoll(partialTicks) / (180F / (float) Math.PI);
-            this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
-            this.swim_control.zRot += rollAmount;
-        }
-
-        float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.25F, tail1.yRot, tailYaw * 0.1F);
+        this.swim_control.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
+        this.swim_control.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
+        this.tail1.yRot += entity.getTailYaw(partialTicks) * Mth.DEG_TO_RAD;
+        this.tail2.yRot += entity.getTailYaw(partialTicks) * 0.15F * Mth.DEG_TO_RAD;
     }
 
 	@Override
-	public @NotNull ModelPart root() {
+	public ModelPart root() {
 		return this.root;
 	}
 }

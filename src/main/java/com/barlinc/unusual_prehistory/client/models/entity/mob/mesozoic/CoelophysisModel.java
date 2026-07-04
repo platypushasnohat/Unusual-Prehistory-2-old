@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -103,7 +102,7 @@ public class CoelophysisModel extends UP2Model<Coelophysis> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull Coelophysis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Coelophysis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
@@ -121,14 +120,13 @@ public class CoelophysisModel extends UP2Model<Coelophysis> {
         }
 
         this.faceTarget(entity, netHeadYaw, headPitch, 1.75F, neck, head);
-        float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.25F, tail1.yRot, tailYaw * 0.25F);
-        this.tail2.yRot = Mth.lerp(0.25F, tail2.yRot, tailYaw * 0.2F);
-        this.tail3.yRot = Mth.lerp(0.25F, tail3.yRot, tailYaw * 0.15F);
+        this.tail1.yRot += entity.getTailYaw(partialTicks) * Mth.DEG_TO_RAD;
+        this.tail2.yRot += entity.getTailYaw(partialTicks) * 0.85F * Mth.DEG_TO_RAD;
+        this.tail3.yRot += entity.getTailYaw(partialTicks) * 0.75F * Mth.DEG_TO_RAD;
 	}
 
 	@Override
-	public @NotNull ModelPart root() {
+	public ModelPart root() {
 		return this.root;
 	}
 }

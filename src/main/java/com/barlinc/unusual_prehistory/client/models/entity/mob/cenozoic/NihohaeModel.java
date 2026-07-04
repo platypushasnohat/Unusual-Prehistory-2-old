@@ -83,6 +83,7 @@ public class NihohaeModel extends UP2Model<Nihohae> {
 
         this.swim_control.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
         this.swim_control.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
+        this.tail1.yRot += entity.getTailYaw(partialTicks) * Mth.DEG_TO_RAD;
 	}
 
 	@Override

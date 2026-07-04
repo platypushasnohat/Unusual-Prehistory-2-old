@@ -43,13 +43,8 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
     private static final float MAX_TILT = 60.0F;
     private static final float MAX_ROLL = 25.0F;
     private static final float ROLL_PER_YAW = 2.0F;
-
-    public float tilt;
-    public float prevTilt;
-    public float roll;
-    public float prevRoll;
-    private float lastYRot;
-    private Vec3 lastMoveDir = Vec3.ZERO;
+    private static final float MAX_TAIL_YAW = 20.0F;
+    private static final float TAIL_YAW_MULITPLIER = 0.15F;
 
     public int attackCooldown = 0;
 
@@ -110,16 +105,6 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    public boolean canSleepCooldown() {
-        return this.isInWaterOrBubble();
-    }
-
-    @Override
-    public Vec3 getEepyParticleVec() {
-        return new Vec3(0.0D, 0.7D, this.getBbWidth() * 1.15F).yRot(-yBodyRot * ((float) Math.PI / 180F));
-    }
-
-    @Override
     public int getMaxHeadXRot() {
         return 1;
     }
@@ -131,36 +116,6 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     protected void handleAirSupply(int airSupply) {
-    }
-
-    private void tickRotations() {
-        // tilt
-        this.prevTilt = tilt;
-        float targetTilt = 0.0F;
-        if (this.isInWater() || this.isLeaping()) {
-            Vec3 movement = this.getDeltaMovement();
-            if (movement.lengthSqr() > 1.0E-6) {
-                this.lastMoveDir = movement;
-            }
-            targetTilt = -((float) Mth.atan2(lastMoveDir.y, lastMoveDir.horizontalDistance()) * (180.0F / (float) Math.PI));
-            targetTilt = Mth.clamp(targetTilt, -MAX_TILT, MAX_TILT);
-        }
-        this.tilt += (targetTilt - tilt) * 0.2F;
-
-        // roll
-        this.prevRoll = roll;
-        float yawDelta = Mth.wrapDegrees(this.getYRot() - lastYRot);
-        this.lastYRot = this.getYRot();
-        float targetRoll = this.isInWater() ? Mth.clamp(-yawDelta * ROLL_PER_YAW, -MAX_ROLL, MAX_ROLL) : 0.0F;
-        this.roll += (targetRoll - roll) * 0.2F;
-    }
-
-    public float getTilt(float partialTick) {
-        return Mth.lerp(partialTick, prevTilt, tilt);
-    }
-
-    public float getRoll(float partialTick) {
-        return Mth.lerp(partialTick, prevRoll, roll);
     }
 
     @Override
@@ -178,7 +133,8 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
             }
         }
 
-        this.tickRotations();
+        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
+        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULITPLIER);
     }
 
     @Override

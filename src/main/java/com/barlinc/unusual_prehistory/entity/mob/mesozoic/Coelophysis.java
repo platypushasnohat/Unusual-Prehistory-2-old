@@ -29,10 +29,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Coelophysis extends PrehistoricMob {
+
+    private static final float MAX_TAIL_YAW = 30.0F;
+    private static final float TAIL_YAW_MULITPLIER = 0.35F;
 
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState(1.0F);
@@ -69,6 +71,7 @@ public class Coelophysis extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
+        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULITPLIER);
     }
 
     @Override
@@ -94,7 +97,7 @@ public class Coelophysis extends PrehistoricMob {
     }
 
     @Override
-    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+    public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
         return UP2Entities.COELOPHYSIS.get().create(level);
     }
 
@@ -104,7 +107,7 @@ public class Coelophysis extends PrehistoricMob {
     }
 
     @Override
-    public void travel(@NotNull Vec3 vec3) {
+    public void travel(Vec3 vec3) {
         if (this.refuseToMove() && this.onGround()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
             vec3 = vec3.multiply(0.0, 1.0, 0.0);
@@ -120,7 +123,7 @@ public class Coelophysis extends PrehistoricMob {
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.DROMAEOSAURUS_HURT.get();
     }
 

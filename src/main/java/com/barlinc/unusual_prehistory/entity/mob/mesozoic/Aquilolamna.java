@@ -33,19 +33,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 public class Aquilolamna extends PrehistoricAquaticMob implements Bucketable {
 
-    private float roll = 0.0F;
-    private float prevRoll = 0.0F;
+    private static final float MAX_TILT = 45.0F;
+    private static final float MAX_ROLL = 45.0F;
+    private static final float ROLL_PER_YAW = 2.0F;
+    private static final float MAX_TAIL_YAW = 20.0F;
+    private static final float TAIL_YAW_MULITPLIER = 0.25F;
 
     public Aquilolamna(EntityType<? extends Aquilolamna> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 20, 6, 0.02F);
-        this.lookControl = new PrehistoricSwimmingLookControl(this, 6);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 45, 10, 0.02F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -68,7 +70,7 @@ public class Aquilolamna extends PrehistoricAquaticMob implements Bucketable {
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             UP2MobUtils.travelInWater(this, travelVector);
         } else {
@@ -76,34 +78,11 @@ public class Aquilolamna extends PrehistoricAquaticMob implements Bucketable {
         }
     }
 
-    public float getRoll(float partialTicks) {
-        return (prevRoll + (roll - prevRoll) * partialTicks);
-    }
-
     @Override
     public void tick() {
         super.tick();
-
-        this.prevRoll = roll;
-        float threshold = 5.0F;
-        boolean flag = false;
-        if (this.isInWater() && yRotO - this.getYRot() > threshold) {
-            this.roll += 1.5F;
-            flag = true;
-        }
-        if (this.isInWater() && yRotO - this.getYRot() < -threshold) {
-            this.roll -= 1.5F;
-            flag = true;
-        }
-        if (!flag) {
-            if (roll > 0.0F) {
-                this.roll = Math.max(roll - 1.5F, 0.0F);
-            }
-            if (roll < 0.0F) {
-                this.roll = Math.min(roll + 1.5F, 0.0F);
-            }
-        }
-        this.roll = Mth.clamp(roll, -35.0F, 35.0F);
+        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
+        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULITPLIER);
     }
 
     @Override
@@ -138,51 +117,49 @@ public class Aquilolamna extends PrehistoricAquaticMob implements Bucketable {
     }
 
     @Override
-    public @NotNull ItemStack getBucketItemStack() {
+    public ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
     }
 
     @Override
-    public @NotNull SoundEvent getPickupSound() {
+    public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
     }
 
     @Override
-    public void saveToBucketTag(@NotNull ItemStack bucket) {
+    public void saveToBucketTag(ItemStack bucket) {
         UP2MobUtils.savePrehistoricDataToBucket(this, bucket);
     }
 
     @Override
-    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+    public void loadFromBucketTag(CompoundTag compoundTag) {
         UP2MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+        return UP2Entities.AQUILOLAMNA.get().create(level);
+    }
+
+    @Override
+    protected SoundEvent getFlopSound() {
+        return UP2SoundEvents.STETHACANTHUS_FLOP.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return UP2SoundEvents.STETHACANTHUS_HURT.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.STETHACANTHUS_DEATH.get();
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return UP2SoundEvents.STETHACANTHUS_HURT.get();
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getFlopSound() {
-        return UP2SoundEvents.STETHACANTHUS_FLOP.get();
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.AQUILOLAMNA.get().create(serverLevel);
     }
 }

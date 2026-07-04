@@ -2,17 +2,20 @@ package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
 
@@ -20,6 +23,13 @@ import net.neoforged.neoforge.fluids.FluidType;
 public abstract class PrehistoricAquaticMob extends PrehistoricMob {
 
     public boolean shallowWater;
+
+    public float tilt;
+    public float prevTilt;
+    public float roll;
+    public float prevRoll;
+    private float lastYRot;
+    private Vec3 lastMoveDir = Vec3.ZERO;
 
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState flopAnimationState = new SmoothAnimationState();
@@ -70,6 +80,37 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
 
     protected SoundEvent getFlopSound() {
         return SoundEvents.COD_FLOP;
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    protected void tickRotations(float maxTilt, float maxRoll, float rollPerYaw) {
+        // tilt
+        this.prevTilt = tilt;
+        float targetTilt = 0.0F;
+        if (this.isInWater() || (this instanceof LeapingMob leapingMob && leapingMob.isLeaping())) {
+            Vec3 movement = this.getDeltaMovement();
+            if (movement.lengthSqr() > 1.0E-6) {
+                this.lastMoveDir = movement;
+            }
+            targetTilt = -((float) Mth.atan2(lastMoveDir.y, lastMoveDir.horizontalDistance()) * (180.0F / (float) Math.PI));
+            targetTilt = Mth.clamp(targetTilt, -maxTilt, maxTilt);
+        }
+        this.tilt += (targetTilt - tilt) * 0.2F;
+
+        // roll
+        this.prevRoll = roll;
+        float yawDelta = Mth.wrapDegrees(this.getYRot() - lastYRot);
+        this.lastYRot = this.getYRot();
+        float targetRoll = this.isInWater() ? Mth.clamp(-yawDelta * rollPerYaw, -maxRoll, maxRoll) : 0.0F;
+        this.roll += (targetRoll - roll) * 0.2F;
+    }
+
+    public float getTilt(float partialTick) {
+        return Mth.lerp(partialTick, prevTilt, tilt);
+    }
+
+    public float getRoll(float partialTick) {
+        return Mth.lerp(partialTick, prevRoll, roll);
     }
 
     @Override

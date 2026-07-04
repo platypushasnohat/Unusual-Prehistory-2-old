@@ -68,6 +68,8 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     protected int eepyTicks;
 
+    protected float bodyYaw;
+    protected float prevBodyYaw;
     protected float tailYaw;
     protected float prevTailYaw;
 
@@ -103,7 +105,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+    public boolean killedEntity(ServerLevel level, LivingEntity victim) {
         this.heal(this.getMaxHealth() * this.getKilledEntityHealMultiplier());
         return super.killedEntity(level, victim);
     }
@@ -114,17 +116,17 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     // Navigation
     @Override
-    protected @NotNull BodyRotationControl createBodyControl() {
+    protected BodyRotationControl createBodyControl() {
         return new PrehistoricBodyRotationControl(this);
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+    protected PathNavigation createNavigation(Level level) {
         return new SmoothGroundNavigation(this, level);
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
         return 0.0F;
     }
 
@@ -144,7 +146,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    public boolean canMate(@NotNull Animal animal) {
+    public boolean canMate(Animal otherAnimal) {
         return false;
     }
 
@@ -161,7 +163,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     // Mob interactions
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         InteractionResult result = super.mobInteract(player, hand);
         if (this.isFood(itemStack) && this.getEatTicks() <= 0) {
@@ -195,11 +197,11 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         return result;
     }
 
-    public boolean canOwnerMount(Player player, @NotNull InteractionHand hand) {
+    public boolean canOwnerMount(Player player, InteractionHand hand) {
         return false;
     }
 
-    public boolean canOwnerCommand(Player ownerPlayer, @NotNull InteractionHand hand) {
+    public boolean canOwnerCommand(Player ownerPlayer, InteractionHand hand) {
         return false;
     }
 
@@ -245,7 +247,6 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     public void tick () {
         super.tick();
 
-        this.tickTailYaw();
         this.tickCooldowns();
 
         if (this.level().isClientSide) {
@@ -331,20 +332,19 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     // Tail yaw
-    public void tickTailYaw() {
-        this.prevTailYaw = tailYaw;
-        this.tailYaw += (-(yBodyRot - yBodyRotO) - tailYaw) * this.tailYawMultiplier();
-    }
+    public void tickTailYaw(float maxYaw, float yawMultiplier) {
+        this.prevBodyYaw = bodyYaw;
+        this.bodyYaw += Mth.clamp(Mth.wrapDegrees(yBodyRot - bodyYaw) * yawMultiplier, -maxYaw, maxYaw);
 
-    protected float tailYawMultiplier() {
-        return 0.2F;
+        this.prevTailYaw = tailYaw;
+        this.tailYaw = Mth.clamp(Mth.wrapDegrees(bodyYaw - yBodyRot), -maxYaw, maxYaw);
     }
 
     public float getTailYaw(float partialTicks) {
         if (this.isPassenger()) {
             return 0.0F;
         }
-        return prevTailYaw + (tailYaw - prevTailYaw) * partialTicks;
+        return Mth.lerp(partialTicks, prevTailYaw, tailYaw);
     }
 
     // Animations
@@ -382,7 +382,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     // Sitting & Sleeping
     @Override
-    protected void actuallyHurt(@NotNull DamageSource source, float amount) {
+    protected void actuallyHurt(DamageSource source, float amount) {
         if (this.isSitting() && !this.isOrderedToSit()) {
             this.setSitting(false);
             this.setSitCooldown(400);
@@ -395,7 +395,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    public boolean handleLeashAtDistance(@NotNull Entity leashHolder, float distance) {
+    public boolean handleLeashAtDistance(Entity leashHolder, float distance) {
         if (distance > 6.0F) {
             if (this.isSitting() && !this.isOrderedToSit()) {
                 this.setSitting(false);
@@ -435,7 +435,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     // Taming
     @Override
-    public boolean isAlliedTo(@NotNull Entity entity) {
+    public boolean isAlliedTo(Entity entity) {
         if (this.isTame() && this.getOwner() != null) {
             if (entity == this.getOwner()) {
                 return true;
@@ -455,7 +455,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     // Riding
     @Override
-    protected void removePassenger(@NotNull Entity passenger) {
+    protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
         if (!this.level().isClientSide) {
             if (this.getCommand() == 1 && !this.isSitting()) {
@@ -474,20 +474,21 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity passenger) {
+    public Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
         Vec3 escapeVector = getCollisionHorizontalEscapeVector(getBbWidth(), passenger.getBbWidth(), passenger.getYRot());
         @Nullable Vec3 location = this.getDismountLocationInDirection(this, escapeVector, passenger);
         return Objects.requireNonNullElseGet(location, () -> super.getDismountLocationForPassenger(passenger));
     }
 
     @Override
-    public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction moveFunction) {
+    public void positionRider(Entity passenger, MoveFunction moveFunction) {
         super.positionRider(passenger, moveFunction);
         passenger.setYBodyRot(this.yBodyRot);
         passenger.fallDistance = 0.0F;
     }
 
     @Override
+    @Nullable
     public LivingEntity getControllingPassenger() {
         Entity entity = this.getFirstPassenger();
         if (entity instanceof Player player) {
@@ -497,7 +498,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
+    protected Vec3 getRiddenInput(Player player, Vec3 vec3) {
         float f = player.xxa * 0.5F;
         float f1 = player.zza;
         if (f1 <= 0.0F) {
@@ -507,7 +508,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    protected void tickRidden(@NotNull Player player, @NotNull Vec3 travelVector) {
+    protected void tickRidden(Player player, Vec3 travelVector) {
         super.tickRidden(player, travelVector);
         Vec2 vec2 = this.getRiddenRotation(player);
         this.setRot(vec2.y, vec2.x);
@@ -580,7 +581,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     // Data
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (EEPY.equals(accessor)) {
             this.refreshDimensions();
         }
@@ -612,7 +613,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
@@ -627,7 +628,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
