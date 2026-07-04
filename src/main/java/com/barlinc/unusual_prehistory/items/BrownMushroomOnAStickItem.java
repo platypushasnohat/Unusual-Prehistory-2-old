@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.items;
 
-import com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Arthropleura;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

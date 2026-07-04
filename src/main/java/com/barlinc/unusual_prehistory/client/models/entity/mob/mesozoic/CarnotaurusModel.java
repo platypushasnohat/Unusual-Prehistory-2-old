@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.mesozoic.carnotaurus.CarnotaurusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.mesozoic.carnotaurus.CarnotaurusAttackAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.mesozoic.CarnotaurusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.mesozoic.CarnotaurusAttackAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Carnotaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;

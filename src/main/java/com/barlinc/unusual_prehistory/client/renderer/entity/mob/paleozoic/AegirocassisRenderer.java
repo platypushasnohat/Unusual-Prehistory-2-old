@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.aegirocassis.AegirocassisBabyModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.aegirocassis.AegirocassisModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.AegirocassisBabyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.AegirocassisModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic.layers.AegirocassisGlowLayer;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Aegirocassis;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;

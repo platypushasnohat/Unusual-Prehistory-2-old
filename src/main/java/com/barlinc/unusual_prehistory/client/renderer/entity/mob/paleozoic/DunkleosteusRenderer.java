@@ -1,9 +1,9 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.dunkelosteus.DunkleosteusLargeModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.dunkelosteus.DunkleosteusMediumModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.dunkelosteus.DunkleosteusSmallModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.DunkleosteusLargeModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.DunkleosteusMediumModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.DunkleosteusSmallModel;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Dunkleosteus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

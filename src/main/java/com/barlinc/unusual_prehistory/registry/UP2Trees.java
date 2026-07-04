@@ -1,12 +1,7 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.decorator.TreeBranchDecorator;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.ginkgo.GinkgoFoliagePlacer;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron.HangingLepidodendronLeavesDecorator;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron.LepidodendronFoliagePlacer;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron.LepidodendronTrunkPlacer;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.metasequoia.MetasequoiaFoliagePlacer;
+import com.barlinc.unusual_prehistory.worldgen.feature.tree.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;

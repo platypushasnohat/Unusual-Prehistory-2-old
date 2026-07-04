@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.recently_extin
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.recently_extinct.gastric_brooding_frog.GastricBroodingFrogModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.recently_extinct.gastric_brooding_frog.GastricBroodingFrogletModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.recently_extinct.GastricBroodingFrogModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.recently_extinct.GastricBroodingFrogletModel;
 import com.barlinc.unusual_prehistory.entity.mob.recently_extinct.GastricBroodingFrog;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

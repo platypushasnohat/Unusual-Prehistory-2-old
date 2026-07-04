@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.brachiosaurus.BrachiosaurusBabyModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.brachiosaurus.BrachiosaurusModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.BrachiosaurusBabyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.BrachiosaurusModel;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Brachiosaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

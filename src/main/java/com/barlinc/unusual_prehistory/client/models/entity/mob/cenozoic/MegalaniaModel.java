@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.cenozoic;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.cenozoic.megalania.MegalaniaAnimations;
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.cenozoic.megalania.MegalaniaIdleAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.cenozoic.MegalaniaAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.cenozoic.MegalaniaIdleAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.cenozoic.Megalania;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;

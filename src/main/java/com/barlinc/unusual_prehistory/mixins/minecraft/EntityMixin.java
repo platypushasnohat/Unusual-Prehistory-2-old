@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft;
 
-import com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura.Arthropleura;
-import com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura.ArthropleuraPart;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.ArthropleuraPart;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

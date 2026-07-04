@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.lobe_finned_fish.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.*;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.LobeFinnedFish;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -21,19 +21,19 @@ import java.util.Locale;
 @OnlyIn(Dist.CLIENT)
 public class LobeFinnedFishRenderer extends MobRenderer<LobeFinnedFish, HierarchicalModel<LobeFinnedFish>> {
 
-    private final AllenypterusModel allenypterusModel;
-    private final EusthenopteronModel eusthenopteronModel;
-    private final GooloogongiaModel gooloogongiaModel;
-    private final LaccognathusModel laccognathusModel;
-    private final ScaumenaciaModel scaumenaciaModel;
+    private final LobeFinnedFishAllenypterusModel lobeFinnedFishAllenypterusModel;
+    private final LobeFinnedFishEusthenopteronModel eusthenopteronModel;
+    private final LobeFinnedFishGooloogongiaModel gooloogongiaModel;
+    private final LobeFinnedFishLaccognathusModel laccognathusModel;
+    private final LobeFinnedFishScaumenaciaModel scaumenaciaModel;
 
     public LobeFinnedFishRenderer(EntityRendererProvider.Context context) {
-        super(context, new AllenypterusModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_ALLENYPTERUS)), 0.35F);
-        this.allenypterusModel = new AllenypterusModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_ALLENYPTERUS));
-        this.eusthenopteronModel = new EusthenopteronModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_EUSTHENOPTERON));
-        this.gooloogongiaModel = new GooloogongiaModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_GOOLOOGONGIA));
-        this.laccognathusModel = new LaccognathusModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_LACCOGNATHUS));
-        this.scaumenaciaModel = new ScaumenaciaModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_SCAUMENACIA));
+        super(context, new LobeFinnedFishAllenypterusModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_ALLENYPTERUS)), 0.35F);
+        this.lobeFinnedFishAllenypterusModel = new LobeFinnedFishAllenypterusModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_ALLENYPTERUS));
+        this.eusthenopteronModel = new LobeFinnedFishEusthenopteronModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_EUSTHENOPTERON));
+        this.gooloogongiaModel = new LobeFinnedFishGooloogongiaModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_GOOLOOGONGIA));
+        this.laccognathusModel = new LobeFinnedFishLaccognathusModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_LACCOGNATHUS));
+        this.scaumenaciaModel = new LobeFinnedFishScaumenaciaModel(context.bakeLayer(UP2ModelLayers.LOBE_FINNED_FISH_SCAUMENACIA));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class LobeFinnedFishRenderer extends MobRenderer<LobeFinnedFish, Hierarch
                 this.model = scaumenaciaModel;
                 break;
             default:
-                this.model = allenypterusModel;
+                this.model = lobeFinnedFishAllenypterusModel;
         }
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }

@@ -1,9 +1,9 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.layers;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.LivingOozeModel;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.LivingOozeRenderer;
-import com.barlinc.unusual_prehistory.entity.mob.LivingOoze;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.other.LivingOozeModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.other.LivingOozeRenderer;
+import com.barlinc.unusual_prehistory.entity.mob.other.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.utils.UP2ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;

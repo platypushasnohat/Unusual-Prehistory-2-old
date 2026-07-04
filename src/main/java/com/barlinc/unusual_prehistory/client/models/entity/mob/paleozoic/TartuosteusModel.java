@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -71,7 +70,7 @@ public class TartuosteusModel extends UP2Model<Tartuosteus> {
 	}
 
 	@Override
-	public @NotNull ModelPart root() {
+	public ModelPart root() {
 		return this.root;
 	}
 }

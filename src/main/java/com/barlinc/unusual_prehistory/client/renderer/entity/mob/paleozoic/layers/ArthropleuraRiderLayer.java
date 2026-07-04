@@ -1,9 +1,9 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic.layers;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.arthropleura.ArthropleuraHeadModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.ArthropleuraHeadModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.layers.RiderLayer;
-import com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Arthropleura;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;

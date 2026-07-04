@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.RandomLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.RandomLeapGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;

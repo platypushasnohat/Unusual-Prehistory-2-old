@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.LandFromFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingWanderGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LandFromFlightGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.syncher.EntityDataAccessor;

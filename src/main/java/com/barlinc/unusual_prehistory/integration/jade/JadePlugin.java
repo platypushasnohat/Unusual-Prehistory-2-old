@@ -3,10 +3,10 @@ package com.barlinc.unusual_prehistory.integration.jade;
 import com.barlinc.unusual_prehistory.blocks.TransmogrifierBlock;
 import com.barlinc.unusual_prehistory.blocks.egg.EggBlock;
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
-import com.barlinc.unusual_prehistory.entity.mob.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura.Arthropleura;
-import com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura.ArthropleuraPart;
+import com.barlinc.unusual_prehistory.entity.mob.other.LivingOoze;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.ArthropleuraPart;
 import net.minecraft.world.entity.Entity;
 import snownee.jade.api.*;
 

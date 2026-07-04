@@ -1,19 +1,16 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.mob.Grug;
-import com.barlinc.unusual_prehistory.entity.mob.LivingOoze;
-import com.barlinc.unusual_prehistory.entity.mob.Unicorn;
 import com.barlinc.unusual_prehistory.entity.mob.ambient.Ampyx;
 import com.barlinc.unusual_prehistory.entity.mob.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.ambient.Setapedites;
 import com.barlinc.unusual_prehistory.entity.mob.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.mob.cenozoic.*;
-import com.barlinc.unusual_prehistory.entity.mob.cenozoic.lingcod.KingLingcod;
-import com.barlinc.unusual_prehistory.entity.mob.cenozoic.lingcod.Lingcod;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.*;
+import com.barlinc.unusual_prehistory.entity.mob.other.Grug;
+import com.barlinc.unusual_prehistory.entity.mob.other.LivingOoze;
+import com.barlinc.unusual_prehistory.entity.mob.other.Unicorn;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.*;
-import com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura.Arthropleura;
 import com.barlinc.unusual_prehistory.entity.mob.recently_extinct.GastricBroodingFrog;
 import com.barlinc.unusual_prehistory.entity.mob.recently_extinct.Thylacine;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;

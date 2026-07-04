@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.paleozoic.rhizodus.RhizodusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.paleozoic.rhizodus.RhizodusAttackAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.paleozoic.RhizodusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.paleozoic.RhizodusAttackAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Rhizodus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;

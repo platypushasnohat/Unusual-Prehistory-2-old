@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft;
 
-import com.barlinc.unusual_prehistory.entity.mob.LivingOoze;
+import com.barlinc.unusual_prehistory.entity.mob.other.LivingOoze;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

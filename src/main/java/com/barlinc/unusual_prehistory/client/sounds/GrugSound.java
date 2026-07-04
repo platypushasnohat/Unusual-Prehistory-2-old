@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.client.sounds;
 
-import com.barlinc.unusual_prehistory.entity.mob.Grug;
+import com.barlinc.unusual_prehistory.entity.mob.other.Grug;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;

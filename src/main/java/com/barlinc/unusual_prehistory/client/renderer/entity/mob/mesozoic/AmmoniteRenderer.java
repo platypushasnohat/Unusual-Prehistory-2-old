@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.ammonite.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.*;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Ammonite;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -21,35 +21,35 @@ import java.util.Locale;
 @OnlyIn(Dist.CLIENT)
 public class AmmoniteRenderer extends MobRenderer<Ammonite, UP2Model<Ammonite>> {
 
-    private final CrioceratitesModel crioceratitesModel;
-    private final HoplitesModel hoplitesModel;
-    private final NostocerasModel nostocerasModel;
-    private final PinacocerasModel pinacocerasModel;
-    private final TropitesModel tropitesModel;
+    private final AmmoniteCrioceratitesModel crioceratitesModel;
+    private final AmmoniteHoplitesModel ammoniteHoplitesModel;
+    private final AmmoniteNostocerasModel ammoniteNostocerasModel;
+    private final AmmonitePinacocerasModel ammonitePinacocerasModel;
+    private final AmmoniteTropitesModel ammoniteTropitesModel;
 
     public AmmoniteRenderer(EntityRendererProvider.Context context) {
-        super(context, new CrioceratitesModel(context.bakeLayer(UP2ModelLayers.AMMONITE_CRIOCERATITES)), 0.25F);
-        this.crioceratitesModel = new CrioceratitesModel(context.bakeLayer(UP2ModelLayers.AMMONITE_CRIOCERATITES));
-        this.hoplitesModel = new HoplitesModel(context.bakeLayer(UP2ModelLayers.AMMONITE_HOPLITES));
-        this.nostocerasModel = new NostocerasModel(context.bakeLayer(UP2ModelLayers.AMMONITE_NOSTOCERAS));
-        this.pinacocerasModel = new PinacocerasModel(context.bakeLayer(UP2ModelLayers.AMMONITE_PINACOCERAS));
-        this.tropitesModel = new TropitesModel(context.bakeLayer(UP2ModelLayers.AMMONITE_TROPITES));
+        super(context, new AmmoniteCrioceratitesModel(context.bakeLayer(UP2ModelLayers.AMMONITE_CRIOCERATITES)), 0.25F);
+        this.crioceratitesModel = new AmmoniteCrioceratitesModel(context.bakeLayer(UP2ModelLayers.AMMONITE_CRIOCERATITES));
+        this.ammoniteHoplitesModel = new AmmoniteHoplitesModel(context.bakeLayer(UP2ModelLayers.AMMONITE_HOPLITES));
+        this.ammoniteNostocerasModel = new AmmoniteNostocerasModel(context.bakeLayer(UP2ModelLayers.AMMONITE_NOSTOCERAS));
+        this.ammonitePinacocerasModel = new AmmonitePinacocerasModel(context.bakeLayer(UP2ModelLayers.AMMONITE_PINACOCERAS));
+        this.ammoniteTropitesModel = new AmmoniteTropitesModel(context.bakeLayer(UP2ModelLayers.AMMONITE_TROPITES));
     }
 
     @Override
     public void render(Ammonite entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
         switch (entity.getVariant().getId()) {
             case 1:
-                this.model = hoplitesModel;
+                this.model = ammoniteHoplitesModel;
                 break;
             case 2:
-                this.model = nostocerasModel;
+                this.model = ammoniteNostocerasModel;
                 break;
             case 3:
-                this.model = pinacocerasModel;
+                this.model = ammonitePinacocerasModel;
                 break;
             case 4:
-                this.model = tropitesModel;
+                this.model = ammoniteTropitesModel;
                 break;
             default:
                 this.model = crioceratitesModel;

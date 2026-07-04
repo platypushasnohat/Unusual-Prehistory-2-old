@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumNymphModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.KimmeridgebrachypteraeschnidiumModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.KimmeridgebrachypteraeschnidiumNymphModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic.layers.KimmeridgebrachypteraeschnidiumBaseLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic.layers.KimmeridgebrachypteraeschnidiumWingLayer;

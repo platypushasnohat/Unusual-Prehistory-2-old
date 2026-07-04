@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.diplocaulus.DiplocaulusDwarfModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.diplocaulus.DiplocaulusMuddyModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.diplocaulus.DiplocaulusSwampyModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.diplocaulus.DiplocaulusTigerModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.DiplocaulusDwarfModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.DiplocaulusMuddyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.DiplocaulusSwampyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.DiplocaulusTigerModel;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Diplocaulus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

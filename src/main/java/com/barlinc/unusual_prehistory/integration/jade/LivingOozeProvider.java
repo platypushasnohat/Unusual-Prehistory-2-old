@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.integration.jade;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.mob.LivingOoze;
+import com.barlinc.unusual_prehistory.entity.mob.other.LivingOoze;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.EntityAccessor;

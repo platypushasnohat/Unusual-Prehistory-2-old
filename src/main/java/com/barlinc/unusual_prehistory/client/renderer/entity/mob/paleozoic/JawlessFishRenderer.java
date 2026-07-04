@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.jawless_fish.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.*;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.JawlessFish;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -21,35 +21,35 @@ import java.util.Locale;
 @OnlyIn(Dist.CLIENT)
 public class JawlessFishRenderer extends MobRenderer<JawlessFish, UP2Model<JawlessFish>> {
 
-    private final CephalaspisModel cephalaspisModel;
-    private final DoryaspisModel doryaspisModel;
-    private final FurcacaudaModel furcacaudaModel;
-    private final SacabambaspisModel sacabambaspisModel;
-    private final ArandaspisModel arandaspisModel;
+    private final JawlessFishCephalaspisModel jawlessFishCephalaspisModel;
+    private final JawlessFishDoryaspisModel jawlessFishDoryaspisModel;
+    private final JawlessFishFurcacaudaModel jawlessFishFurcacaudaModel;
+    private final JawlessFishSacabambaspisModel jawlessFishSacabambaspisModel;
+    private final JawlessFishArandaspisModel arandaspisModel;
 
     public JawlessFishRenderer(EntityRendererProvider.Context context) {
-        super(context, new CephalaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_CEPHALASPIS)), 0.25F);
-        this.cephalaspisModel = new CephalaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_CEPHALASPIS));
-        this.doryaspisModel = new DoryaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_DORYASPIS));
-        this.furcacaudaModel = new FurcacaudaModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_FURACACAUDA));
-        this.sacabambaspisModel = new SacabambaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_SACABAMBASPIS));
-        this.arandaspisModel = new ArandaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_ARANDASPIS));
+        super(context, new JawlessFishCephalaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_CEPHALASPIS)), 0.25F);
+        this.jawlessFishCephalaspisModel = new JawlessFishCephalaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_CEPHALASPIS));
+        this.jawlessFishDoryaspisModel = new JawlessFishDoryaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_DORYASPIS));
+        this.jawlessFishFurcacaudaModel = new JawlessFishFurcacaudaModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_FURACACAUDA));
+        this.jawlessFishSacabambaspisModel = new JawlessFishSacabambaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_SACABAMBASPIS));
+        this.arandaspisModel = new JawlessFishArandaspisModel(context.bakeLayer(UP2ModelLayers.JAWLESS_FISH_ARANDASPIS));
     }
 
     @Override
     public void render(JawlessFish entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
         switch (entity.getVariant().getId()) {
             case 1:
-                this.model = cephalaspisModel;
+                this.model = jawlessFishCephalaspisModel;
                 break;
             case 2:
-                this.model = doryaspisModel;
+                this.model = jawlessFishDoryaspisModel;
                 break;
             case 3:
-                this.model = furcacaudaModel;
+                this.model = jawlessFishFurcacaudaModel;
                 break;
             case 4:
-                this.model = sacabambaspisModel;
+                this.model = jawlessFishSacabambaspisModel;
                 break;
             default:
                 this.model = arandaspisModel;
