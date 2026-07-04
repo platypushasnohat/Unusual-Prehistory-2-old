@@ -1,9 +1,9 @@
-// 1.21.1	2026-06-29T22:51:38.3913247	Tags for minecraft:entity_type mod id unusual_prehistory
+// 1.21.1	2026-07-04T12:15:47.3470503	Tags for minecraft:entity_type mod id unusual_prehistory
 8e9e77a403d3c6d6caec786e0c728da5fd61f7fc data/minecraft/tags/entity_type/frog_food.json
 3151fcf6ebc101086b04d01df28bc278ea012dc8 data/unusual_prehistory/tags/entity_type/arthropleura_cant_carry.json
 96e3e2da8f817373438167feeacfaab72f6ac8fb data/unusual_prehistory/tags/entity_type/carnotaurus_ignores.json
 95f90476a609dc153b9819be0675e304d87e7bea data/unusual_prehistory/tags/entity_type/carnotaurus_targets.json
-ed67400548782d0d745780fbd202d30a064fa77a data/unusual_prehistory/tags/entity_type/cenozoic_mobs.json
+1f46fc1307df1e2e75d1a0b6899cda6665f4cefd data/unusual_prehistory/tags/entity_type/cenozoic_mobs.json
 2d5765153db96c6465e8914f695d815fc4918d7e data/unusual_prehistory/tags/entity_type/coelacanthus_avoids.json
 e00f2931577049b9a4400a87ed9c249373be376c data/unusual_prehistory/tags/entity_type/coelacanthus_never_eats.json
 d7c9cf2be78553e7c7fd8f5ff14c60cf98a1b15c data/unusual_prehistory/tags/entity_type/concavenator_avoids.json

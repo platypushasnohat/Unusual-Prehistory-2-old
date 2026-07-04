@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.update_4;
 
-import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Lystrosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.multi_era.Lystrosaurus;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.phys.Vec3;

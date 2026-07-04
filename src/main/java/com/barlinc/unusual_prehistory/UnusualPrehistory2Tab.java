@@ -48,7 +48,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(TARTUOSTEUS_SPAWN_EGG.get());
 
                         // Mesozoic
-                        output.accept(AMMONITE_SPAWN_EGG.get());
                         output.accept(ANTARCTOPELTA_SPAWN_EGG.get());
                         output.accept(ANUROGNATHUS_SPAWN_EGG.get());
                         output.accept(AQUILOLAMNA_SPAWN_EGG.get());
@@ -69,7 +68,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
                         output.accept(LEEDSICHTHYS_SPAWN_EGG.get());
                         output.accept(LORRAINOSAURUS_SPAWN_EGG.get());
-                        output.accept(LYSTROSAURUS_SPAWN_EGG.get());
                         output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
                         output.accept(METRIORHYNCHUS_SPAWN_EGG.get());
                         output.accept(ONCHOPRISTIS_SPAWN_EGG.get());
@@ -89,6 +87,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(KING_LINGCOD_SPAWN_EGG.get());
                         output.accept(LEPTICTIDIUM_SPAWN_EGG.get());
                         output.accept(MEGALANIA_SPAWN_EGG.get());
+                        output.accept(NIHOHAE_SPAWN_EGG.get());
                         output.accept(PRAEPUSA_SPAWN_EGG.get());
                         output.accept(PSILOPTERUS_SPAWN_EGG.get());
                         output.accept(SPIKE_TOOTHED_SALMON_SPAWN_EGG.get());
@@ -99,6 +98,10 @@ public class UnusualPrehistory2Tab {
                         // Recently Extinct
                         output.accept(GASTRIC_BROODING_FROG_SPAWN_EGG.get());
                         output.accept(THYLACINE_SPAWN_EGG.get());
+
+                        // Multi-Era
+                        output.accept(AMMONITE_SPAWN_EGG.get());
+                        output.accept(LYSTROSAURUS_SPAWN_EGG.get());
 
                         // Ambient
                         output.accept(AMPYX_SPAWN_EGG.get());
@@ -156,7 +159,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(MOSSY_FOSSIL.get()); // tartuosteus
 
                         // Mesozoic
-                        output.accept(SPIRAL_FOSSIL.get()); // ammonite
                         output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta
                         output.accept(SHORT_WING_FOSSIL.get()); // anurognathus
                         output.accept(GRACILE_FOSSIL.get()); // austroraptor
@@ -172,7 +174,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(IMPERATIVE_FOSSIL.get()); // kimmeridgebrachypteraeschnidium
                         output.accept(GARGANTUAN_FOSSIL.get()); // leedsichthys
                         output.accept(CLAMP_JAW_FOSSIL.get()); // lorrainosaurus
-                        output.accept(IMPERVIOUS_FOSSIL.get()); // lystrosaurus
                         output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
                         output.accept(MELTDOWN_FOSSIL.get()); // metriorhynchus
                         output.accept(SAW_FOSSIL.get()); // onchopristis
@@ -194,6 +195,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(AGED_FEATHER.get()); // talpanas
                         output.accept(PLUMAGE_FOSSIL.get()); // telecrex
                         output.accept(MOLAR_FOSSIL.get()); // woolly mammoth
+
+                        // Multi-Era
+                        output.accept(SPIRAL_FOSSIL.get()); // ammonite
+                        output.accept(IMPERVIOUS_FOSSIL.get()); // lystrosaurus
 
                         // Recently Extinct
                         output.accept(STRIPED_PELT.get()); // thylacine
@@ -246,7 +251,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());
 
                         // Mesozoic
-                        output.accept(UP2Blocks.AMMONITE_EGGS.get());
                         output.accept(ANUROGNATHUS_EGG.get());
                         output.accept(AUSTRORAPTOR_EGG.get());
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
@@ -261,7 +265,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         output.accept(UP2Blocks.LEEDSICHTHYS_ROE.get());
                         output.accept(LORRAINOSAURUS_EMBRYO.get());
-                        output.accept(UP2Blocks.LYSTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());
@@ -283,6 +286,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(TALPANAS_EGG.get());
                         output.accept(TELECREX_EGG.get());
                         output.accept(WOOLLY_MAMMOTH_EMBRYO.get());
+
+                        // Multi-Era
+                        output.accept(UP2Blocks.AMMONITE_EGGS.get());
+                        output.accept(UP2Blocks.LYSTROSAURUS_EGG.get());
 
                         // Recently Extinct
                         output.accept(THYLACINE_EMBRYO.get());
@@ -458,6 +465,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.BROOD_GASTRICLIGHT.get());
                         output.accept(UP2Blocks.BLOOD_GASTRICLIGHT.get());
 
+                        // Other
                         output.accept(BROWN_MUSHROOM_ON_A_STICK.get());
                         output.accept(DIRT_ON_A_STICK.get());
 

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
+package com.barlinc.unusual_prehistory.entity.mob.multi_era;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.LystrosaurusRunLikeCrazyGoal;

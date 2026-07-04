@@ -96,7 +96,7 @@ public class DireWolf extends PrehistoricMob {
     }
 
     @Override
-    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+    public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
         return UP2Entities.DIRE_WOLF.get().create(level);
     }
 

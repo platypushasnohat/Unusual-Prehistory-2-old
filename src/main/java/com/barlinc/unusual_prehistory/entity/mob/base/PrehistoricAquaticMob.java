@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public abstract class PrehistoricAquaticMob extends PrehistoricMob {
@@ -31,7 +30,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+    protected PathNavigation createNavigation(Level level) {
         return new SmoothWaterBoundNavigation(this, level);
     }
 
@@ -47,7 +46,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
     }
 
     @Override
-    public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
+    public boolean canDrownInFluidType(FluidType fluidType) {
         return fluidType != NeoForgeMod.WATER_TYPE.value();
     }
 
@@ -66,7 +65,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
     }
 
     @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+    protected void playStepSound(BlockPos pos, BlockState state) {
     }
 
     protected SoundEvent getFlopSound() {

@@ -7,7 +7,10 @@ import com.barlinc.unusual_prehistory.entity.mob.ambient.Setapedites;
 import com.barlinc.unusual_prehistory.entity.mob.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.mob.cenozoic.*;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.*;
+import com.barlinc.unusual_prehistory.entity.mob.multi_era.Ammonite;
+import com.barlinc.unusual_prehistory.entity.mob.multi_era.Lystrosaurus;
 import com.barlinc.unusual_prehistory.entity.mob.other.Grug;
+import com.barlinc.unusual_prehistory.entity.mob.other.Lingcod;
 import com.barlinc.unusual_prehistory.entity.mob.other.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.other.Unicorn;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.*;
@@ -106,5 +109,6 @@ public class ModEvents {
         event.put(UP2Entities.HENODUS.get(), Henodus.createAttributes().build());
         event.put(UP2Entities.SALTOPUS.get(), Saltopus.createAttributes().build());
         event.put(UP2Entities.DIICTODON.get(), Diictodon.createAttributes().build());
+        event.put(UP2Entities.NIHOHAE.get(), Nihohae.createAttributes().build());
     }
 }

@@ -1,6 +1,8 @@
-package com.barlinc.unusual_prehistory.entity.mob.cenozoic;
+package com.barlinc.unusual_prehistory.entity.mob.other;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.mob.cenozoic.AbstractLingcod;
+import com.barlinc.unusual_prehistory.entity.mob.cenozoic.KingLingcod;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -58,7 +60,7 @@ public class Lingcod extends AbstractLingcod {
     }
 
     @Override
-    public boolean isAlliedTo(@NotNull Entity entity) {
+    public boolean isAlliedTo(Entity entity) {
         if (entity instanceof AbstractLingcod) {
             return true;
         }

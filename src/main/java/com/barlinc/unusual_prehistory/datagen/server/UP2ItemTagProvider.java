@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -30,7 +29,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected void addTags(@NotNull Provider provider) {
+    protected void addTags(Provider provider) {
 
         // Update 1
         this.tag(UP2ItemTags.CARNOTAURUS_RECIPE_MAPPINGS).add(CARNOTAURUS_SPAWN_EGG.get(), FURY_FOSSIL.get(), UP2Blocks.CARNOTAURUS_EGG.asItem(), UP2Blocks.CARNOTAURUS_PLUSHIE.asItem());
@@ -323,6 +322,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.HENODUS_RECIPE_MAPPINGS).add(HENODUS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.SALTOPUS_RECIPE_MAPPINGS).add(SALTOPUS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.DIICTODON_RECIPE_MAPPINGS).add(DIICTODON_SPAWN_EGG.get());
+        this.tag(UP2ItemTags.NIHOHAE_RECIPE_MAPPINGS).add(NIHOHAE_SPAWN_EGG.get());
 
         this.tag(UP2ItemTags.PLANTS).add(
                 Blocks.SHORT_GRASS.asItem(),

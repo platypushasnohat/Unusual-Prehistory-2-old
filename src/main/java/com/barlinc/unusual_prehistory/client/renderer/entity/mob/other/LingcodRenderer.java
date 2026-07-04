@@ -1,8 +1,8 @@
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.cenozoic;
+package com.barlinc.unusual_prehistory.client.renderer.entity.mob.other;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.cenozoic.LingcodModel;
-import com.barlinc.unusual_prehistory.entity.mob.cenozoic.Lingcod;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.other.LingcodModel;
+import com.barlinc.unusual_prehistory.entity.mob.other.Lingcod;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

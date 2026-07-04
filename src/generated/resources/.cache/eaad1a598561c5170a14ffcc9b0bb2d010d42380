@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-29T22:51:38.3913247	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-07-04T12:15:47.3470503	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/foods/fruit.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -121,6 +121,7 @@ c0fa9092769051c44168ec2af0d48a6b9dafc696 data/unusual_prehistory/tags/item/recip
 87272bf3a8946b09e1aca7bb590fce257c23bc12 data/unusual_prehistory/tags/item/recipe_mappings/majungasaurus.json
 189d3743e02ece14ec912e89f3274afb417ec257 data/unusual_prehistory/tags/item/recipe_mappings/megalania.json
 87ea83ed4e33147808cd2c4efc75b0ec68261c34 data/unusual_prehistory/tags/item/recipe_mappings/metriorhynchus.json
+5b49a9c5845a51e6b25bbbd41eed0811409a9047 data/unusual_prehistory/tags/item/recipe_mappings/nihohae.json
 9df9b0c2bc30647d1fe1ff3b8c3460a8adc4b7ac data/unusual_prehistory/tags/item/recipe_mappings/onchopristis.json
 05287c27b292d25d840a2ededdfa54fb73f37542 data/unusual_prehistory/tags/item/recipe_mappings/pachycephalosaurus.json
 68743cd3ab673981202d5cf9f784841bf5783a5a data/unusual_prehistory/tags/item/recipe_mappings/pachyrhinosaurus.json

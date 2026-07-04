@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -23,7 +22,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
     }
 
     @Override
-    protected void addTags(@NotNull Provider provider) {
+    protected void addTags(Provider provider) {
 
         // Update 1
         this.tag(UP2EntityTags.CARNOTAURUS_TARGETS).add(
@@ -229,7 +228,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 GIANT_CAMPANILE.get(),
                 THYLACINE.get(),
                 KING_LINGCOD.get(),
-                DIRE_WOLF.get()
+                DIRE_WOLF.get(),
+                NIHOHAE.get()
         );
 
         // Update 6

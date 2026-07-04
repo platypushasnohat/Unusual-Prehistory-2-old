@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.cenozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.mob.other.Lingcod;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -98,7 +99,7 @@ public class KingLingcod extends AbstractLingcod {
     }
 
     @Override
-    public boolean isAlliedTo(@NotNull Entity entity) {
+    public boolean isAlliedTo(Entity entity) {
         Entity bondedEntity = this.getBondedEntity();
         if (entity == bondedEntity) {
             return true;
@@ -110,12 +111,12 @@ public class KingLingcod extends AbstractLingcod {
     }
 
     @Override
-    public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
+    public boolean canOwnerCommand(Player player, InteractionHand hand) {
         return true;
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (!this.isTame() && this.getEatTicks() <= 0 && itemStack.is(UP2ItemTags.TAMES_KING_LINGCOD) ) {
             this.setEatTicks(10);
@@ -207,7 +208,7 @@ public class KingLingcod extends AbstractLingcod {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         if (this.getBondedWithUUID() != null) {
             compoundTag.putUUID("BondedWithUUID", this.getBondedWithUUID());
@@ -216,7 +217,7 @@ public class KingLingcod extends AbstractLingcod {
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         if (compoundTag.hasUUID("BondedWithUUID")) {
             this.setBondedWithUUID(compoundTag.getUUID("BondedWithUUID"));
@@ -232,6 +233,7 @@ public class KingLingcod extends AbstractLingcod {
         this.entityData.set(BONDED_WITH_UUID, Optional.ofNullable(uuid));
     }
 
+    @Nullable
     public Entity getBondedEntity() {
         if (!this.level().isClientSide) {
             UUID uuid = this.getBondedWithUUID();
@@ -250,7 +252,7 @@ public class KingLingcod extends AbstractLingcod {
     }
 
     @Override
-    public @NotNull ItemStack getBucketItemStack() {
+    public ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
     }
 
@@ -283,19 +285,18 @@ public class KingLingcod extends AbstractLingcod {
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return UP2SoundEvents.STETHACANTHUS_HURT.get();
     }
 
     @Override
-    @Nullable
     protected SoundEvent getFlopSound() {
         return UP2SoundEvents.STETHACANTHUS_FLOP.get();
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         KingLingcod kingLingcod = UP2Entities.KING_LINGCOD.get().create(serverLevel);
         if (kingLingcod != null && this.getBondedEntity() == null && kingLingcod.getBondedEntity() == null) {
             this.setBondedWithUUID(kingLingcod.getUUID());
@@ -427,6 +428,7 @@ public class KingLingcod extends AbstractLingcod {
     private static class BondedWithHurtTargetGoal extends TargetGoal {
 
         protected final KingLingcod kingLingcod;
+        @Nullable
         private LivingEntity bondedLastHurt;
         private int timestamp;
 
@@ -466,6 +468,7 @@ public class KingLingcod extends AbstractLingcod {
     private static class BondedWithHurtByTargetGoal extends TargetGoal {
 
         protected final KingLingcod kingLingcod;
+        @Nullable
         protected LivingEntity bondedLastHurtBy;
         private int timestamp;
 

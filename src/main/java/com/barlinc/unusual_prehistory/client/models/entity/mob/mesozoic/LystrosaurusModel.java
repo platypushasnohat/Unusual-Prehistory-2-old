@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.mesozoic.LystrosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Lystrosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.multi_era.Lystrosaurus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

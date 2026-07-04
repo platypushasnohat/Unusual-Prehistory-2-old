@@ -2,14 +2,20 @@ package com.barlinc.unusual_prehistory.entity.mob.cenozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -23,13 +29,29 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowBoatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class Nihohae extends PrehistoricAquaticMob {
+public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
+
+    private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Nihohae.class, EntityDataSerializers.BOOLEAN);
+
+    private static final float MAX_TILT = 60.0F;
+    private static final float MAX_ROLL = 25.0F;
+    private static final float ROLL_PER_YAW = 2.0F;
+
+    public float tilt;
+    public float prevTilt;
+    public float roll;
+    public float prevRoll;
+    private float lastYRot;
+    private Vec3 lastMoveDir = Vec3.ZERO;
+
+    public int attackCooldown = 0;
 
     public final SmoothAnimationState snickerAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState inspectAnimationState = new SmoothAnimationState(1.0F);
@@ -39,7 +61,6 @@ public class Nihohae extends PrehistoricAquaticMob {
     public final SmoothAnimationState roll1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState roll2AnimationState = new SmoothAnimationState(1.0F);
 
-    public int attackCooldown = 0;
 
     public Nihohae(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -59,7 +80,13 @@ public class Nihohae extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new AquaticLeapGoal(this, 10, 0.7D, 0.8D));
         this.goalSelector.addGoal(8, new FollowBoatGoal(this));
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new SmoothWaterBoundNavigation(this, level, true);
     }
 
     @Override
@@ -93,6 +120,50 @@ public class Nihohae extends PrehistoricAquaticMob {
     }
 
     @Override
+    public int getMaxHeadXRot() {
+        return 1;
+    }
+
+    @Override
+    public int getMaxHeadYRot() {
+        return 1;
+    }
+
+    @Override
+    protected void handleAirSupply(int airSupply) {
+    }
+
+    private void tickRotations() {
+        // tilt
+        this.prevTilt = tilt;
+        float targetTilt = 0.0F;
+        if (this.isInWater() || this.isLeaping()) {
+            Vec3 movement = this.getDeltaMovement();
+            if (movement.lengthSqr() > 1.0E-6) {
+                this.lastMoveDir = movement;
+            }
+            targetTilt = -((float) Mth.atan2(lastMoveDir.y, lastMoveDir.horizontalDistance()) * (180.0F / (float) Math.PI));
+            targetTilt = Mth.clamp(targetTilt, -MAX_TILT, MAX_TILT);
+        }
+        this.tilt += (targetTilt - tilt) * 0.2F;
+
+        // roll
+        this.prevRoll = roll;
+        float yawDelta = Mth.wrapDegrees(this.getYRot() - lastYRot);
+        this.lastYRot = this.getYRot();
+        float targetRoll = this.isInWater() ? Mth.clamp(-yawDelta * ROLL_PER_YAW, -MAX_ROLL, MAX_ROLL) : 0.0F;
+        this.roll += (targetRoll - roll) * 0.2F;
+    }
+
+    public float getTilt(float partialTick) {
+        return Mth.lerp(partialTick, prevTilt, tilt);
+    }
+
+    public float getRoll(float partialTick) {
+        return Mth.lerp(partialTick, prevRoll, roll);
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.level().isClientSide && this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.03D) {
@@ -106,13 +177,32 @@ public class Nihohae extends PrehistoricAquaticMob {
                 this.level().addParticle(ParticleTypes.DOLPHIN, this.getX() - vec3.x * (double) f2 - (double) f, this.getY() - vec3.y, this.getZ() - vec3.z * (double) f2 - (double) f1, 0.0, 0.0, 0.0);
             }
         }
+
+        this.tickRotations();
     }
 
     @Override
     public void setupAnimationStates() {
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isLeaping(), tickCount);
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), tickCount);
+        this.jumpAnimationState.animateWhen(this.isLeaping(), tickCount);
+    }
+
+    @Override
+    public void calculateEntityAnimation(boolean includeHeight) {
+        float f = (float) Mth.length(this.getX() - xo, this.isInWater() ? this.getY() - yo : 0.0D, this.getZ() - zo);
+        if (this.isBaby()) {
+            this.updateWalkAnimation(f * 0.5F);
+        } else {
+            this.updateWalkAnimation(f);
+        }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float partialTick) {
+        float f = Math.min(partialTick * 20.0F, 1.0F);
+        this.walkAnimation.update(f, 0.4F);
     }
 
     @Override
@@ -126,19 +216,27 @@ public class Nihohae extends PrehistoricAquaticMob {
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LEAPING, false);
+    }
+
+    @Override
+    public void setLeaping(boolean leaping) {
+        this.entityData.set(LEAPING, leaping);
+    }
+    @Override
+    public boolean isLeaping() {
+        return entityData.get(LEAPING);
+    }
+
+    @Override
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob ageableMob) {
-        return UP2Entities.PRAEPUSA.get().create(level);
+        return UP2Entities.NIHOHAE.get().create(level);
     }
 
     @Override
-    @Nullable
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.DOLPHIN_AMBIENT;
-    }
-
-    @Override
-    @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.DOLPHIN_HURT;
     }
@@ -147,5 +245,11 @@ public class Nihohae extends PrehistoricAquaticMob {
     @Nullable
     protected SoundEvent getDeathSound() {
         return SoundEvents.DOLPHIN_DEATH;
+    }
+
+    @Override
+    @Nullable
+    protected SoundEvent getAmbientSound() {
+        return this.isInWater() ? SoundEvents.DOLPHIN_AMBIENT_WATER : SoundEvents.DOLPHIN_AMBIENT;
     }
 }
