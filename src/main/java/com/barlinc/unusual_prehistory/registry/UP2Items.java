@@ -136,6 +136,7 @@ public class UP2Items {
 
     // Cenozoic
     public static final DeferredItem<Item> THERMAL_FOSSIL = registerFossilItem("thermal"); // megalania
+    public static final DeferredItem<Item> DOLPHIN_FOSSIL = registerFossilItem("dolphin"); // nihohae
     public static final DeferredItem<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties())); // talpanas
     public static final DeferredItem<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage"); // telecrex
 
@@ -159,6 +160,7 @@ public class UP2Items {
     public static final DeferredItem<Item> METRIORHYNCHUS_EMBRYO = registerEmbryoItem("metriorhynchus", UP2Entities.METRIORHYNCHUS);
 
     // Cenozoic
+    public static final DeferredItem<Item> NIHOHAE_EMBRYO = registerEmbryoItem("nihohae", UP2Entities.NIHOHAE);
     public static final DeferredItem<Item> TALPANAS_EGG = registerEggItem("talpanas", UP2Entities.TALPANAS_EGG);
     public static final DeferredItem<Item> TELECREX_EGG = registerEggItem("telecrex", UP2Entities.TELECREX_EGG);
 

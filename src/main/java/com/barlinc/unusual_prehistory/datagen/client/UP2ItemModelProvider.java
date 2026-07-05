@@ -81,6 +81,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 IMPERATIVE_FOSSIL,
                 RUGOSE_FOSSIL,
                 THERMAL_FOSSIL,
+                DOLPHIN_FOSSIL,
                 ANVIL_FOSSIL,
                 AGED_FEATHER,
                 PLUMAGE_FOSSIL,
@@ -96,6 +97,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 UP2Blocks.MEGALANIA_EGG,
                 UP2Blocks.STETHACANTHUS_SAC,
                 TALPANAS_EGG,
+                NIHOHAE_EMBRYO,
                 TELECREX_EGG,
 
                 KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE,

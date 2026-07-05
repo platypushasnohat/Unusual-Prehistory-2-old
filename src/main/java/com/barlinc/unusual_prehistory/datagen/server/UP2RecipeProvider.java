@@ -10,7 +10,6 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,7 +22,7 @@ public class UP2RecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void buildRecipes(@NotNull RecipeOutput output) {
+    protected void buildRecipes(RecipeOutput output) {
         // Update 1
         transmogrification(output, UP2Items.FURY_FOSSIL, CARNOTAURUS_EGG, 2400, 1.5F);
         transmogrification(output, UP2Items.BOOMERANG_FOSSIL, DIPLOCAULUS_EGGS, 1200, 1.0F);
@@ -84,6 +83,7 @@ public class UP2RecipeProvider extends RecipeProvider {
         transmogrification(output, UP2Items.STRIPED_PELT, UP2Items.THYLACINE_EMBRYO, 1200, 1.0F);
         transmogrification(output, UP2Items.MOLAR_FOSSIL, UP2Items.WOOLLY_MAMMOTH_EMBRYO, 2400, 1.5F);
         transmogrification(output, UP2Items.ROCKET_FOSSIL, CAMEROCERAS_EGGS, 1200, 1.0F);
+        transmogrification(output, UP2Items.DOLPHIN_FOSSIL, UP2Items.NIHOHAE_EMBRYO, 1200, 1.0F);
     }
 
     protected static void transmogrification(RecipeOutput output, ItemLike inputItem, ItemLike resultItem, int processingTime, float experience) {

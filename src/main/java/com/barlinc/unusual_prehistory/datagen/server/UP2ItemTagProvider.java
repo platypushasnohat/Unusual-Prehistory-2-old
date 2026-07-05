@@ -193,6 +193,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 PLUMAGE_FOSSIL.get(),
                 FLIPPER_FOSSIL.get(),
                 THERMAL_FOSSIL.get(),
+                DOLPHIN_FOSSIL.get(),
                 AGED_FEATHER.get(),
                 MOLAR_FOSSIL.get(),
                 ROT_FOSSIL.get(),
@@ -271,6 +272,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 PRAEPUSA_EMBRYO.get(),
                 PSILOPTERUS_EGG.get(),
                 TALPANAS_EGG.get(),
+                NIHOHAE_EMBRYO.get(),
                 TELECREX_EGG.get(),
                 WOOLLY_MAMMOTH_EMBRYO.get(),
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.asItem(),
@@ -322,7 +324,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.HENODUS_RECIPE_MAPPINGS).add(HENODUS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.SALTOPUS_RECIPE_MAPPINGS).add(SALTOPUS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.DIICTODON_RECIPE_MAPPINGS).add(DIICTODON_SPAWN_EGG.get());
-        this.tag(UP2ItemTags.NIHOHAE_RECIPE_MAPPINGS).add(NIHOHAE_SPAWN_EGG.get());
+        this.tag(UP2ItemTags.NIHOHAE_RECIPE_MAPPINGS).add(NIHOHAE_SPAWN_EGG.get(), DOLPHIN_FOSSIL.get(), NIHOHAE_EMBRYO.get());
 
         this.tag(UP2ItemTags.PLANTS).add(
                 Blocks.SHORT_GRASS.asItem(),

@@ -189,6 +189,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(CROWN_FOSSIL.get()); // king lingcod
                         output.accept(TRUNK_MOUSE_FOSSIL.get()); // leptictidium
                         output.accept(THERMAL_FOSSIL.get()); // megalania
+                        output.accept(DOLPHIN_FOSSIL.get()); // nihohae
                         output.accept(FLIPPER_FOSSIL.get()); // praepusa
                         output.accept(CROOKED_BEAK_FOSSIL.get()); // psilopterus
                         output.accept(ROT_FOSSIL.get()); // spike-toothed salmon
@@ -280,6 +281,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.KING_LINGCOD_ROE.get());
                         output.accept(LEPTICTIDIUM_EMBRYO.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
+                        output.accept(NIHOHAE_EMBRYO.get());
                         output.accept(PRAEPUSA_EMBRYO.get());
                         output.accept(PSILOPTERUS_EGG.get());
                         output.accept(UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.get());

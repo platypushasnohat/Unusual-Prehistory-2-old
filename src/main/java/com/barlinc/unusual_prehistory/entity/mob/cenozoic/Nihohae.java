@@ -65,7 +65,7 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.MOVEMENT_SPEED, 1.25F)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D);
     }

@@ -31,24 +31,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Bananogmius extends SchoolingAquaticMob {
+
+    private static final float MAX_TILT = 60.0F;
+    private static final float MAX_ROLL = 20.0F;
+    private static final float ROLL_PER_YAW = 1.5F;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
 
     public Bananogmius(EntityType<? extends Bananogmius> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 20, 10, 0.04F);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 60, 10, 0.02F, 0.1F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0F)
+                .add(Attributes.MOVEMENT_SPEED, 1.5F)
                 .add(Attributes.ATTACK_DAMAGE, 2.0F);
     }
 
@@ -62,7 +65,7 @@ public class Bananogmius extends SchoolingAquaticMob {
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             UP2MobUtils.travelInWater(this, travelVector);
         } else {
@@ -76,7 +79,7 @@ public class Bananogmius extends SchoolingAquaticMob {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
         return UP2MobUtils.getSurfacePathfindingFavor(pos, level);
     }
 
@@ -104,6 +107,8 @@ public class Bananogmius extends SchoolingAquaticMob {
                 this.level().addParticle(ParticleTypes.BUBBLE, this.getRandomX(0.5D) - viewVector.x * 0.5D, this.getRandomY() - viewVector.y * 0.25D, this.getRandomZ(0.5D) - viewVector.z * 0.5D, 0.0D, 0.0D, 0.0D);
             }
         }
+
+        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
     }
 
     @Override
@@ -136,13 +141,17 @@ public class Bananogmius extends SchoolingAquaticMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob ageableMob) {
         return UP2Entities.BANANOGMIUS.get().create(level);
     }
 
     @Override
-    @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getFlopSound() {
+        return UP2SoundEvents.STETHACANTHUS_FLOP.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.STETHACANTHUS_HURT.get();
     }
 
@@ -150,11 +159,5 @@ public class Bananogmius extends SchoolingAquaticMob {
     @Nullable
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.STETHACANTHUS_DEATH.get();
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getFlopSound() {
-        return UP2SoundEvents.STETHACANTHUS_FLOP.get();
     }
 }

@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-04T12:15:47.3383442	Item Models: unusual_prehistory
+// 1.21.1	2026-07-04T22:25:41.6934163	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -62,6 +62,7 @@ da447bb260bd31be75dcabef54ca34e72a8b39e5 assets/unusual_prehistory/models/item/d
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/diplocaulus_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dire_wolf_spawn_egg.json
 c9b02087da1335242baba98c36350b993506b43f assets/unusual_prehistory/models/item/dirt_on_a_stick.json
+258e9076e261093778f2a7a46288bb3c621ca37c assets/unusual_prehistory/models/item/dolphin_fossil.json
 813adf7ca8b20177821ef040b10425db1fdba276 assets/unusual_prehistory/models/item/doomsurf_disc.json
 ea3aa04d3eac74d7df9f12597733b26dbfc73a72 assets/unusual_prehistory/models/item/dromaeosaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dromaeosaurus_spawn_egg.json
@@ -163,6 +164,7 @@ a59f579675e73d20bb428df82288c45368dc29fb assets/unusual_prehistory/models/item/m
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/metriorhynchus_spawn_egg.json
 7229d6b75a1ef132c54748c2cca2f6f5ced6a483 assets/unusual_prehistory/models/item/molar_fossil.json
 4a54d305848cbf29d37b6ea84eee3bacf023861b assets/unusual_prehistory/models/item/mossy_fossil.json
+31e157fe5371057d14b6410aa8bfe7c0fe47d4d9 assets/unusual_prehistory/models/item/nihohae_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/nihohae_spawn_egg.json
 051848cfc183e8357618b1bb2d0bbe39b17dc743 assets/unusual_prehistory/models/item/onchopristis_bucket.json
 5c06bc26900690b5973d8a9ff445bc065b84807d assets/unusual_prehistory/models/item/onchopristis_sac.json

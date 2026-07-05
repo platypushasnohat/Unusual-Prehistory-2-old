@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-04T12:15:47.3470503	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-07-04T22:25:41.6997888	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/foods/fruit.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -21,8 +21,8 @@ d28646e783e9acec2395a01acfb2917ef4fa05cf data/unusual_prehistory/tags/item/aquat
 59d19bfde363f8ed639e6bddf524eedb97f05bc9 data/unusual_prehistory/tags/item/aqua_dyes.json
 7ce3e5c3cf373eb937f3701a01585e5bf6da3d16 data/unusual_prehistory/tags/item/armors_concavenator.json
 b88c5603f992b7ea7b583abad932d4a83c93fa16 data/unusual_prehistory/tags/item/beige_dyes.json
-a7317e78d79055a054085199de704d2c77302d05 data/unusual_prehistory/tags/item/cenozoic_eggs.json
-a16329a24f7f5e1ab6ae245ec3342a26e7a96639 data/unusual_prehistory/tags/item/cenozoic_fossils.json
+1d6e4839f96f3907da2dd1e1890fb675b2cab88e data/unusual_prehistory/tags/item/cenozoic_eggs.json
+f59d7d6c69be27eefa6d9d0dc28b141c9f023954 data/unusual_prehistory/tags/item/cenozoic_fossils.json
 f1d842746156cfa7a5d46fad3732f64054d37607 data/unusual_prehistory/tags/item/concavenator_red_sand_armor_items.json
 cc4eec1bc62b821028f5ff4ed567f0962d99d8bf data/unusual_prehistory/tags/item/concavenator_sand_armor_items.json
 c6fa06c45b6c65107256b37fb7ea6794b11e4bc7 data/unusual_prehistory/tags/item/concavenator_soul_sand_armor_items.json
@@ -121,7 +121,7 @@ c0fa9092769051c44168ec2af0d48a6b9dafc696 data/unusual_prehistory/tags/item/recip
 87272bf3a8946b09e1aca7bb590fce257c23bc12 data/unusual_prehistory/tags/item/recipe_mappings/majungasaurus.json
 189d3743e02ece14ec912e89f3274afb417ec257 data/unusual_prehistory/tags/item/recipe_mappings/megalania.json
 87ea83ed4e33147808cd2c4efc75b0ec68261c34 data/unusual_prehistory/tags/item/recipe_mappings/metriorhynchus.json
-5b49a9c5845a51e6b25bbbd41eed0811409a9047 data/unusual_prehistory/tags/item/recipe_mappings/nihohae.json
+5d322c1df023abc5edc73b942426ba13464e3e75 data/unusual_prehistory/tags/item/recipe_mappings/nihohae.json
 9df9b0c2bc30647d1fe1ff3b8c3460a8adc4b7ac data/unusual_prehistory/tags/item/recipe_mappings/onchopristis.json
 05287c27b292d25d840a2ededdfa54fb73f37542 data/unusual_prehistory/tags/item/recipe_mappings/pachycephalosaurus.json
 68743cd3ab673981202d5cf9f784841bf5783a5a data/unusual_prehistory/tags/item/recipe_mappings/pachyrhinosaurus.json

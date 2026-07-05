@@ -6,9 +6,9 @@ import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Bananogmius;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -73,17 +73,19 @@ public class BananogmiusModel extends UP2Model<Bananogmius> {
         float partialTicks = ageInTicks - entity.tickCount;
 
         if (entity.isInWaterOrBubble()) {
-            this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
             this.animateWalk(BananogmiusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 2.5F);
         }
 
         this.animateIdleSmooth(entity.swimIdleAnimationState, BananogmiusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
 		this.animateSmooth(entity.flopAnimationState, BananogmiusAnimations.FLOP, ageInTicks, partialTicks);
 		this.animateSmooth(entity.attackAnimationState, BananogmiusAnimations.SPIN, ageInTicks, partialTicks);
+
+        this.swim_control.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
+        this.swim_control.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
 	}
 
 	@Override
-	public @NotNull ModelPart root() {
+	public ModelPart root() {
 		return this.root;
 	}
 }
