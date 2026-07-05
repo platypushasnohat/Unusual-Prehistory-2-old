@@ -2,19 +2,18 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic.laye
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
+import com.barlinc.unusual_prehistory.client.renderer.UP2RenderTypes;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Aegirocassis;
 import com.barlinc.unusual_prehistory.utils.UP2ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class AegirocassisGlowLayer extends RenderLayer<Aegirocassis, UP2Model<Aegirocassis>> {
@@ -26,11 +25,13 @@ public class AegirocassisGlowLayer extends RenderLayer<Aegirocassis, UP2Model<Ae
     }
 
     @Override
-    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Aegirocassis entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Aegirocassis entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity.isInvisible() || entity.isBaby()) return;
         float glowProgress = entity.getGlowProgress(partialTicks);
-        if (glowProgress <= 0.0F) return;
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(GLOW_TEXTURE));
+        if (glowProgress <= 0.0F) {
+            return;
+        }
+        VertexConsumer consumer = buffer.getBuffer(UP2RenderTypes.getEyesAlphaEnabled(GLOW_TEXTURE));
         this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), UP2ColorUtils.packColor(1.0F, 1.0F, 1.0F, glowProgress));
     }
 }

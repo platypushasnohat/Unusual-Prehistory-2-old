@@ -97,12 +97,12 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
         this.roll += (targetRoll - roll) * 0.2F;
     }
 
-    public float getTilt(float partialTick) {
-        return Mth.lerp(partialTick, prevTilt, tilt);
+    public float getTilt(float partialTicks) {
+        return Mth.lerp(partialTicks, prevTilt, tilt);
     }
 
-    public float getRoll(float partialTick) {
-        return Mth.lerp(partialTick, prevRoll, roll);
+    public float getRoll(float partialTicks) {
+        return Mth.lerp(partialTicks, prevRoll, roll);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMobPart;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -479,7 +479,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
     }
 
-    private static class TherizinosaurusPart extends PrehistoricPartEntity<Therizinosaurus> {
+    private static class TherizinosaurusPart extends PrehistoricMobPart<Therizinosaurus> {
 
         public TherizinosaurusPart(Therizinosaurus parent, float width, float height) {
             super(parent, width, height);

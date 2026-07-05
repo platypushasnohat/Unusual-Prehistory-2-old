@@ -331,7 +331,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         return true;
     }
 
-    // Tail yaw
+    // Tail
     public void tickTailYaw(float maxYaw, float yawMultiplier) {
         this.prevBodyYaw = bodyYaw;
         this.bodyYaw += Mth.clamp(Mth.wrapDegrees(yBodyRot - bodyYaw) * yawMultiplier, -maxYaw, maxYaw);

@@ -9,13 +9,17 @@ import javax.annotation.Nullable;
 
 public class PrehistoricSwimGoal extends RandomStrollGoal {
 
+    private static final int STUCK_CHECKS = 40;
+
     protected final PrehistoricMob prehistoricMob;
-    private final int radius;
-    private final int height;
+    protected final int radius;
+    protected final int height;
     private final int proximity;
     private final boolean hasProximity;
     @Nullable
     protected Vec3 wantedPos;
+    private int stuckChecks;
+    private Vec3 lastPos = Vec3.ZERO;
 
     public PrehistoricSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int radius, int height) {
         this(prehistoricMob, speedMultiplier, interval, radius, height, 0, false);
@@ -39,6 +43,13 @@ public class PrehistoricSwimGoal extends RandomStrollGoal {
     }
 
     @Override
+    public void start() {
+        super.start();
+        this.stuckChecks = 0;
+        this.lastPos = prehistoricMob.position();
+    }
+
+    @Override
     public boolean canUse() {
         if (prehistoricMob.isSitting() || prehistoricMob.isEepy()) {
             return false;
@@ -50,6 +61,12 @@ public class PrehistoricSwimGoal extends RandomStrollGoal {
     @Override
     public boolean canContinueToUse() {
         this.wantedPos = new Vec3(wantedX, wantedY, wantedZ);
+        Vec3 position = prehistoricMob.position();
+        this.stuckChecks = position.distanceToSqr(lastPos) < 0.0025D ? stuckChecks + 1 : 0;
+        this.lastPos = position;
+        if (this.stuckChecks > STUCK_CHECKS) {
+            return false;
+        }
         if (hasProximity) {
             return super.canContinueToUse() && !(wantedPos.distanceTo(prehistoricMob.position()) <= prehistoricMob.getBbWidth() * proximity);
         }

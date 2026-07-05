@@ -25,11 +25,18 @@ public class PrehistoricSwimmingMoveControl extends PrehistoricMoveControl {
 
     @Override
     public void tick() {
+        if (operation != Operation.MOVE_TO && operation != Operation.STRAFE) {
+            this.mob.setSpeed(0.0F);
+            this.mob.setXxa(0.0F);
+            this.mob.setYya(0.0F);
+            this.mob.setZza(0.0F);
+            return;
+        }
         if (!prehistoricMob.refuseToMove()) {
             if (operation == Operation.MOVE_TO && !prehistoricMob.getNavigation().isDone()) {
                 this.doMoveTo();
             }
-            else if (this.operation == Operation.STRAFE) {
+            else if (operation == Operation.STRAFE) {
                 this.doStrafing(false);
             }
         }

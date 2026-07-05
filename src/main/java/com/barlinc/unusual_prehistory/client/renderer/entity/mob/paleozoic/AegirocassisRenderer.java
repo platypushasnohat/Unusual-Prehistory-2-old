@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class AegirocassisRenderer extends MobRenderer<Aegirocassis, UP2Model<Aegirocassis>> {
@@ -33,18 +32,18 @@ public class AegirocassisRenderer extends MobRenderer<Aegirocassis, UP2Model<Aeg
     }
 
     @Override
-    public void render(Aegirocassis entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
+    public void render(Aegirocassis entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         this.model = entity.isBaby() ? babyModel : adultModel;
         super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
     }
 
     @Override
-    protected float getFlipDegrees(@NotNull Aegirocassis entity) {
+    protected float getFlipDegrees(Aegirocassis entity) {
         return !entity.isInWaterOrBubble() ? 0.0F : super.getFlipDegrees(entity);
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull Aegirocassis entity) {
+    public ResourceLocation getTextureLocation(Aegirocassis entity) {
         return entity.isBaby() ? TEXTURE_BABY : TEXTURE;
     }
 }

@@ -17,7 +17,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -53,9 +52,6 @@ public class Prognathodon extends PrehistoricAmphibiousMob implements LeapingMob
     private static final int IDLE_NIP = 3;
 
     public int biteCooldown = 0;
-
-    public float tailPitch;
-    public float prevTailPitch;
 
     public final SmoothAnimationState leapAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState(1.0F);
@@ -140,15 +136,8 @@ public class Prognathodon extends PrehistoricAmphibiousMob implements LeapingMob
     @Override
     public void tick() {
         super.tick();
-        this.prevTailPitch = tailPitch;
         this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
         this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULITPLIER);
-        float targetTailPitch = tilt * 0.8F;
-        this.tailPitch += (targetTailPitch - tailPitch) * 0.02F;
-    }
-
-    public float getTailPitch(float partialTick) {
-        return Mth.lerp(partialTick, prevTailPitch, tailPitch);
     }
 
     @Override

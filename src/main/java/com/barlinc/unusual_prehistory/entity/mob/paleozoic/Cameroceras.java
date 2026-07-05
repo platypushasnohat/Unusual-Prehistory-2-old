@@ -38,7 +38,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -96,7 +95,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.refuseToMove()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
@@ -123,7 +122,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
         if (this.isCrawling()) {
             return level.getFluidState(pos.above()).is(FluidTags.WATER) ? 10.0F : super.getWalkTargetValue(pos, level);
         }
@@ -241,7 +240,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putBoolean("Crawling", this.isCrawling());
         compoundTag.putInt("CrawlCooldown", this.getCrawlCooldown());
@@ -249,7 +248,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setCrawling(compoundTag.getBoolean("Crawling"));
         this.setCrawlCooldown(compoundTag.getInt("CrawlCooldown"));
@@ -287,19 +286,12 @@ public class Cameroceras extends PrehistoricAquaticMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         return UP2Entities.CAMEROCERAS.get().create(level);
     }
 
     @Override
-    @Nullable
-    protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.TUSOTEUTHIS_IDLE.get();
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.TUSOTEUTHIS_HURT.get();
     }
 
@@ -307,6 +299,12 @@ public class Cameroceras extends PrehistoricAquaticMob {
     @Nullable
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.TUSOTEUTHIS_DEATH.get();
+    }
+
+    @Override
+    @Nullable
+    protected SoundEvent getAmbientSound() {
+        return UP2SoundEvents.TUSOTEUTHIS_IDLE.get();
     }
 
     private static class CamerocerasRocketGoal extends Goal {

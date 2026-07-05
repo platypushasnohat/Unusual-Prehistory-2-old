@@ -6,9 +6,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
@@ -18,12 +16,13 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
-public abstract class PrehistoricPartEntity<T extends PrehistoricMob> extends PartEntity<T> {
+public abstract class PrehistoricMobPart<T extends PrehistoricMob> extends PartEntity<T> {
 
     private final EntityDimensions dimensions;
 
-    public PrehistoricPartEntity(T parent, float width, float height) {
+    public PrehistoricMobPart(T parent, float width, float height) {
         super(parent);
         this.dimensions = EntityDimensions.scalable(width, height);
         this.refreshDimensions();
@@ -128,5 +127,37 @@ public abstract class PrehistoricPartEntity<T extends PrehistoricMob> extends Pa
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compoundTag) {
+    }
+
+    public static void pushEntities(Mob parent, PrehistoricMobPart<?>[] parts) {
+        for (PrehistoricMobPart<?> part : parts) {
+            List<Entity> list = parent.level().getEntities(part, part.getBoundingBox(), entity -> !entity.is(parent) && !(entity instanceof PrehistoricMobPart<?>) && entity.isPushable());
+            for (Entity entity : list) {
+                part.push(entity);
+            }
+        }
+    }
+
+    public static void resolveCollisions(Mob parent, PrehistoricMobPart<?>[] parts) {
+        Vec3 push = Vec3.ZERO;
+        Vec3 center = parent.position().add(0.0D, parent.getBbHeight() * 0.5D, 0.0D);
+        for (PrehistoricMobPart<?> part : parts) {
+            if (!parent.level().getBlockCollisions(part, part.getBoundingBox()).iterator().hasNext()) {
+                continue;
+            }
+            Vec3 away = center.subtract(part.position().add(0.0D, part.getBbHeight() * 0.5D, 0.0D));
+            if (away.lengthSqr() < 1.0E-4D) {
+                continue;
+            }
+            push = push.add(away.normalize().scale(0.04D));
+        }
+        if (push.lengthSqr() == 0.0D) {
+            return;
+        }
+        if (push.length() > 0.12D) {
+            push = push.normalize().scale(0.12D);
+        }
+        parent.move(MoverType.SELF, push);
+        parent.setDeltaMovement(parent.getDeltaMovement().add(push.scale(0.2D)));
     }
 }

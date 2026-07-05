@@ -7,7 +7,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveC
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
-import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMobPart;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -567,7 +567,7 @@ public class Rhizodus extends PrehistoricAmphibiousMob {
         }
     }
 
-    private static class RhizodusPart extends PrehistoricPartEntity<Rhizodus> {
+    private static class RhizodusPart extends PrehistoricMobPart<Rhizodus> {
 
         public RhizodusPart(Rhizodus parent) {
             super(parent, 1.7F, 1.8F);

@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
-import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMobPart;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -304,7 +304,7 @@ public class Leedsichthys extends PrehistoricAquaticMob {
         return this.isBaby() ? 0.5F : 2.0F;
     }
 
-    private static class LeedsichthysPart extends PrehistoricPartEntity<Leedsichthys> {
+    private static class LeedsichthysPart extends PrehistoricMobPart<Leedsichthys> {
 
         public LeedsichthysPart(Leedsichthys parent) {
             super(parent, 4.5F, 4.5F);

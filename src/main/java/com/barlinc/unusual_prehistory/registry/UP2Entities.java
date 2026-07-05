@@ -36,7 +36,7 @@ public class UP2Entities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(Registries.ENTITY_TYPE, UnusualPrehistory2.MOD_ID);
 
     // Paleozoic
-    public static final DeferredHolder<EntityType<?>, EntityType<Aegirocassis>> AEGIROCASSIS = registerEntity("aegirocassis", Aegirocassis::new, MobCategory.WATER_CREATURE, builder -> builder.sized(3.5F, 3.9F).eyeHeight(1.9F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Aegirocassis>> AEGIROCASSIS = registerEntity("aegirocassis", Aegirocassis::new, MobCategory.WATER_CREATURE, builder -> builder.sized(4.2F, 4.2F).eyeHeight(2.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Arthropleura>> ARTHROPLEURA = registerEntity("arthropleura", Arthropleura::new, MobCategory.CREATURE, builder -> builder.sized(1.5F, 0.75F).eyeHeight(0.375F).clientTrackingRange(10).setShouldReceiveVelocityUpdates(true));
     public static final DeferredHolder<EntityType<?>, EntityType<ArthropleuraPart>> ARTHROPLEURA_PART = registerEntity("arthropleura_part", ArthropleuraPart::new, MobCategory.MISC, builder -> builder.sized(1.5F, 0.75F).clientTrackingRange(10).noSummon().setShouldReceiveVelocityUpdates(true));
     public static final DeferredHolder<EntityType<?>, EntityType<Brontoscorpio>> BRONTOSCORPIO = registerEntity("brontoscorpio", Brontoscorpio::new, MobCategory.CREATURE, builder -> builder.sized(1.15F, 0.9F).eyeHeight(0.45F).clientTrackingRange(10));

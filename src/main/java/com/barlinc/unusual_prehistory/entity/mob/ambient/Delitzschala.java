@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.entity.mob.ambient;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AmbientMoveToRestrictionGoal;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientFlyingMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.sounds.SoundEvent;

@@ -4,7 +4,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
- import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMobPart;
  import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -531,7 +531,7 @@
          }
      }
 
-     private static class BrachiosaurusPart extends PrehistoricPartEntity<Brachiosaurus> {
+     private static class BrachiosaurusPart extends PrehistoricMobPart<Brachiosaurus> {
 
          public BrachiosaurusPart(Brachiosaurus parent, float width, float height) {
              super(parent, width, height);

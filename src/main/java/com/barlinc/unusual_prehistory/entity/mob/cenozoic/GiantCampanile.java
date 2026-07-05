@@ -6,7 +6,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.RandomUnderwaterSitGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
- import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMobPart;
  import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
  import com.barlinc.unusual_prehistory.network.GiantCampanilePartPacket;
  import com.barlinc.unusual_prehistory.registry.UP2Blocks;
@@ -304,7 +304,7 @@
          this.playSound(UP2SoundEvents.GIANT_CAMPANILE_STEP.get(), 0.12F, 1.0F);
      }
 
-     private static class GiantCampanilePart extends PrehistoricPartEntity<GiantCampanile> {
+     private static class GiantCampanilePart extends PrehistoricMobPart<GiantCampanile> {
 
          public GiantCampanilePart(GiantCampanile parent, float width, float height) {
              super(parent, width, height);

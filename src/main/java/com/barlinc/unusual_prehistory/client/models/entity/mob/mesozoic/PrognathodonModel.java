@@ -149,9 +149,7 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
         this.swim_control.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
         this.swim_control.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
         this.tail.yRot += entity.getTailYaw(partialTicks) * Mth.DEG_TO_RAD;
-        this.tail.xRot += entity.getTailPitch(partialTicks) * Mth.DEG_TO_RAD;
         this.tail_fluke.yRot += entity.getTailYaw(partialTicks) * 0.15F * Mth.DEG_TO_RAD;
-        this.tail_fluke.xRot += entity.getTailPitch(partialTicks) * 0.15F * Mth.DEG_TO_RAD;
     }
 
     @Override
