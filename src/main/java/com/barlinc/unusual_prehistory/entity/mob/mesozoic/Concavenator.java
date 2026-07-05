@@ -60,7 +60,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -86,7 +85,9 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     public int diveAttackCooldown = 0;
     public int slashAttackCooldown = 0;
 
+    @Nullable
     private Concavenator priorPackMember;
+    @Nullable
     private Concavenator afterPackMember;
 
     public final SmoothAnimationState sandSwimIdleAnimationState = new SmoothAnimationState();
@@ -164,7 +165,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVec) {
+    public void travel(Vec3 travelVec) {
         if (this.refuseToMove()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
@@ -192,12 +193,12 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
         return level.getBlockState(pos).is(UP2BlockTags.CONCAVENATOR_SWIMS_ON) ? 10.0F : super.getWalkTargetValue(pos, level);
     }
 
     @Override
-    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
+    public EntityDimensions getDefaultDimensions(Pose pose) {
         if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getAgeScale());
         else if (this.isSandSwimming()) return SAND_SWIMMING_DIMENSIONS.scale(this.getAgeScale());
         return super.getDefaultDimensions(pose);
@@ -231,7 +232,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+    public boolean isInvulnerableTo(DamageSource source) {
         if (this.isSandSwimming()) {
             return super.isInvulnerableTo(source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.CACTUS) || source.is(DamageTypeTags.IS_FIRE);
         }
@@ -312,7 +313,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
         if (itemStack.is(ItemTags.PICKAXES) && this.hasArmor()) {
@@ -391,7 +392,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
+    public boolean canOwnerCommand(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         return !itemStack.is(UP2ItemTags.ARMORS_CONCAVENATOR) && !itemStack.is(ItemTags.PICKAXES) && !itemStack.is(ItemTags.SHOVELS);
     }
@@ -425,7 +426,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    protected void doPush(@NotNull Entity entity) {
+    protected void doPush(Entity entity) {
         if (!this.isSandSwimming()) {
             super.doPush(entity);
         }
@@ -645,7 +646,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (SAND_SWIMMING.equals(accessor)) {
             this.refreshDimensions();
         }
@@ -698,7 +699,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("ArmorType", this.getArmorType().getId());
         compoundTag.putInt("TameAttempts", this.getTameAttempts());
@@ -706,7 +707,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setArmorType(ArmorType.byId(compoundTag.getInt("ArmorType")));
         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
@@ -767,11 +768,12 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
+    @Nullable
     public PackAnimal getPriorPackMember() {
-        return this.priorPackMember;
+        return priorPackMember;
     }
-
     @Override
+    @Nullable
     public PackAnimal getAfterPackMember() {
         return afterPackMember;
     }
@@ -793,7 +795,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         Concavenator concavenator = UP2Entities.CONCAVENATOR.get().create(level);
         if (concavenator != null) {
             concavenator.setPackLeader(this.isPackLeader());
@@ -809,7 +811,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.CONCAVENATOR_HURT.get();
     }
 
@@ -820,7 +822,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+    protected void playStepSound(BlockPos pos, BlockState state) {
         if (this.isSandSwimming()) {
             SoundType soundtype = state.getSoundType(this.level(), pos, this);
             this.playSound(soundtype.getHitSound(), soundtype.getVolume() * 0.15F, soundtype.getPitch());
@@ -889,7 +891,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         var nearbyConcavenator = level.getEntitiesOfClass(Concavenator.class, this.getBoundingBox().inflate(16.0D));
         boolean hasPackLeader = nearbyConcavenator.stream().anyMatch(Concavenator::isPackLeader);
         this.setPackLeader(nearbyConcavenator.size() >= 2 && !hasPackLeader);
@@ -922,7 +924,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         private final Concavenator concavenator;
 
         public SandSwimmingWanderGoal(Concavenator concavenator, double speedModifier) {
-            super(concavenator, speedModifier, 40, true);
+            super(concavenator, speedModifier, 20, 5, 40, true);
             this.concavenator = concavenator;
         }
 
@@ -939,7 +941,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         @Nullable
         @Override
         protected Vec3 getPosition() {
-            Vec3 position = LandRandomPos.getPos(concavenator, 20, 5);
+            Vec3 position = LandRandomPos.getPos(concavenator, radius, height);
             if (position != null) {
                 BlockPos blockPos = BlockPos.containing(position);
                 if (concavenator.level().getBlockState(blockPos).is(UP2BlockTags.CONCAVENATOR_SWIMS_ON)) {

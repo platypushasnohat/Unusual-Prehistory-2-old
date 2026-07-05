@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.ambient.Setapedit
 import com.barlinc.unusual_prehistory.client.models.entity.mob.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.cenozoic.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.multi_era.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.other.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.recently_extinct.GastricBroodingFrogModel;
@@ -22,6 +23,8 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.ambient.Setaped
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.cenozoic.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic.*;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.multi_era.AmmoniteRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.multi_era.LystrosaurusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.other.GrugRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.other.LingcodRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.other.LivingOozeRenderer;

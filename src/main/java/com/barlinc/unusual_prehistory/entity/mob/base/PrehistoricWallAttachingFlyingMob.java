@@ -16,13 +16,13 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class WallAttachingFlyingMob extends PrehistoricFlyingMob {
+public abstract class PrehistoricWallAttachingFlyingMob extends PrehistoricFlyingMob {
 
-    private static final EntityDataAccessor<Boolean> ATTACHED = SynchedEntityData.defineId(WallAttachingFlyingMob.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Float> ATTACHED_X = SynchedEntityData.defineId(WallAttachingFlyingMob.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> ATTACHED_Y = SynchedEntityData.defineId(WallAttachingFlyingMob.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> ATTACHED_Z = SynchedEntityData.defineId(WallAttachingFlyingMob.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(WallAttachingFlyingMob.class, EntityDataSerializers.DIRECTION);
+    private static final EntityDataAccessor<Boolean> ATTACHED = SynchedEntityData.defineId(PrehistoricWallAttachingFlyingMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Float> ATTACHED_X = SynchedEntityData.defineId(PrehistoricWallAttachingFlyingMob.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> ATTACHED_Y = SynchedEntityData.defineId(PrehistoricWallAttachingFlyingMob.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> ATTACHED_Z = SynchedEntityData.defineId(PrehistoricWallAttachingFlyingMob.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(PrehistoricWallAttachingFlyingMob.class, EntityDataSerializers.DIRECTION);
 
     private BlockPos attachBlockPos;
     private Vec3 attachLocation;
@@ -31,7 +31,7 @@ public abstract class WallAttachingFlyingMob extends PrehistoricFlyingMob {
     private int attachTicks = 0;
     private int tryAttachTicks = 0;
 
-    protected WallAttachingFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
+    protected PrehistoricWallAttachingFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -193,9 +193,9 @@ public abstract class WallAttachingFlyingMob extends PrehistoricFlyingMob {
     // Goals
     public static class AttachingFlyingWanderGoal extends FlyingWanderGoal {
 
-        protected final WallAttachingFlyingMob flyingMob;
+        protected final PrehistoricWallAttachingFlyingMob flyingMob;
 
-        public AttachingFlyingWanderGoal(WallAttachingFlyingMob flyingMob, float speedModifier, int flightHeight) {
+        public AttachingFlyingWanderGoal(PrehistoricWallAttachingFlyingMob flyingMob, float speedModifier, int flightHeight) {
             super(flyingMob, speedModifier, flightHeight);
             this.flyingMob = flyingMob;
         }
@@ -211,9 +211,9 @@ public abstract class WallAttachingFlyingMob extends PrehistoricFlyingMob {
 
     public static class LandOrAttachFromFlightGoal extends LandFromFlightGoal {
 
-        private final WallAttachingFlyingMob flyingMob;
+        private final PrehistoricWallAttachingFlyingMob flyingMob;
 
-        public LandOrAttachFromFlightGoal(WallAttachingFlyingMob flyingMob, int maxFlightTime) {
+        public LandOrAttachFromFlightGoal(PrehistoricWallAttachingFlyingMob flyingMob, int maxFlightTime) {
             super(flyingMob, maxFlightTime);
             this.flyingMob = flyingMob;
         }

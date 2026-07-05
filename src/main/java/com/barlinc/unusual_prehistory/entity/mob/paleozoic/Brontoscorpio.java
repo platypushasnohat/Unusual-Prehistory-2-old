@@ -4,7 +4,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -40,7 +40,7 @@
 
  import java.util.function.Predicate;
 
- public class Brontoscorpio extends AmphibiousMob {
+ public class Brontoscorpio extends PrehistoricAmphibiousMob {
 
      private int attackCooldown = 0;
 
@@ -57,7 +57,7 @@
      private boolean attackAlt = false;
      private boolean snipAlt = false;
 
-     public Brontoscorpio(EntityType<? extends AmphibiousMob> entityType, Level level) {
+     public Brontoscorpio(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
          this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);

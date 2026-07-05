@@ -3,7 +3,7 @@
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
  import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -45,7 +45,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Brachiosaurus extends AmphibiousMob implements PlushableMob {
+ public class Brachiosaurus extends PrehistoricAmphibiousMob implements PlushableMob {
 
      private static final EntityDataAccessor<Integer> STOMP_COOLDOWN = SynchedEntityData.defineId(Brachiosaurus.class, EntityDataSerializers.INT);
 
@@ -74,7 +74,7 @@
      public final SmoothAnimationState callAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
 
-     public Brachiosaurus(EntityType<? extends AmphibiousMob> entityType, Level level) {
+     public Brachiosaurus(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
          this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);

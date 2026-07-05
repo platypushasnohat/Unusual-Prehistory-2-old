@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveC
 import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
-import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -33,15 +33,15 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class Bananogmius extends SchoolingAquaticMob {
+public class Bananogmius extends PrehistoricSchoolingAquaticMob {
 
     private static final float MAX_TILT = 60.0F;
     private static final float MAX_ROLL = 20.0F;
-    private static final float ROLL_PER_YAW = 1.5F;
+    private static final float ROLL_PER_YAW = 2.0F;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
 
-    public Bananogmius(EntityType<? extends Bananogmius> entityType, Level level) {
+    public Bananogmius(EntityType<? extends PrehistoricSchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 60, 10, 0.02F, 0.1F);

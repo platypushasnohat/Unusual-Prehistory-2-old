@@ -18,19 +18,19 @@ public class HerdWanderGoal extends PrehistoricWanderGoal {
 	protected boolean isHerdFar;
 
 	public HerdWanderGoal(PathfinderMob mob, double speedModifier, double speedModifierFar, int preferredHerdSize) {
-		this(mob, speedModifier, speedModifierFar, 120, preferredHerdSize, true, entity -> entity.getClass().isAssignableFrom(mob.getClass()) || mob.getClass().isAssignableFrom(entity.getClass()));
+		this(mob, speedModifier, speedModifierFar, 120, 18, 7, preferredHerdSize, true, entity -> entity.getClass().isAssignableFrom(mob.getClass()) || mob.getClass().isAssignableFrom(entity.getClass()));
 	}
 
 	public HerdWanderGoal(PathfinderMob mob, double speedModifier, double speedModifierFar, int preferredHerdSize, boolean shouldAvoidWater) {
-		this(mob, speedModifier, speedModifierFar, 120, preferredHerdSize, shouldAvoidWater, entity -> entity.getClass().isAssignableFrom(mob.getClass()) || mob.getClass().isAssignableFrom(entity.getClass()));
+		this(mob, speedModifier, speedModifierFar, 120, 18, 7, preferredHerdSize, shouldAvoidWater, entity -> entity.getClass().isAssignableFrom(mob.getClass()) || mob.getClass().isAssignableFrom(entity.getClass()));
 	}
 
 	public HerdWanderGoal(PathfinderMob mob, double speedModifier, double speedModifierFar, int interval, int preferredHerdSize, boolean shouldAvoidWater) {
-		this(mob, speedModifier, speedModifierFar, interval, preferredHerdSize, shouldAvoidWater, entity -> entity.getClass().isAssignableFrom(mob.getClass()) || mob.getClass().isAssignableFrom(entity.getClass()));
+		this(mob, speedModifier, speedModifierFar, interval, 18, 7, preferredHerdSize, shouldAvoidWater, entity -> entity.getClass().isAssignableFrom(mob.getClass()) || mob.getClass().isAssignableFrom(entity.getClass()));
 	}
 
-	public HerdWanderGoal(PathfinderMob mob, double speedModifier, double speedModifierFar, int interval, int preferredHerdSize, boolean shouldAvoidWater, Predicate<PathfinderMob> herdPredicate) {
-		super(mob, speedModifier, interval, shouldAvoidWater);
+	public HerdWanderGoal(PathfinderMob mob, double speedModifier, double speedModifierFar, int radius, int height, int interval, int preferredHerdSize, boolean shouldAvoidWater, Predicate<PathfinderMob> herdPredicate) {
+		super(mob, speedModifier, interval, radius, height, shouldAvoidWater);
 		this.speedModifierFar = speedModifierFar;
 		this.preferredHerdSize = preferredHerdSize;
         this.herdPredicate = herdPredicate;

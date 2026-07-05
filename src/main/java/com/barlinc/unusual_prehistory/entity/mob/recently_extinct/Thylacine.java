@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.recently_extinct;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.mob.base.BreedableMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricBreedableMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -46,7 +46,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
-public class Thylacine extends BreedableMob implements LeapingMob {
+public class Thylacine extends PrehistoricBreedableMob implements LeapingMob {
 
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Thylacine.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Thylacine.class, EntityDataSerializers.INT);
@@ -69,7 +69,7 @@ public class Thylacine extends BreedableMob implements LeapingMob {
 
     private final byte EAT = 67;
 
-    public Thylacine(EntityType<? extends BreedableMob> entityType, Level level) {
+    public Thylacine(EntityType<? extends PrehistoricBreedableMob> entityType, Level level) {
         super(entityType, level);
     }
 

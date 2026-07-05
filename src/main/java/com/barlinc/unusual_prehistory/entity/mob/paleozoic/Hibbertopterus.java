@@ -4,7 +4,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.AmphibiousPanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.*;
  import com.barlinc.unusual_prehistory.registry.UP2Blocks;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -51,7 +51,7 @@
 
  import java.util.function.BiConsumer;
 
- public class Hibbertopterus extends AmphibiousMob implements ItemSteerable, DancingMob, PlushableMob {
+ public class Hibbertopterus extends PrehistoricAmphibiousMob implements ItemSteerable, DancingMob, PlushableMob {
 
      private static final EntityDataAccessor<Integer> PLOW_TIME = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.INT);
      protected static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.BOOLEAN);
@@ -64,7 +64,7 @@
      public final SmoothAnimationState plowAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState danceAnimationState = new SmoothAnimationState();
 
-     public Hibbertopterus(EntityType<? extends AmphibiousMob> entityType, Level level) {
+     public Hibbertopterus(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
          this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);

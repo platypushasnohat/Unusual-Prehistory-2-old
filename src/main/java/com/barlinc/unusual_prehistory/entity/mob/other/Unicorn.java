@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.other;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
-import com.barlinc.unusual_prehistory.entity.mob.base.BreedableMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricBreedableMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
@@ -36,12 +36,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class Unicorn extends BreedableMob {
+public class Unicorn extends PrehistoricBreedableMob {
 
     private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(Unicorn.class, EntityDataSerializers.BOOLEAN);
     private UUID lastLightningBoltUUID;
 
-    public Unicorn(EntityType<? extends BreedableMob> entityType, Level level) {
+    public Unicorn(EntityType<? extends PrehistoricBreedableMob> entityType, Level level) {
         super(entityType, level);
     }
 

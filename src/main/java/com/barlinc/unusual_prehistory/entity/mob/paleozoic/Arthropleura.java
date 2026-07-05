@@ -30,8 +30,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,7 +39,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -101,12 +98,12 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public boolean isFood(@NotNull ItemStack itemStack) {
+    public boolean isFood(ItemStack itemStack) {
         return itemStack.is(UP2ItemTags.DIET_DETRITIVORE);
     }
 
     @Override
-    public boolean canCollideWith(@NotNull Entity entity) {
+    public boolean canCollideWith(Entity entity) {
         return super.canCollideWith(entity) && !(entity instanceof ArthropleuraPart) && !(entity instanceof Arthropleura);
     }
 
@@ -116,7 +113,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.refuseToMove() && this.onGround()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
@@ -128,7 +125,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    protected void travelRidden(@NotNull Player player, @NotNull Vec3 travelVector) {
+    protected void travelRidden(Player player, Vec3 travelVector) {
     }
 
     @Nullable
@@ -154,14 +151,14 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
 
     @Override
     public double getFluidJumpThreshold() {
-        if (this.isInWater() && this.horizontalCollision) {
+        if (this.isInWater() && horizontalCollision) {
             return super.getFluidJumpThreshold();
         }
         return 0.48D * this.getBbHeight();
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         InteractionResult result = super.mobInteract(player, hand);
         ItemStack itemStack = player.getItemInHand(hand);
         Entity leashed = this.getLeashed(player).orElse(null);
@@ -220,9 +217,6 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     public boolean canEntityRide(LivingEntity entity) {
-        if (entity == null) {
-            return false;
-        }
         if (entity.getType().is(UP2EntityTags.ARTHROPLEURA_CANT_CARRY)) {
             return false;
         }
@@ -252,7 +246,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity passenger) {
+    public Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
         return new Vec3(this.getX(), this.getBoundingBox().maxY + 0.1F, this.getZ());
     }
 
@@ -275,7 +269,8 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+    @Nullable
+    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         Arthropleura arthropleura = UP2Entities.ARTHROPLEURA.get().create(serverLevel);
         if (arthropleura != null) {
             serverLevel.getServer().execute(() -> {
@@ -293,28 +288,28 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public void push(@NotNull Entity entity) {
+    public void push(Entity entity) {
         if (!this.isPassengerOfSameVehicle(entity) && !(entity instanceof ArthropleuraPart)) {
             super.push(entity);
         }
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+    public boolean isInvulnerableTo(DamageSource source) {
         return super.isInvulnerableTo(source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FALL);
     }
 
     @Override
-    public @NotNull AABB getBoundingBoxForCulling() {
+    public AABB getBoundingBoxForCulling() {
         return this.getBoundingBox().inflate(2);
     }
 
     @Override
-    protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (BOOST_TIME.equals(accessor) && this.level().isClientSide) {
             this.steering.onSynced();
         }
@@ -335,19 +330,19 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
         compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putInt("Segments", this.getSegments());
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
         this.setVariant(ArthropleuraVariant.byId(compoundTag.getInt("Variant")));
         this.setSegments(compoundTag.getInt("Segments"));
     }
 
     @Override
-    public @NotNull ArthropleuraVariant getVariant() {
+    public ArthropleuraVariant getVariant() {
         return ArthropleuraVariant.byId(this.entityData.get(VARIANT));
     }
 
@@ -372,7 +367,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.ARTHROPLEURA_HURT.get();
     }
 
@@ -383,7 +378,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+    protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(UP2SoundEvents.ARTHROPLEURA_STEP.get(), 0.15F, 1.0F);
     }
 
@@ -413,7 +408,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         int segmentAmount = 3 + level.getRandom().nextInt(5);
         this.setVariant(ArthropleuraVariant.byId(level.getRandom().nextInt(ArthropleuraVariant.values().length)));
         ArthropleuraPart.createArthropleuraSegments(this, segmentAmount);
@@ -465,10 +460,11 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     public static class ArthropleuraWanderGoal extends PrehistoricWanderGoal {
 
         private final Arthropleura arthropleura;
+        @Nullable
         protected Vec3 wantedPos;
 
         public ArthropleuraWanderGoal(Arthropleura arthropleura) {
-            super(arthropleura, 1.0D, 80, true);
+            super(arthropleura, 1.0D, 20, 7, 80, true);
             this.arthropleura = arthropleura;
         }
 
@@ -479,20 +475,8 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
 
         @Override
         public boolean canContinueToUse() {
-            this.wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
-            return !arthropleura.hasRidingPlayer() && super.canContinueToUse() && !(this.wantedPos.distanceTo(arthropleura.position()) <= arthropleura.getBbWidth() * 4);
-        }
-
-        @Nullable
-        @Override
-        protected Vec3 getPosition() {
-            Vec3 randomPos;
-            if (arthropleura.isInWater()) {
-                randomPos = LandRandomPos.getPos(arthropleura, 30, 8);
-                return randomPos == null ? LandRandomPos.getPos(arthropleura, 20, 7) : randomPos;
-            }
-            randomPos = arthropleura.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(arthropleura, 20, 7) : DefaultRandomPos.getPos(arthropleura, 20, 7);
-            return randomPos;
+            this.wantedPos = new Vec3(wantedX, wantedY, wantedZ);
+            return !arthropleura.hasRidingPlayer() && super.canContinueToUse() && !(wantedPos.distanceTo(arthropleura.position()) <= arthropleura.getBbWidth() * 4);
         }
     }
 

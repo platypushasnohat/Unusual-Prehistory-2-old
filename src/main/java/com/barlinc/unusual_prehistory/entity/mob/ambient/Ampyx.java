@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.ambient;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
-import com.barlinc.unusual_prehistory.entity.mob.base.WaterCrawlingAmbientMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmbientWaterCrawlingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class Ampyx extends WaterCrawlingAmbientMob {
+public class Ampyx extends AmbientWaterCrawlingMob {
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState(1.0F);

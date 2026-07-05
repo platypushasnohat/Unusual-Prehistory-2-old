@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
-import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -44,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class Ammonite extends SchoolingAquaticMob implements Bucketable, VariantHolder<Ammonite.AmmoniteVariant> {
+public class Ammonite extends PrehistoricSchoolingAquaticMob implements Bucketable, VariantHolder<Ammonite.AmmoniteVariant> {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Ammonite.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> HIDE_TICKS = SynchedEntityData.defineId(Ammonite.class, EntityDataSerializers.INT);
@@ -53,7 +53,7 @@ public class Ammonite extends SchoolingAquaticMob implements Bucketable, Variant
 
     public final SmoothAnimationState hideAnimationState = new SmoothAnimationState(0.25F);
 
-    public Ammonite(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
+    public Ammonite(EntityType<? extends PrehistoricSchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
@@ -156,7 +156,7 @@ public class Ammonite extends SchoolingAquaticMob implements Bucketable, Variant
     }
 
     @Override
-    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
+    public void addFollowers(Stream<? extends PrehistoricSchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
             if (this.getVariant() == ((Ammonite) entity2).getVariant() && !this.isBaby()) {
                 entity2.startFollowing(this);

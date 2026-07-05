@@ -20,12 +20,12 @@ import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
-public abstract class WaterCrawlingAmbientMob extends AmbientMob {
+public abstract class AmbientWaterCrawlingMob extends AmbientMob {
 
-    private static final EntityDataAccessor<Boolean> CRAWLING = SynchedEntityData.defineId(WaterCrawlingAmbientMob.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> CRAWLING_COOLDOWN = SynchedEntityData.defineId(WaterCrawlingAmbientMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> CRAWLING = SynchedEntityData.defineId(AmbientWaterCrawlingMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> CRAWLING_COOLDOWN = SynchedEntityData.defineId(AmbientWaterCrawlingMob.class, EntityDataSerializers.INT);
 
-    protected WaterCrawlingAmbientMob(EntityType<? extends AmbientMob> entityType, Level level) {
+    protected AmbientWaterCrawlingMob(EntityType<? extends AmbientMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -113,9 +113,9 @@ public abstract class WaterCrawlingAmbientMob extends AmbientMob {
 
     public static class WaterCrawlerRandomSwimGoal extends RandomSwimmingGoal {
 
-        protected final WaterCrawlingAmbientMob ambientMob;
+        protected final AmbientWaterCrawlingMob ambientMob;
 
-        public WaterCrawlerRandomSwimGoal(WaterCrawlingAmbientMob ambientMob, double speedModifier, int interval) {
+        public WaterCrawlerRandomSwimGoal(AmbientWaterCrawlingMob ambientMob, double speedModifier, int interval) {
             super(ambientMob, speedModifier, interval);
             this.ambientMob = ambientMob;
         }
@@ -133,9 +133,9 @@ public abstract class WaterCrawlingAmbientMob extends AmbientMob {
 
     public static class WaterCrawlerRandomStrollGoal extends RandomStrollGoal {
 
-        private final WaterCrawlingAmbientMob ambientMob;
+        private final AmbientWaterCrawlingMob ambientMob;
 
-        public WaterCrawlerRandomStrollGoal(WaterCrawlingAmbientMob ambientMob, double speedModifier) {
+        public WaterCrawlerRandomStrollGoal(AmbientWaterCrawlingMob ambientMob, double speedModifier) {
             super(ambientMob, speedModifier);
             this.ambientMob = ambientMob;
         }
@@ -153,9 +153,9 @@ public abstract class WaterCrawlingAmbientMob extends AmbientMob {
 
     public static class WaterCrawlerFindWaterGoal extends MoveToBlockGoal {
 
-        protected final WaterCrawlingAmbientMob ambientMob;
+        protected final AmbientWaterCrawlingMob ambientMob;
 
-        public WaterCrawlerFindWaterGoal(WaterCrawlingAmbientMob ambientMob, double speedModifier) {
+        public WaterCrawlerFindWaterGoal(AmbientWaterCrawlingMob ambientMob, double speedModifier) {
             super(ambientMob, speedModifier, 16);
             this.ambientMob = ambientMob;
         }

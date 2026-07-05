@@ -51,6 +51,7 @@ public class AquaticLeapGoal extends JumpGoal {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private boolean waterIsClear(BlockPos pos, int x, int z, int scale) {
         BlockPos blockpos = pos.offset(x * scale, 0, z * scale);
         return prehistoricMob.level().getFluidState(blockpos).is(FluidTags.WATER) && !prehistoricMob.level().getBlockState(blockpos).blocksMotion();
@@ -107,7 +108,7 @@ public class AquaticLeapGoal extends JumpGoal {
         } else if (vec3.length() > (double) 1.0E-5F) {
             double horizontalDistance = vec3.horizontalDistance();
             double xRot = Math.atan2(-vec3.y, horizontalDistance) * (double) (180F / (float) Math.PI);
-            this.prehistoricMob.setXRot((float) xRot);
+//            this.prehistoricMob.setXRot((float) xRot);
             this.prehistoricMob.setYRot(((float) Mth.atan2(prehistoricMob.getMotionDirection().getStepZ(), prehistoricMob.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
         }
     }

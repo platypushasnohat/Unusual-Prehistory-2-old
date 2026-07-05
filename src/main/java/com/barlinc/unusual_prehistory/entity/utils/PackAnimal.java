@@ -2,12 +2,15 @@ package com.barlinc.unusual_prehistory.entity.utils;
 
 import net.minecraft.world.entity.LivingEntity;
 
+import javax.annotation.Nullable;
+
 public interface PackAnimal {
 
     default boolean isPackFollower() {
         return this.getPriorPackMember() != null;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     default boolean hasPackFollower() {
         return this.getAfterPackMember() != null;
     }
@@ -45,8 +48,10 @@ public interface PackAnimal {
         return !packLeader.isPackFollower() && ((LivingEntity) packLeader).isAlive();
     }
 
+    @Nullable
     PackAnimal getPriorPackMember();
 
+    @Nullable
     PackAnimal getAfterPackMember();
 
     void setPriorPackMember(PackAnimal animal);
@@ -59,6 +64,7 @@ public interface PackAnimal {
         resetPackFlags();
     }
 
+    @SuppressWarnings("DataFlowIssue")
     default void leavePack() {
         if (this.getPriorPackMember() != null) {
             this.getPriorPackMember().setAfterPackMember(null);

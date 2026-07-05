@@ -58,7 +58,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, V
 
     public Dunkleosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(false);
+        this.switchShallowNavigation(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }

@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.recently_extinct;
 import com.barlinc.unusual_prehistory.entity.ai.control.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -67,7 +67,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, LeapingMob, VariantHolder<GastricBroodingFrog.GastricBroodingFrogVariant> {
+public class GastricBroodingFrog extends PrehistoricAmphibiousMob implements Bucketable, LeapingMob, VariantHolder<GastricBroodingFrog.GastricBroodingFrogVariant> {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.BOOLEAN);
@@ -90,7 +90,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
     private int attackTicks = 0;
 
-    public GastricBroodingFrog(EntityType<? extends AmphibiousMob> entityType, Level level) {
+    public GastricBroodingFrog(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.switchNavigator(true);
@@ -108,7 +108,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomLeapGoal(this, 60, 7, 0.9F));
         this.goalSelector.addGoal(8, new PrehistoricSwimGoal(this, 1.0D, 40));
-        this.goalSelector.addGoal(8, new SemiAquaticWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new AmphibiousWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 10, 1, false, 0.001F, this::canPlayIdles));

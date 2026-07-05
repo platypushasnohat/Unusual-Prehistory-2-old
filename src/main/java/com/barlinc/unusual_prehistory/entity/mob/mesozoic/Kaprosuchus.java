@@ -7,7 +7,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -44,7 +44,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Kaprosuchus extends AmphibiousMob implements LeapingMob {
+ public class Kaprosuchus extends PrehistoricAmphibiousMob implements LeapingMob {
 
      private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.BOOLEAN);
@@ -59,7 +59,7 @@
 
      public boolean attackAlt = false;
 
-     public Kaprosuchus(EntityType<? extends AmphibiousMob> entityType, Level level) {
+     public Kaprosuchus(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
@@ -84,7 +84,7 @@
          this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 2000));
          this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 2000, false));
          this.goalSelector.addGoal(6, new PrehistoricSwimGoal(this, 1.0D, 50));
-         this.goalSelector.addGoal(6, new SemiAquaticWanderGoal(this, 1.0D));
+         this.goalSelector.addGoal(6, new AmphibiousWanderGoal(this, 1.0D));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 10.0F));
          this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(8, new EepyGoal(this));

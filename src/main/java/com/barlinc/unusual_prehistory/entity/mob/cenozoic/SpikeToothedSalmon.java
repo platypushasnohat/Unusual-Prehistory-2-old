@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -51,7 +51,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
-public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMob, VariantHolder<SpikeToothedSalmon.SpikeToothedSalmonVariant> {
+public class SpikeToothedSalmon extends PrehistoricSchoolingAquaticMob implements LeapingMob, VariantHolder<SpikeToothedSalmon.SpikeToothedSalmonVariant> {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SpikeToothedSalmon.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> ZOMBIE = SynchedEntityData.defineId(SpikeToothedSalmon.class, EntityDataSerializers.BOOLEAN);
@@ -69,9 +69,9 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
     public final SmoothAnimationState attackZombieAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState zombieAnimationState = new SmoothAnimationState();
 
-    public SpikeToothedSalmon(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
+    public SpikeToothedSalmon(EntityType<? extends PrehistoricSchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(false);
+        this.switchShallowNavigation(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 6, 0.02F, 0.1F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
     }
@@ -125,7 +125,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
         }
     }
 
-    protected void switchNavigator(boolean inShallows) {
+    protected void switchShallowNavigation(boolean inShallows) {
         this.navigation.stop();
         if (inShallows) {
             this.navigation = new SmoothAmphibiousNavigation(this, this.level());
@@ -171,7 +171,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
     }
 
     @Override
-    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
+    public void addFollowers(Stream<? extends PrehistoricSchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
             if ((this.getVariant() == ((SpikeToothedSalmon) entity2).getVariant() || this.isZombie() && ((SpikeToothedSalmon) entity2).isZombie()) && !this.isBaby()) {
                 entity2.startFollowing(this);
@@ -242,9 +242,9 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
 
         final boolean shallowWater = this.isInShallowWater();
         if (shallowWater && !this.shallowWater) {
-            this.switchNavigator(true);
+            this.switchShallowNavigation(true);
         } else if (!shallowWater && this.shallowWater) {
-            this.switchNavigator(false);
+            this.switchShallowNavigation(false);
         }
 
         if (attackCooldown > 0 && !this.level().isClientSide) {

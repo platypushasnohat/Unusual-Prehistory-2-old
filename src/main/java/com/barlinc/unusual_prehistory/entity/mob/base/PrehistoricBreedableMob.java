@@ -18,9 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public abstract class BreedableMob extends PrehistoricMob {
+public abstract class PrehistoricBreedableMob extends PrehistoricMob {
 
-    protected BreedableMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
+    protected PrehistoricBreedableMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
     }
 

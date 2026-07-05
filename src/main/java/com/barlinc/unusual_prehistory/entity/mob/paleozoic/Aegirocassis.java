@@ -8,7 +8,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
@@ -85,7 +85,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
 
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(false);
+        this.switchShallowNavigation(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 3, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 2);
         this.headPart = new AegirocassisPart(this, 3.5F, 3.9F);
@@ -138,13 +138,13 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
         }
     }
 
-    protected void switchNavigator(boolean inShallows) {
+    protected void switchShallowNavigation(boolean inShallows) {
         this.navigation.stop();
         if (inShallows) {
             this.navigation = new SmoothAmphibiousNavigation(this, this.level());
             this.shallowWater = true;
         } else {
-            this.navigation = new SmoothWaterBoundNavigation(this, this.level(), true);
+            this.navigation = new SmoothWaterNavigation(this, this.level(), true);
             this.shallowWater = false;
         }
     }
@@ -232,9 +232,9 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
 
         final boolean shallowWater = this.isInShallowWater();
         if (shallowWater && !this.shallowWater) {
-            this.switchNavigator(true);
+            this.switchShallowNavigation(true);
         } else if (!shallowWater && this.shallowWater) {
-            this.switchNavigator(false);
+            this.switchShallowNavigation(false);
         }
 
         if (this.getSpawnChildrenCooldown() == 0 && !this.isBaby()) {

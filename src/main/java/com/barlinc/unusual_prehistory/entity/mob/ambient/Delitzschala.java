@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.ambient;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AmbientMoveToRestrictionGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
-import com.barlinc.unusual_prehistory.entity.mob.base.FlyingAmbientMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmbientFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.sounds.SoundEvent;
@@ -17,7 +17,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class Delitzschala extends FlyingAmbientMob {
+public class Delitzschala extends AmbientFlyingMob {
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState flyAnimationState = new SmoothAnimationState(1.0F);

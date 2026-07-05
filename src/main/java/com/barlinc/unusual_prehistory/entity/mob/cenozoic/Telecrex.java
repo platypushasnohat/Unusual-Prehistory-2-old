@@ -61,7 +61,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.goalSelector.addGoal(1, new FlyingPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new TelecrexScatterGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_GRANIVORE), false));
-        this.goalSelector.addGoal(4, new LandLockedWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new FlyingGroundWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LandFromFlightGoal(this, 100));
         this.goalSelector.addGoal(6, new FlyingWanderGoal(this, 1.0F, 6));
         this.goalSelector.addGoal(7, new FollowParentGoal(this, 1));

@@ -61,7 +61,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
 
     public Cameroceras(EntityType<? extends Cameroceras> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(false);
+        this.switchShallowNavigation(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.325F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
     }
@@ -84,7 +84,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(4, new CamerocerasSwimGoal(this));
     }
 
-    protected void switchNavigator(boolean crawling) {
+    protected void switchShallowNavigation(boolean crawling) {
         this.getNavigation().stop();
         if (crawling) {
             this.navigation = new SmoothGroundNavigation(this, this.level());
@@ -162,10 +162,10 @@ public class Cameroceras extends PrehistoricAquaticMob {
     public void tick() {
         super.tick();
         if (this.isCrawling() && !isCrawlNavigator) {
-            this.switchNavigator(true);
+            this.switchShallowNavigation(true);
         }
         if (!this.isCrawling() && isCrawlNavigator) {
-            this.switchNavigator(false);
+            this.switchShallowNavigation(false);
         }
 
         if (this.isInWater()) {

@@ -14,6 +14,7 @@ public class PrehistoricSwimGoal extends RandomStrollGoal {
     private final int height;
     private final int proximity;
     private final boolean hasProximity;
+    @Nullable
     protected Vec3 wantedPos;
 
     public PrehistoricSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int radius, int height) {

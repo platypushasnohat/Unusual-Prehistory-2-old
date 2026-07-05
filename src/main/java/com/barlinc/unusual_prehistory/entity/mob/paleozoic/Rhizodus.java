@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -55,7 +55,7 @@ import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("deprecation")
-public class Rhizodus extends AmphibiousMob {
+public class Rhizodus extends PrehistoricAmphibiousMob {
 
     private static final EntityDataAccessor<Integer> SIZE = SynchedEntityData.defineId(Rhizodus.class, EntityDataSerializers.INT);
 
@@ -82,7 +82,7 @@ public class Rhizodus extends AmphibiousMob {
 
     private boolean attackAlt = false;
 
-    public Rhizodus(EntityType<? extends AmphibiousMob> entityType, Level level) {
+    public Rhizodus(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.switchNavigator(true);
@@ -99,7 +99,7 @@ public class Rhizodus extends AmphibiousMob {
         this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new RhizodusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
-        this.goalSelector.addGoal(4, new SemiAquaticWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new AmphibiousWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1.0D, 40, 30, 15, 3, true));
         this.goalSelector.addGoal(5, new RhizodusLookAtPlayerGoal(this, Player.class));
         this.goalSelector.addGoal(5, new RhizodusRandomLookGoal(this));

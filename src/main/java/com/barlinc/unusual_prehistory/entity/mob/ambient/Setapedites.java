@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.ambient;
 
-import com.barlinc.unusual_prehistory.entity.mob.base.WaterCrawlingAmbientMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmbientWaterCrawlingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -27,14 +27,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class Setapedites extends WaterCrawlingAmbientMob {
+public class Setapedites extends AmbientWaterCrawlingMob {
 
     public UUID leaderUUID;
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState(1.0F);
 
-    public Setapedites(EntityType<? extends WaterCrawlingAmbientMob> entityType, Level level) {
+    public Setapedites(EntityType<? extends AmbientWaterCrawlingMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.5F, 1.0F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 20);

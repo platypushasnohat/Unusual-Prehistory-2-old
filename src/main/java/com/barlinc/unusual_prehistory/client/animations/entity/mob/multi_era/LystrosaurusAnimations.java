@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.animations.entity.mob.mesozoic;
+package com.barlinc.unusual_prehistory.client.animations.entity.mob.multi_era;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;

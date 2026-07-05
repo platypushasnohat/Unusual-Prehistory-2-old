@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveCon
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.WallAttachingFlyingMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricWallAttachingFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -54,7 +54,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
-public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob implements Bucketable {
+public class Kimmeridgebrachypteraeschnidium extends PrehistoricWallAttachingFlyingMob implements Bucketable {
 
     private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
@@ -70,7 +70,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
     public final SmoothAnimationState attachedAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState preenAnimationState = new SmoothAnimationState(1.0F);
 
-    public Kimmeridgebrachypteraeschnidium(EntityType<? extends WallAttachingFlyingMob> entityType, Level level) {
+    public Kimmeridgebrachypteraeschnidium(EntityType<? extends PrehistoricWallAttachingFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(true);
     }

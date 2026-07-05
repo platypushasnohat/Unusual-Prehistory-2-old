@@ -39,12 +39,12 @@ public abstract class PrehistoricPartEntity<T extends PrehistoricMob> extends Pa
     }
 
     @Override
-    public @NotNull AABB getBoundingBoxForCulling() {
+    public AABB getBoundingBoxForCulling() {
         return this.getBoundingBox().inflate(1.0D);
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+    public EntityDimensions getDimensions(Pose pose) {
         return dimensions.scale(this.getParent().getAgeScale());
     }
 
@@ -54,7 +54,7 @@ public abstract class PrehistoricPartEntity<T extends PrehistoricMob> extends Pa
     }
 
     @Override
-    public @NotNull Entity getRootVehicle() {
+    public Entity getRootVehicle() {
         return this.getParent().getRootVehicle();
     }
 
@@ -64,7 +64,7 @@ public abstract class PrehistoricPartEntity<T extends PrehistoricMob> extends Pa
     }
 
     @Override
-    public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand) {
+    public InteractionResult interact(Player player, InteractionHand hand) {
         Entity parent = this.getParent();
         if (player.level().isClientSide) {
             PacketDistributor.sendToServer(new MultipartEntityPacket(parent.getId(), player.getId(), 0));
@@ -89,7 +89,7 @@ public abstract class PrehistoricPartEntity<T extends PrehistoricMob> extends Pa
     }
 
     @Override
-    public boolean hurt(@NotNull DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         Entity parent = this.getParent();
         if (!this.isInvulnerableTo(source)) {
             Entity attacker = source.getEntity();
@@ -104,12 +104,12 @@ public abstract class PrehistoricPartEntity<T extends PrehistoricMob> extends Pa
     }
 
     @Override
-    public boolean is(@NotNull Entity entity) {
+    public boolean is(Entity entity) {
         return this == entity || this.getParent() == entity;
     }
 
     @Override
-    public boolean save(@NotNull CompoundTag compoundTag) {
+    public boolean save(CompoundTag compoundTag) {
         return false;
     }
 
@@ -123,10 +123,10 @@ public abstract class PrehistoricPartEntity<T extends PrehistoricMob> extends Pa
     }
 
     @Override
-    protected void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    protected void readAdditionalSaveData(CompoundTag compoundTag) {
     }
 
     @Override
-    protected void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    protected void addAdditionalSaveData(CompoundTag compoundTag) {
     }
 }

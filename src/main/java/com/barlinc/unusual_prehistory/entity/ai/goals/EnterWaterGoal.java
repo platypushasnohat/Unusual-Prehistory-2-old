@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -11,17 +11,17 @@ import net.minecraft.world.phys.Vec3;
 
 public class EnterWaterGoal extends Goal {
 
-    protected final AmphibiousMob amphibiousMob;
+    protected final PrehistoricAmphibiousMob amphibiousMob;
     protected final int maxTimeOnLand;
     private final double speedModifier;
     private final boolean shouldWander;
     private Vec3 waterPos;
 
-    public EnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
+    public EnterWaterGoal(PrehistoricAmphibiousMob amphibiousMob, double speedModifier) {
         this(amphibiousMob, speedModifier, 6000, false);
     }
 
-    public EnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier, int maxTimeOnLand, boolean shouldWander) {
+    public EnterWaterGoal(PrehistoricAmphibiousMob amphibiousMob, double speedModifier, int maxTimeOnLand, boolean shouldWander) {
         this.speedModifier = speedModifier;
         this.amphibiousMob = amphibiousMob;
         this.maxTimeOnLand = maxTimeOnLand;

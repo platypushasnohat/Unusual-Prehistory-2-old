@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -42,7 +42,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Henodus extends AmphibiousMob implements Bucketable {
+public class Henodus extends PrehistoricAmphibiousMob implements Bucketable {
 
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
 
@@ -59,7 +59,7 @@ public class Henodus extends AmphibiousMob implements Bucketable {
         this.goalSelector.addGoal(2, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new EnterWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new PrehistoricSwimGoal(this, 1.0D, 120));
-        this.goalSelector.addGoal(3, new SemiAquaticWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new AmphibiousWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }

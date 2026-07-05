@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -81,7 +81,7 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     protected PathNavigation createNavigation(Level level) {
-        return new SmoothWaterBoundNavigation(this, level, true);
+        return new SmoothWaterNavigation(this, level, true);
     }
 
     @Override
@@ -188,7 +188,7 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     @Nullable
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         return UP2Entities.NIHOHAE.get().create(level);
     }
 

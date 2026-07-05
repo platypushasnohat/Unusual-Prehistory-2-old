@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -43,7 +43,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Hynerpeton extends AmphibiousMob implements Bucketable {
+public class Hynerpeton extends PrehistoricAmphibiousMob implements Bucketable {
 
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState bask1AnimationState = new SmoothAnimationState();
@@ -51,7 +51,7 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
 
     private boolean baskAlt = false;
 
-    public Hynerpeton(EntityType<? extends AmphibiousMob> entityType, Level level) {
+    public Hynerpeton(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
@@ -64,7 +64,7 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
         this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 80));
-        this.goalSelector.addGoal(5, new SemiAquaticWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new AmphibiousWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new HynerpetonBaskGoal(this));

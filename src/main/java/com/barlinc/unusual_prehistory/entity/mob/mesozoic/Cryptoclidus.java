@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -39,14 +39,14 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Cryptoclidus extends AmphibiousMob {
+public class Cryptoclidus extends PrehistoricAmphibiousMob {
 
     private int attackCooldown = 0;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
 
-    public Cryptoclidus(EntityType<? extends AmphibiousMob> entityType, Level level) {
+    public Cryptoclidus(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(true);
     }
@@ -66,7 +66,7 @@ public class Cryptoclidus extends AmphibiousMob {
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new CryptoclidusLeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new CryptoclidusEnterWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new SemiAquaticWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new AmphibiousWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 50, 30, 15, 3, true));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -240,7 +240,7 @@ public class Cryptoclidus extends AmphibiousMob {
 
     private static class CryptoclidusEnterWaterGoal extends EnterWaterGoal {
 
-        public CryptoclidusEnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
+        public CryptoclidusEnterWaterGoal(PrehistoricAmphibiousMob amphibiousMob, double speedModifier) {
             super(amphibiousMob, speedModifier, 100, false);
         }
 
@@ -256,7 +256,7 @@ public class Cryptoclidus extends AmphibiousMob {
 
     private static class CryptoclidusLeaveWaterGoal extends LeaveWaterGoal {
 
-        public CryptoclidusLeaveWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
+        public CryptoclidusLeaveWaterGoal(PrehistoricAmphibiousMob amphibiousMob, double speedModifier) {
             super(amphibiousMob, speedModifier, 100);
         }
 

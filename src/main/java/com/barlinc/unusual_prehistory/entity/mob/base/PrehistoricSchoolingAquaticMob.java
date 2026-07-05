@@ -7,13 +7,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
+public abstract class PrehistoricSchoolingAquaticMob extends PrehistoricAquaticMob {
 
     @Nullable
-    private SchoolingAquaticMob leader;
+    private PrehistoricSchoolingAquaticMob leader;
     protected int schoolSize = 1;
 
-    protected SchoolingAquaticMob(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
+    protected PrehistoricSchoolingAquaticMob(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -21,7 +21,7 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
     public void tick() {
         super.tick();
         if (this.hasFollowers() && this.level().random.nextInt(200) == 1) {
-            List<? extends SchoolingAquaticMob> list = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D));
+            List<? extends PrehistoricSchoolingAquaticMob> list = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D));
             if (list.size() <= 1) {
                 this.schoolSize = 1;
             }
@@ -50,7 +50,7 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
         return this.leader != null && this.leader.isAlive();
     }
 
-    public void startFollowing(SchoolingAquaticMob entity) {
+    public void startFollowing(PrehistoricSchoolingAquaticMob entity) {
         this.leader = entity;
         entity.addFollower();
     }
@@ -85,7 +85,7 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
         return false;
     }
 
-    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
+    public void addFollowers(Stream<? extends PrehistoricSchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
             if (!this.isBaby()) {
                 entity2.startFollowing(this);

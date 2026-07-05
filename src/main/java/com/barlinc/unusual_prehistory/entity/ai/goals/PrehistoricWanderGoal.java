@@ -11,18 +11,22 @@ import javax.annotation.Nullable;
 public class PrehistoricWanderGoal extends RandomStrollGoal {
 
     protected final boolean shouldAvoidWater;
+    protected final int radius;
+    protected final int height;
 
     public PrehistoricWanderGoal(PathfinderMob mob, double speedModifier) {
-        this(mob, speedModifier, 120, true);
+        this(mob, speedModifier, 18, 7, 120, true);
     }
 
     public PrehistoricWanderGoal(PathfinderMob mob, double speedModifier, boolean shouldAvoidWater) {
-        this(mob, speedModifier, 120, shouldAvoidWater);
+        this(mob, speedModifier, 18, 7, 120, shouldAvoidWater);
     }
 
-    public PrehistoricWanderGoal(PathfinderMob mob, double speedModifier, int interval, boolean shouldAvoidWater) {
+    public PrehistoricWanderGoal(PathfinderMob mob, double speedModifier, int radius, int height,  int interval, boolean shouldAvoidWater) {
         super(mob, speedModifier, interval, true);
         this.shouldAvoidWater = shouldAvoidWater;
+        this.radius = radius;
+        this.height = height;
     }
 
     @Nullable
@@ -31,13 +35,13 @@ public class PrehistoricWanderGoal extends RandomStrollGoal {
         if (shouldAvoidWater) {
             Vec3 randomPos;
             if (mob.isInWater()) {
-                randomPos = LandRandomPos.getPos(mob, 30, 8);
-                return randomPos == null ? LandRandomPos.getPos(mob, 18, 7) : randomPos;
+                randomPos = LandRandomPos.getPos(mob, radius, height);
+                return randomPos == null ? LandRandomPos.getPos(mob, radius, height) : randomPos;
             }
-            randomPos = mob.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(mob, 18, 7) : DefaultRandomPos.getPos(mob, 18, 7);
+            randomPos = mob.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(mob, radius, height) : DefaultRandomPos.getPos(mob, radius, height);
             return randomPos;
         } else {
-            return DefaultRandomPos.getPos(mob, 18, 7);
+            return DefaultRandomPos.getPos(mob, radius, height);
         }
     }
 }

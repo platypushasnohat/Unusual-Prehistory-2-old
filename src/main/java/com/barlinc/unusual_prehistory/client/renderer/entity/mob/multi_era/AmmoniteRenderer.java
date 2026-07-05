@@ -1,8 +1,8 @@
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic;
+package com.barlinc.unusual_prehistory.client.renderer.entity.mob.multi_era;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.multi_era.*;
 import com.barlinc.unusual_prehistory.entity.mob.multi_era.Ammonite;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

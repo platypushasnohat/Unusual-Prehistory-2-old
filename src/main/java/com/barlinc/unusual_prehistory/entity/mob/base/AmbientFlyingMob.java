@@ -18,14 +18,14 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public abstract class FlyingAmbientMob extends AmbientMob implements FlyingAnimal {
+public abstract class AmbientFlyingMob extends AmbientMob implements FlyingAnimal {
 
     protected float flightPitch = 0.0F;
     protected float prevFlightPitch = 0.0F;
     protected float flightRoll = 0.0F;
     protected float prevFlightRoll = 0.0F;
 
-    protected FlyingAmbientMob(EntityType<? extends AmbientMob> entityType, Level level) {
+    protected AmbientFlyingMob(EntityType<? extends AmbientMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -104,10 +104,10 @@ public abstract class FlyingAmbientMob extends AmbientMob implements FlyingAnima
 
     public static class FlyingWanderAroundGoal extends Goal {
 
-        private final FlyingAmbientMob ambientMob;
+        private final AmbientFlyingMob ambientMob;
         private final double speedModifier;
 
-        public FlyingWanderAroundGoal(FlyingAmbientMob ambientMob, double speedModifier) {
+        public FlyingWanderAroundGoal(AmbientFlyingMob ambientMob, double speedModifier) {
             this.ambientMob = ambientMob;
             this.speedModifier = speedModifier;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
@@ -144,9 +144,9 @@ public abstract class FlyingAmbientMob extends AmbientMob implements FlyingAnima
 
     public static class FlyingLookAroundGoal extends RandomLookAroundGoal {
 
-        private final FlyingAmbientMob ambientMob;
+        private final AmbientFlyingMob ambientMob;
 
-        public FlyingLookAroundGoal(FlyingAmbientMob ambientMob) {
+        public FlyingLookAroundGoal(AmbientFlyingMob ambientMob) {
             super(ambientMob);
             this.ambientMob = ambientMob;
         }

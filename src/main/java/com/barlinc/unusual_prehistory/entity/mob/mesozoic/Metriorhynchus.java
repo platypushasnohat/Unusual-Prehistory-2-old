@@ -8,7 +8,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_3.MetriorhynchusAttackGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -50,7 +50,7 @@
  import org.jetbrains.annotations.Nullable;
 
  @SuppressWarnings("deprecation")
- public class Metriorhynchus extends AmphibiousMob implements LeapingMob, GrabbingMob {
+ public class Metriorhynchus extends PrehistoricAmphibiousMob implements LeapingMob, GrabbingMob {
 
      private static final EntityDataAccessor<Integer> HELD_MOB_ID = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.BOOLEAN);
@@ -70,7 +70,7 @@
      public boolean grabAlt = false;
      public boolean attackAlt = false;
 
-     public Metriorhynchus(EntityType<? extends AmphibiousMob> entityType, Level level) {
+     public Metriorhynchus(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
@@ -94,7 +94,7 @@
          this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
          this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 3000, false));
          this.goalSelector.addGoal(7, new PrehistoricSwimGoal(this, 1.0D, 20, 3));
-         this.goalSelector.addGoal(7, new SemiAquaticWanderGoal(this, 1.0D));
+         this.goalSelector.addGoal(7, new AmphibiousWanderGoal(this, 1.0D));
          this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, false, 0.001F) {

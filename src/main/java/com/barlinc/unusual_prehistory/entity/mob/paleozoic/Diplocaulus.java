@@ -6,7 +6,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -55,7 +55,7 @@
 
  import java.util.EnumSet;
 
- public class Diplocaulus extends AmphibiousMob implements Bucketable, VariantHolder<Diplocaulus.DiplocaulusVariant> {
+ public class Diplocaulus extends PrehistoricAmphibiousMob implements Bucketable, VariantHolder<Diplocaulus.DiplocaulusVariant> {
 
      private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> SLIDING = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
@@ -65,7 +65,7 @@
      public final SmoothAnimationState quirkAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState boomerangAnimationState = new SmoothAnimationState(1.0F);
 
-     public Diplocaulus(EntityType<? extends AmphibiousMob> entityType, Level level) {
+     public Diplocaulus(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
          this.switchNavigator(true);
@@ -87,7 +87,7 @@
          this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new DiplocaulusSlideGoal(this, 2.0D));
          this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 80));
-         this.goalSelector.addGoal(5, new SemiAquaticWanderGoal(this, 1.0D) {
+         this.goalSelector.addGoal(5, new AmphibiousWanderGoal(this, 1.0D) {
              @Override
              public boolean canUse() {
                  return super.canUse() && !Diplocaulus.this.isSliding();
@@ -118,7 +118,7 @@
      }
 
      @Override
-     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+     protected PathNavigation createNavigation(Level level) {
          return new SmoothAmphibiousNavigation(this, level);
      }
 
@@ -135,17 +135,17 @@
      }
 
      @Override
-     public void travel(@NotNull Vec3 travelVec) {
+     public void travel(Vec3 travelVector) {
          if (this.refuseToMove() && this.onGround()) {
              if (this.getNavigation().getPath() != null) {
                  this.getNavigation().stop();
              }
-             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+             travelVector = travelVector.multiply(0.0, 1.0, 0.0);
          }
          if (this.isEffectiveAi() && this.isInWater()) {
-             UP2MobUtils.travelInWater(this, travelVec);
+             UP2MobUtils.travelInWater(this, travelVector);
          } else {
-             super.travel(travelVec);
+             super.travel(travelVector);
          }
      }
 

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -9,16 +9,16 @@ import net.minecraft.world.level.Level;
 
 public class LeaveWaterGoal extends Goal {
 
-    protected final AmphibiousMob amphibiousMob;
+    protected final PrehistoricAmphibiousMob amphibiousMob;
     protected final int maxTimeInWater;
     private final double speedModifier;
     private BlockPos landPos;
 
-    public LeaveWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
+    public LeaveWaterGoal(PrehistoricAmphibiousMob amphibiousMob, double speedModifier) {
         this(amphibiousMob, speedModifier, 6000);
     }
 
-    public LeaveWaterGoal(AmphibiousMob amphibiousMob, double speedModifier, int maxTimeInWater) {
+    public LeaveWaterGoal(PrehistoricAmphibiousMob amphibiousMob, double speedModifier, int maxTimeInWater) {
         this.speedModifier = speedModifier;
         this.amphibiousMob = amphibiousMob;
         this.maxTimeInWater = maxTimeInWater;

@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -43,7 +43,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Hesperornis extends AmphibiousMob implements VariantHolder<Hesperornis.HesperornisVariant> {
+public class Hesperornis extends PrehistoricAmphibiousMob implements VariantHolder<Hesperornis.HesperornisVariant> {
 
     private static final EntityDataAccessor<Integer> SWIM_TYPE = SynchedEntityData.defineId(Hesperornis.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Hesperornis.class, EntityDataSerializers.INT);
@@ -75,7 +75,7 @@ public class Hesperornis extends AmphibiousMob implements VariantHolder<Hesperor
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new EnterWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new SemiAquaticWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new AmphibiousWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 20));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));

@@ -3,8 +3,8 @@ package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterNavigation;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, PlayerRideableJumping {
+public class Ichthyosaurus extends PrehistoricSchoolingAquaticMob implements LeapingMob, PlayerRideableJumping {
 
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Ichthyosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DASHING = SynchedEntityData.defineId(Ichthyosaurus.class, EntityDataSerializers.BOOLEAN);
@@ -64,7 +64,7 @@ public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, Pl
 
     private boolean rollAlt = false;
 
-    public Ichthyosaurus(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
+    public Ichthyosaurus(EntityType<? extends PrehistoricSchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 10, 0.04F);
@@ -117,7 +117,7 @@ public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, Pl
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothWaterBoundNavigation(this, level, true);
+        return new SmoothWaterNavigation(this, level, true);
     }
 
     @Override

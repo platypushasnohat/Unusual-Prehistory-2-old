@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
 import com.mojang.datafixers.DataFixUtils;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -9,16 +9,16 @@ import java.util.function.Predicate;
 
 public class FollowVariantLeaderGoal extends Goal {
 
-    protected final SchoolingAquaticMob mob;
+    protected final PrehistoricSchoolingAquaticMob mob;
     private int timeToRecalcPath;
     private int nextStartTick;
 
-    public FollowVariantLeaderGoal(SchoolingAquaticMob mob) {
+    public FollowVariantLeaderGoal(PrehistoricSchoolingAquaticMob mob) {
         this.mob = mob;
         this.nextStartTick = this.nextStartTick(mob);
     }
 
-    protected int nextStartTick(SchoolingAquaticMob mob) {
+    protected int nextStartTick(PrehistoricSchoolingAquaticMob mob) {
         return reducedTickDelay(200 + mob.getRandom().nextInt(200) % 20);
     }
 
@@ -35,9 +35,9 @@ public class FollowVariantLeaderGoal extends Goal {
             return false;
         } else {
             this.nextStartTick = this.nextStartTick(mob);
-            Predicate<SchoolingAquaticMob> predicate = (fishy) -> fishy.canBeFollowed() || !fishy.isFollower();
-            List<? extends SchoolingAquaticMob> list = mob.level().getEntitiesOfClass(mob.getClass(), mob.getBoundingBox().inflate(10.0D, 10.0D, 10.0D), predicate);
-            SchoolingAquaticMob schoolingFish = DataFixUtils.orElse(list.stream().filter(SchoolingAquaticMob::canBeFollowed).findAny(), mob);
+            Predicate<PrehistoricSchoolingAquaticMob> predicate = (fishy) -> fishy.canBeFollowed() || !fishy.isFollower();
+            List<? extends PrehistoricSchoolingAquaticMob> list = mob.level().getEntitiesOfClass(mob.getClass(), mob.getBoundingBox().inflate(10.0D, 10.0D, 10.0D), predicate);
+            PrehistoricSchoolingAquaticMob schoolingFish = DataFixUtils.orElse(list.stream().filter(PrehistoricSchoolingAquaticMob::canBeFollowed).findAny(), mob);
             schoolingFish.addFollowers(list.stream().filter((fishy2) -> !fishy2.isFollower()));
             return mob.isFollower();
         }

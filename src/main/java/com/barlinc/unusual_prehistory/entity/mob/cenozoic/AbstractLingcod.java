@@ -35,7 +35,7 @@ public abstract class AbstractLingcod extends PrehistoricAquaticMob implements B
         super(entityType, level);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
-        this.switchNavigator(false);
+        this.switchShallowNavigation(false);
     }
 
     @Override

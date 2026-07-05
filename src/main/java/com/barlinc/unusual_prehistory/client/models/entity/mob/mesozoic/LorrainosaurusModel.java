@@ -7,9 +7,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unused, FieldCanBeLocal")
@@ -105,9 +105,8 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
     }
 
 	@Override
-	public void setupAnim(@NotNull Lorrainosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Lorrainosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;
 
         if (entity.isInWaterOrBubble()) {
@@ -120,7 +119,9 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
             this.animateWalk(LorrainosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        if (this.young) this.applyStatic(LorrainosaurusAnimations.BABY_TRANSFORM);
+        if (this.young) {
+            this.applyStatic(LorrainosaurusAnimations.BABY_TRANSFORM);
+        }
 
         this.animateIdleSmooth(entity.swimIdleAnimationState, LorrainosaurusAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
         this.animateIdleSmooth(entity.idleAnimationState, LorrainosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
@@ -133,15 +134,13 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
         this.animateSmooth(entity.grabAnimationState, LorrainosaurusAnimations.GRAB_BLEND, ageInTicks, partialTicks);
         this.animateSmooth(entity.aggroAnimationState, LorrainosaurusAnimations.AGGRO_BLEND, ageInTicks, partialTicks);
 
-        if (entity.isInWaterOrBubble()) {
-            this.swim_control.xRot = headPitch * deg;
-        }
-
+        this.swim_control.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
+        this.swim_control.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
         this.faceTarget(entity, netHeadYaw, headPitch, 4, head);
     }
 
     @Override
-    public @NotNull ModelPart root() {
+    public ModelPart root() {
         return this.root;
     }
 

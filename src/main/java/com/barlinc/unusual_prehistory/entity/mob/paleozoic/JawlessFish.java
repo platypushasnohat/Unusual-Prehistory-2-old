@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticNibbleBlockGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
-import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -45,11 +45,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class JawlessFish extends SchoolingAquaticMob implements Bucketable, VariantHolder<JawlessFish.JawlessFishVariant> {
+public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucketable, VariantHolder<JawlessFish.JawlessFishVariant> {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.INT);
 
-    public JawlessFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
+    public JawlessFish(EntityType<? extends PrehistoricSchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 10, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
@@ -92,7 +92,7 @@ public class JawlessFish extends SchoolingAquaticMob implements Bucketable, Vari
     }
 
     @Override
-    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
+    public void addFollowers(Stream<? extends PrehistoricSchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
             if (this.getVariant() == ((JawlessFish) entity2).getVariant() && !this.isBaby()) {
                 entity2.startFollowing(this);

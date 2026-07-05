@@ -5,7 +5,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.RandomUnderwaterSitGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
  import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
  import com.barlinc.unusual_prehistory.network.GiantCampanilePartPacket;
@@ -45,7 +45,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class GiantCampanile extends AmphibiousMob implements PlushableMob {
+ public class GiantCampanile extends PrehistoricAmphibiousMob implements PlushableMob {
 
      private static final EntityDataAccessor<Integer> MOISTNESS = SynchedEntityData.defineId(GiantCampanile.class, EntityDataSerializers.INT);
 
@@ -61,7 +61,7 @@
 
      private boolean wasPreviouslyBaby;
 
-     public GiantCampanile(EntityType<? extends AmphibiousMob> entityType, Level level) {
+     public GiantCampanile(EntityType<? extends PrehistoricAmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
          this.moveControl = new PrehistoricSwimmingMoveControl(this, 20, 85, 0.4F, 0.55F);

@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.cenozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.BreedableMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricBreedableMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -38,14 +38,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class Talpanas extends BreedableMob {
+public class Talpanas extends PrehistoricBreedableMob {
 
     public static final EntityDataAccessor<Integer> LIGHT_THRESHOLD = SynchedEntityData.defineId(Talpanas.class, EntityDataSerializers.INT);
 
     public final SmoothAnimationState flapAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState peckAnimationState = new SmoothAnimationState();
 
-    public Talpanas(EntityType<? extends BreedableMob> entityType, Level level) {
+    public Talpanas(EntityType<? extends PrehistoricBreedableMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 1.0F);
         this.setPathfindingMalus(PathType.LAVA, 1.0F);

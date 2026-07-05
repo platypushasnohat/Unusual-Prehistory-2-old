@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unused, FieldCanBeLocal")
@@ -118,19 +117,23 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
     }
 
 	@Override
-	public void setupAnim(@NotNull Prognathodon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Prognathodon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;
 
         if (entity.isInWaterOrBubble() || entity.isLeaping()) {
-            if (entity.isRunning()) this.animateWalk(PrognathodonAnimations.SWIMFAST, limbSwing, limbSwingAmount, 1.5F, 3);
-            else this.animateWalk(PrognathodonAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+            if (entity.isRunning()) {
+                this.animateWalk(PrognathodonAnimations.SWIMFAST, limbSwing, limbSwingAmount, 1.5F, 3);
+            } else {
+                this.animateWalk(PrognathodonAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+            }
         } else {
             this.animateWalk(PrognathodonAnimations.CRAWL, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        if (this.young) this.applyStatic(PrognathodonAnimations.BABY_TRANSFORM);
+        if (this.young) {
+            this.applyStatic(PrognathodonAnimations.BABY_TRANSFORM);
+        }
 
         this.animateIdleSmooth(entity.swimIdleAnimationState, PrognathodonAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
         this.animateIdleSmooth(entity.idleAnimationState, PrognathodonAnimations.BEACHED, ageInTicks, partialTicks, limbSwingAmount, 4);
@@ -141,21 +144,18 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
         this.animateSmooth(entity.nip1AnimationState, PrognathodonAnimations.NIP_BLEND1, ageInTicks, partialTicks);
         this.animateSmooth(entity.nip2AnimationState, PrognathodonAnimations.NIP_BLEND2, ageInTicks, partialTicks);
 
-        if (entity.isInWaterOrBubble() && !entity.isLeaping()) {
-            this.swim_control.xRot = headPitch * deg / 2;
-        } else if (entity.isLeaping()) {
-            this.swim_control.xRot = headPitch * deg;
-        }
-
         this.faceTarget(entity, netHeadYaw, headPitch, 3, neck, head);
 
-        float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.35F);
-        this.tail_fluke.yRot = Mth.lerp(0.2F, this.tail_fluke.yRot, tailYaw * 0.1F);
+        this.swim_control.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
+        this.swim_control.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
+        this.tail.yRot += entity.getTailYaw(partialTicks) * Mth.DEG_TO_RAD;
+        this.tail.xRot += entity.getTailPitch(partialTicks) * Mth.DEG_TO_RAD;
+        this.tail_fluke.yRot += entity.getTailYaw(partialTicks) * 0.15F * Mth.DEG_TO_RAD;
+        this.tail_fluke.xRot += entity.getTailPitch(partialTicks) * 0.15F * Mth.DEG_TO_RAD;
     }
 
     @Override
-    public @NotNull ModelPart root() {
-        return this.root;
+    public ModelPart root() {
+        return root;
     }
 }

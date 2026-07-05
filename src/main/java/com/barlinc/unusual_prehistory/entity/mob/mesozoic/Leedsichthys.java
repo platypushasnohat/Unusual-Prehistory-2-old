@@ -61,7 +61,7 @@ public class Leedsichthys extends PrehistoricAquaticMob {
 
     public Leedsichthys(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(false);
+        this.switchShallowNavigation(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 45, 4, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 6);
         this.headPart = new LeedsichthysPart(this);

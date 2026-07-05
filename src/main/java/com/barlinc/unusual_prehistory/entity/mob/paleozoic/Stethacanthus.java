@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.paleozoic;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -34,11 +34,11 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
+public class Stethacanthus extends PrehistoricSchoolingAquaticMob implements Bucketable {
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
 
-    public Stethacanthus(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
+    public Stethacanthus(EntityType<? extends PrehistoricSchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);

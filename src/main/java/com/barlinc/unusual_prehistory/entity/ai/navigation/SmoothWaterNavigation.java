@@ -10,15 +10,15 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class SmoothWaterBoundNavigation extends WaterBoundPathNavigation implements ExtendedNavigator {
+public class SmoothWaterNavigation extends WaterBoundPathNavigation implements ExtendedNavigator {
 
     protected final boolean canBreach;
 
-    public SmoothWaterBoundNavigation(Mob mob, Level level) {
+    public SmoothWaterNavigation(Mob mob, Level level) {
         this(mob, level, false);
     }
 
-    public SmoothWaterBoundNavigation(Mob mob, Level level, boolean canBreach) {
+    public SmoothWaterNavigation(Mob mob, Level level, boolean canBreach) {
         super(mob, level);
         this.canBreach = canBreach;
     }

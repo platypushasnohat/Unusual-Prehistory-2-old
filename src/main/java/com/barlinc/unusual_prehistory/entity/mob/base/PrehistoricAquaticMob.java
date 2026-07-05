@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
@@ -12,11 +12,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
 
 @SuppressWarnings("deprecation")
@@ -24,12 +22,12 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
 
     public boolean shallowWater;
 
-    public float tilt;
-    public float prevTilt;
-    public float roll;
-    public float prevRoll;
-    private float lastYRot;
-    private Vec3 lastMoveDir = Vec3.ZERO;
+    protected float tilt;
+    protected float prevTilt;
+    protected float roll;
+    protected float prevRoll;
+    protected float lastYRot;
+    protected Vec3 lastMoveDir = Vec3.ZERO;
 
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState flopAnimationState = new SmoothAnimationState();
@@ -41,10 +39,10 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
 
     @Override
     protected PathNavigation createNavigation(Level level) {
-        return new SmoothWaterBoundNavigation(this, level);
+        return new SmoothWaterNavigation(this, level);
     }
 
-    protected void switchNavigator(boolean inShallows) {
+    protected void switchShallowNavigation(boolean inShallows) {
         this.navigation.stop();
         if (inShallows) {
             this.navigation = new SmoothAmphibiousNavigation(this, this.level());
@@ -57,7 +55,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
 
     @Override
     public boolean canDrownInFluidType(FluidType fluidType) {
-        return fluidType != NeoForgeMod.WATER_TYPE.value();
+        return false;
     }
 
     @Override
@@ -70,11 +68,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
     }
 
     @Override
-    public boolean checkSpawnObstruction(LevelReader level) {
-        return level.isUnobstructed(this);
-    }
-
-    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
     }
 
@@ -82,7 +75,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
         return SoundEvents.COD_FLOP;
     }
 
-    @SuppressWarnings("SameParameterValue")
     protected void tickRotations(float maxTilt, float maxRoll, float rollPerYaw) {
         // tilt
         this.prevTilt = tilt;
@@ -129,9 +121,9 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
     protected void fixShallowNavigation() {
         final boolean shallowWater = this.isInShallowWater();
         if (shallowWater && !this.shallowWater) {
-            this.switchNavigator(true);
+            this.switchShallowNavigation(true);
         } else if (!shallowWater && this.shallowWater) {
-            this.switchNavigator(false);
+            this.switchShallowNavigation(false);
         }
     }
 

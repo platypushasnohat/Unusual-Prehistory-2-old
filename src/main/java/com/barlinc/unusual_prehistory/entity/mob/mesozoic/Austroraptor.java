@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class Austroraptor extends AmphibiousMob {
+public class Austroraptor extends PrehistoricAmphibiousMob {
 
     private static final EntityDataAccessor<Integer> SHEARED_TICKS = SynchedEntityData.defineId(Austroraptor.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> HATED_UUID = SynchedEntityData.defineId(Austroraptor.class, EntityDataSerializers.OPTIONAL_UUID);
