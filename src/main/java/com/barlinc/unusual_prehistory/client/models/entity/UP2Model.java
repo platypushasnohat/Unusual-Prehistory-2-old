@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import java.util.function.Function;
@@ -42,7 +41,7 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer consumer, int packedLight, int packedOverlay, int color) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer consumer, int packedLight, int packedOverlay, int color) {
         poseStack.pushPose();
         if (young) {
             poseStack.scale(youngScaleFactor, youngScaleFactor, youngScaleFactor);
@@ -66,12 +65,12 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
     }
 
     @Override
-    protected void animate(@NotNull AnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks) {
+    protected void animate(AnimationState animationState, AnimationDefinition definition, float ageInTicks) {
         this.animate(animationState, definition, ageInTicks, 1.0F);
     }
 
     @Override
-    protected void animateWalk(@NotNull AnimationDefinition definition, float limbSwing, float limbSwingAmount, float maxAnimationSpeed, float animationScaleFactor) {
+    protected void animateWalk(AnimationDefinition definition, float limbSwing, float limbSwingAmount, float maxAnimationSpeed, float animationScaleFactor) {
         if (limbSwingAmount < 0.01F || limbSwing < 0.01F) {
             return;
         }
@@ -80,7 +79,7 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         KeyframeAnimations.animate(this, definition, i, f, UP2Model.ANIMATION_VECTOR_CACHE);
     }
 
-    protected void animate(AnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float speed) {
+    protected void animate(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float speed) {
         if (!animationState.isStarted()) {
             return;
         }
@@ -88,32 +87,32 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         KeyframeAnimations.animate(this, definition, animationState.getAccumulatedTime(), 1.0F, UP2Model.ANIMATION_VECTOR_CACHE);
     }
 
-    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount) {
+    protected void animateIdleSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount) {
         if (!animationState.isActive(partialTicks)) {
             return;
         }
         animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, 1.5F, 1.0F);
     }
 
-    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor) {
+    protected void animateIdleSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor) {
         if (!animationState.isActive(partialTicks)) {
             return;
         }
         animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, 1.0F);
     }
 
-    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, float speed) {
+    protected void animateIdleSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, float speed) {
         if (!animationState.isActive(partialTicks)) {
             return;
         }
         animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, speed);
     }
 
-    protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks) {
+    protected void animateSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks) {
         this.animateSmooth(animationState, definition, ageInTicks, partialTicks, 1.0F);
     }
 
-    protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float speed) {
+    protected void animateSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks, float speed) {
         if (!animationState.isActive(partialTicks)) {
             return;
         }
@@ -121,7 +120,7 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
     }
 
     @Override
-    protected void applyStatic(@NotNull AnimationDefinition definition) {
+    protected void applyStatic(AnimationDefinition definition) {
         KeyframeAnimations.animate(this, definition, 0L, 1.0F, UP2Model.ANIMATION_VECTOR_CACHE);
     }
 

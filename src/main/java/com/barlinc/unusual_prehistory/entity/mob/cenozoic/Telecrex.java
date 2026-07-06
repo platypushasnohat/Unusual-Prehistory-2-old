@@ -25,7 +25,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -78,18 +77,18 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVec) {
+    public void travel(Vec3 travelVector) {
         if (this.refuseToMove() && this.onGround()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
             }
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+            travelVector = travelVector.multiply(0.0, 1.0, 0.0);
         }
-        super.travel(travelVec);
+        super.travel(travelVector);
     }
 
     @Override
-    public boolean hurt(@NotNull DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         boolean hurt = super.hurt(source, amount);
         if (hurt && source.getEntity() != null && this.isAlive() && source.getEntity() instanceof LivingEntity livingEntity) {
             double range = 8;
@@ -177,9 +176,8 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     public boolean hasSplat() {
-        return this.entityData.get(SPLAT);
+        return entityData.get(SPLAT);
     }
-
     public void setSplat(boolean splat) {
         this.entityData.set(SPLAT, splat);
     }
@@ -202,7 +200,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.TELECREX_HURT.get();
     }
 
@@ -214,12 +212,12 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.TELECREX.get().create(serverLevel);
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+        return UP2Entities.TELECREX.get().create(level);
     }
 
     @Override
-    public @NotNull AABB getBoundingBoxForCulling() {
+    public AABB getBoundingBoxForCulling() {
         return this.getBoundingBox().inflate(3, 3, 3);
     }
 

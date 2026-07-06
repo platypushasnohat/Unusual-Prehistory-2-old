@@ -325,6 +325,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.SALTOPUS_RECIPE_MAPPINGS).add(SALTOPUS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.DIICTODON_RECIPE_MAPPINGS).add(DIICTODON_SPAWN_EGG.get());
         this.tag(UP2ItemTags.NIHOHAE_RECIPE_MAPPINGS).add(NIHOHAE_SPAWN_EGG.get(), DOLPHIN_FOSSIL.get(), NIHOHAE_EMBRYO.get());
+        this.tag(UP2ItemTags.DIMORPHODON_RECIPE_MAPPINGS).add(DIMORPHODON_SPAWN_EGG.get());
 
         this.tag(UP2ItemTags.PLANTS).add(
                 Blocks.SHORT_GRASS.asItem(),

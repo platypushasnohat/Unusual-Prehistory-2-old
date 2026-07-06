@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-04T22:25:41.6934163	Item Models: unusual_prehistory
+// 1.21.1	2026-07-05T19:36:02.416132	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -58,6 +58,7 @@ fd6d8d41d1232633e4272ebd13da1d2632c057f5 assets/unusual_prehistory/models/item/c
 12024720f11a1469553e274f206f3ee831c3678f assets/unusual_prehistory/models/item/desmatosuchus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/desmatosuchus_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/diictodon_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dimorphodon_spawn_egg.json
 da447bb260bd31be75dcabef54ca34e72a8b39e5 assets/unusual_prehistory/models/item/diplocaulus_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/diplocaulus_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dire_wolf_spawn_egg.json

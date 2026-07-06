@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
@@ -23,7 +22,7 @@ public class AnurognathusRenderer extends MobRenderer<Anurognathus, Anurognathus
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(Anurognathus entity) {
+    public ResourceLocation getTextureLocation(Anurognathus entity) {
         Anurognathus.AnurognathusVariant variant = Anurognathus.AnurognathusVariant.byId(entity.getVariant().getId());
         return UnusualPrehistory2.modPrefix("textures/entity/mob/anurognathus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }

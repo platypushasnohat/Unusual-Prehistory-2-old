@@ -1,6 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWallClimberNavigation;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -10,15 +12,16 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public abstract class PrehistoricClimbingMob extends PrehistoricMob {
+public abstract class PrehistoricClimbingFlyingMob extends PrehistoricFlyingMob {
 
-    private static final EntityDataAccessor<Boolean> CLIMBING = SynchedEntityData.defineId(PrehistoricClimbingMob.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Direction> CLIMB_DIRECTION = SynchedEntityData.defineId(PrehistoricClimbingMob.class, EntityDataSerializers.DIRECTION);
+    private static final EntityDataAccessor<Boolean> CLIMBING = SynchedEntityData.defineId(PrehistoricClimbingFlyingMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Direction> CLIMB_DIRECTION = SynchedEntityData.defineId(PrehistoricClimbingFlyingMob.class, EntityDataSerializers.DIRECTION);
+
+    public final SmoothAnimationState climbAnimationState = new SmoothAnimationState();
 
     public float climbProgress;
     public float prevClimbProgress;
@@ -26,14 +29,14 @@ public abstract class PrehistoricClimbingMob extends PrehistoricMob {
     public int climbTicks = 0;
     private int climbCooldown = 0;
 
-    protected PrehistoricClimbingMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
+    protected PrehistoricClimbingFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.lookControl = new ClimbingLookControl(this);
+        this.lookControl = new FlyingClimbingLookControl(this);
     }
 
     @Override
     protected PathNavigation createNavigation(Level level) {
-        return new WallClimberNavigation(this, level);
+        return new SmoothWallClimberNavigation(this, level);
     }
 
     @Override
@@ -44,7 +47,7 @@ public abstract class PrehistoricClimbingMob extends PrehistoricMob {
 
     @SuppressWarnings("deprecation")
     public void tickClimbing() {
-        if (level().isClientSide) {
+        if (this.level().isClientSide) {
             this.prevClimbProgress = climbProgress;
             if (this.isClimbing() && climbProgress < 5F) climbProgress++;
             if (!this.isClimbing() && climbProgress > 0F) climbProgress--;
@@ -134,7 +137,7 @@ public abstract class PrehistoricClimbingMob extends PrehistoricMob {
 
     @Override
     public boolean onClimbable() {
-        return this.isClimbing();
+        return this.isClimbing() && !this.isFlying();
     }
 
     @Override
@@ -149,11 +152,11 @@ public abstract class PrehistoricClimbingMob extends PrehistoricMob {
         super.onSyncedDataUpdated(accessor);
     }
 
-    protected static class ClimbingLookControl extends PrehistoricLookControl {
+    protected static class FlyingClimbingLookControl extends PrehistoricLookControl {
 
-        protected final PrehistoricClimbingMob mob;
+        protected final PrehistoricClimbingFlyingMob mob;
 
-        public ClimbingLookControl(PrehistoricClimbingMob mob) {
+        public FlyingClimbingLookControl(PrehistoricClimbingFlyingMob mob) {
             super(mob);
             this.mob = mob;
         }

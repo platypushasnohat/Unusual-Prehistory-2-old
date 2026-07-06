@@ -160,6 +160,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> SALTOPUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/saltopus");
     public static final TagKey<Item> DIICTODON_RECIPE_MAPPINGS = modItemTag("recipe_mappings/diictodon");
     public static final TagKey<Item> NIHOHAE_RECIPE_MAPPINGS = modItemTag("recipe_mappings/nihohae");
+    public static final TagKey<Item> DIMORPHODON_RECIPE_MAPPINGS = modItemTag("recipe_mappings/dimorphodon");
 
     public static final TagKey<Item> DIET_CARNIVORE = modItemTag("diet/carnivore");
     public static final TagKey<Item> DIET_HERBIVORE = modItemTag("diet/herbivore");

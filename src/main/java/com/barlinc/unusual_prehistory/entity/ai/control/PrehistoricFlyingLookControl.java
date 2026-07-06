@@ -15,20 +15,20 @@ public class PrehistoricFlyingLookControl extends LookControl {
 
 	@Override
 	public void tick() {
-		if (this.lookAtCooldown > 0) {
+		if (lookAtCooldown > 0) {
 			this.lookAtCooldown--;
-			this.getYRotD().ifPresent(f -> this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, f + 40.0F, this.yMaxRotSpeed));
-			this.getXRotD().ifPresent(f -> this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), f + 2.0F, this.xMaxRotAngle)));
+			this.getYRotD().ifPresent(f -> mob.yHeadRot = this.rotateTowards(mob.yHeadRot, f + 40.0F, yMaxRotSpeed));
+			this.getXRotD().ifPresent(f -> mob.setXRot(this.rotateTowards(mob.getXRot(), f + 2.0F, xMaxRotAngle)));
 		} else {
-			if (this.mob.getNavigation().isDone()) {
-				this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0.0F, 10.0F));
+			if (mob.getNavigation().isDone()) {
+				this.mob.setXRot(this.rotateTowards(mob.getXRot(), 0.0F, 10.0F));
 			}
-			this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
+			this.mob.yHeadRot = this.rotateTowards(mob.yHeadRot, mob.yBodyRot, yMaxRotSpeed);
 		}
-		float f = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
-		if (f < -this.maxYRotFromCenter) {
+		float f = Mth.wrapDegrees(mob.yHeadRot - mob.yBodyRot);
+		if (f < -maxYRotFromCenter) {
 			this.mob.yBodyRot -= 8.0F;
-		} else if (f > this.maxYRotFromCenter) {
+		} else if (f > maxYRotFromCenter) {
 			this.mob.yBodyRot += 8.0F;
 		}
 	}

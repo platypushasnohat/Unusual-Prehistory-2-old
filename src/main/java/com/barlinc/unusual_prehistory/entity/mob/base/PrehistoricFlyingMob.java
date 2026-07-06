@@ -14,7 +14,6 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class PrehistoricFlyingMob extends PrehistoricMob implements FlyingAnimal {
 
@@ -59,14 +58,14 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
-    protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
         if (!this.canFly()) {
             super.checkFallDamage(y, onGround, state, pos);
         }
     }
 
     @Override
-    public boolean canTrample(@NotNull BlockState state, @NotNull BlockPos pos, float fallDistance) {
+    public boolean canTrample(BlockState state, BlockPos pos, float fallDistance) {
         return !this.canFly();
     }
 
@@ -102,23 +101,23 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.stuckTicks = 0;
         }
 
-        if (this.isFlying() && this.horizontalCollision) {
+        if (this.isFlying() && horizontalCollision) {
             this.addDeltaMovement(new Vec3(0.0F, 0.15D, 0.0F));
         }
-        if (this.flightTicks > 20 && this.isFlying() && (this.isInWaterOrBubble() || this.verticalCollision || !this.canFly() || this.stuckTicks > 10)) {
+        if (this.flightTicks > 20 && this.isFlying() && (this.isInWaterOrBubble() || verticalCollision || !this.canFly() || stuckTicks > 10)) {
             this.switchNavigator(true);
         }
 
         if (this.isFlying()) {
             this.flightTicks++;
             this.setNoGravity(true);
-            if (this.isLandNavigator) {
+            if (isLandNavigator) {
                 this.switchNavigator(false);
             }
         } else {
             this.flightTicks = 0;
             this.setNoGravity(false);
-            if (!this.isLandNavigator) {
+            if (!isLandNavigator) {
                 this.switchNavigator(true);
             }
         }
@@ -129,28 +128,28 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     public void tickRotation(float yMov) {
-        this.prevFlightPitch = this.flightPitch;
-        this.prevFlightRoll = this.flightRoll;
+        this.prevFlightPitch = flightPitch;
+        this.prevFlightRoll = flightRoll;
         this.flightPitch = yMov;
         float threshold = 1.0F;
         boolean flag = false;
-        if (this.isFlying() && this.yRotO - this.getYRot() > threshold) {
+        if (this.isFlying() && yRotO - this.getYRot() > threshold) {
             this.flightRoll += 2.0F;
             flag = true;
         }
-        if (this.isFlying() && this.yRotO - this.getYRot() < -threshold) {
+        if (this.isFlying() && yRotO - this.getYRot() < -threshold) {
             this.flightRoll -= 2.0F;
             flag = true;
         }
         if (!flag) {
-            if (this.flightRoll > 0.0F) {
-                this.flightRoll = Math.max(this.flightRoll - 2.0F, 0.0F);
+            if (flightRoll > 0.0F) {
+                this.flightRoll = Math.max(flightRoll - 2.0F, 0.0F);
             }
-            if (this.flightRoll < 0.0F) {
-                this.flightRoll = Math.min(this.flightRoll + 2.0F, 0.0F);
+            if (flightRoll < 0.0F) {
+                this.flightRoll = Math.min(flightRoll + 2.0F, 0.0F);
             }
         }
-        this.flightRoll = Mth.clamp(this.flightRoll, -40.0F, 40.0F);
+        this.flightRoll = Mth.clamp(flightRoll, -40.0F, 40.0F);
     }
 
     @Override
