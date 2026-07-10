@@ -6,7 +6,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SmoothWallClimberNavigation extends WallClimberNavigation implements ExtendedNavigator {
@@ -20,17 +19,17 @@ public class SmoothWallClimberNavigation extends WallClimberNavigation implement
         return mob;
     }
 
-    @Nullable
     @Override
+    @Nullable
     public Path getPath() {
         return super.getPath();
     }
 
     @Override
-    protected @NotNull PathFinder createPathFinder(int maxVisitedNodes) {
+    protected PathFinder createPathFinder(int maxVisitedNodes) {
         this.nodeEvaluator = new WalkNodeEvaluator();
         this.nodeEvaluator.setCanPassDoors(true);
-        return createSmoothPathFinder(nodeEvaluator, maxVisitedNodes);
+        return this.createSmoothPathFinder(nodeEvaluator, maxVisitedNodes);
     }
 
     @Override

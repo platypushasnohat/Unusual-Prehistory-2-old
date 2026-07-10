@@ -126,7 +126,6 @@ public class UP2ItemTags {
     // Update 6
     public static final TagKey<Item> AMMONITE_RECIPE_MAPPINGS = modItemTag("recipe_mappings/ammonite");
     public static final TagKey<Item> ANTARCTOPELTA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/antarctopelta");
-    public static final TagKey<Item> ANUROGNATHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/anurognathus");
     public static final TagKey<Item> ARTHROPLEURA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/arthropleura");
     public static final TagKey<Item> AUSTRORAPTOR_RECIPE_MAPPINGS = modItemTag("recipe_mappings/austroraptor");
     public static final TagKey<Item> BRONTOSCORPIO_RECIPE_MAPPINGS = modItemTag("recipe_mappings/brontoscorpio");
@@ -153,14 +152,10 @@ public class UP2ItemTags {
     public static final TagKey<Item> HESPERORNIS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/hesperornis");
     public static final TagKey<Item> AQUILOLAMNA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/aquilolamna");
     public static final TagKey<Item> CAMEROCERAS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/cameroceras");
-    public static final TagKey<Item> BANANOGMIUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/bananogmius");
-    public static final TagKey<Item> COELOPHYSIS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/coelophysis");
     public static final TagKey<Item> DIRE_WOLF_RECIPE_MAPPINGS = modItemTag("recipe_mappings/dire_wolf");
     public static final TagKey<Item> HENODUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/henodus");
     public static final TagKey<Item> SALTOPUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/saltopus");
-    public static final TagKey<Item> DIICTODON_RECIPE_MAPPINGS = modItemTag("recipe_mappings/diictodon");
     public static final TagKey<Item> NIHOHAE_RECIPE_MAPPINGS = modItemTag("recipe_mappings/nihohae");
-    public static final TagKey<Item> DIMORPHODON_RECIPE_MAPPINGS = modItemTag("recipe_mappings/dimorphodon");
 
     public static final TagKey<Item> DIET_CARNIVORE = modItemTag("diet/carnivore");
     public static final TagKey<Item> DIET_HERBIVORE = modItemTag("diet/herbivore");

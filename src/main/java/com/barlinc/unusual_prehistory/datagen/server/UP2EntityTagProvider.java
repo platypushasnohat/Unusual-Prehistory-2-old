@@ -176,8 +176,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 RHIZODUS.get(),
                 ARTHROPLEURA.get(),
                 AMMONITE.get(),
-                CAMEROCERAS.get(),
-                DIICTODON.get()
+                CAMEROCERAS.get()
         );
 
         this.tag(UP2EntityTags.MESOZOIC_MOBS).add(
@@ -205,12 +204,10 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 SHRINGASAURUS.get(),
                 TUSOTEUTHIS.get(),
                 LEEDSICHTHYS.get(),
-                ANUROGNATHUS.get(),
                 AUSTRORAPTOR.get(),
                 PACHYRHINOSAURUS.get(),
                 HESPERORNIS.get(),
                 AQUILOLAMNA.get(),
-                BANANOGMIUS.get(),
                 HENODUS.get(),
                 SALTOPUS.get()
         );

@@ -64,7 +64,6 @@ public class UP2RecipeProvider extends RecipeProvider {
 
         // Update 6
         transmogrification(output, UP2Items.SPIRAL_FOSSIL, AMMONITE_EGGS, 800, 0.5F);
-        transmogrification(output, UP2Items.SHORT_WING_FOSSIL, UP2Items.ANUROGNATHUS_EGG, 1200, 1.0F);
         transmogrification(output, UP2Items.GRACILE_FOSSIL, UP2Items.AUSTRORAPTOR_EGG, 1200, 1.0F);
         transmogrification(output, UP2Items.THUNDEROUS_FOSSIL, UP2Items.BRONTOSCORPIO_EMBRYO, 1200, 1.0F);
         transmogrification(output, UP2Items.CONCAVE_FOSSIL, CONCAVENATOR_EGG, 1200, 1.0F);

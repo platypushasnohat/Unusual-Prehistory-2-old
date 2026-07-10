@@ -584,10 +584,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("entity.unusual_prehistory.gastric_brooding_frog.variant_warm", "Warm");
         this.add("entity.unusual_prehistory.gastric_brooding_frog.variant_cold", "Cold");
 
-        // Future
-        this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
-        this.addItem(UP2Items.LUCA, "L.U.C.A");
-
         // Progression & Misc Advancements
         this.translateAdvancement("root", "Unusual Prehistory", "Revive creatures from the ancient past!");
         this.translateAdvancement("obtain_fossil", "Rock and Bone", "Use a Brush to uncover fossils at a Fossil Site or Tar Pit");
@@ -623,7 +619,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("holocene_root", "Holocene Epoch", "Holocene epoch creatures");
 
         this.translateAdvancement("revive_aegirocassis", "Vessel of God", "Revive an Aegirocassis");
-        this.translateAdvancement("revive_anurognathus", "Bane of Bees", "Revive an Anurognathus");
         this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
         this.translateAdvancement("revive_brontoscorpio", "Thunder Claw", "Revive a Brontoscorpio");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");

@@ -161,8 +161,7 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
         AdvancementHolder reviveLystrosaurus = reviveMobAdvancement(reviveDesmatosuchus, UP2Blocks.LYSTROSAURUS_EGG.get(), UP2Entities.LYSTROSAURUS.get(), consumer, helper);
 
         // Jurassic
-        AdvancementHolder reviveAnurognathus = reviveMobAdvancement(jurassicRoot, UP2Items.ANUROGNATHUS_EGG.get(), UP2Entities.ANUROGNATHUS.get(), consumer, helper);
-        AdvancementHolder reviveBrachiosaurus = reviveMobAdvancement(reviveAnurognathus, UP2Blocks.BRACHIOSAURUS_EGG.get(), UP2Entities.BRACHIOSAURUS.get(), consumer, helper);
+        AdvancementHolder reviveBrachiosaurus = reviveMobAdvancement(jurassicRoot, UP2Blocks.BRACHIOSAURUS_EGG.get(), UP2Entities.BRACHIOSAURUS.get(), consumer, helper);
         AdvancementHolder reviveCryptoclidus = reviveMobAdvancement(reviveBrachiosaurus, UP2Items.CRYPTOCLIDUS_EMBRYO.get(), UP2Entities.CRYPTOCLIDUS.get(), consumer, helper);
         AdvancementHolder reviveKentrosaurus = reviveMobAdvancement(reviveCryptoclidus, UP2Blocks.KENTROSAURUS_EGG.get(), UP2Entities.KENTROSAURUS.get(), consumer, helper);
         AdvancementHolder reviveKimmeridgebrachypteraeschnidium = reviveMobAdvancement(reviveKentrosaurus, UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), consumer, helper);

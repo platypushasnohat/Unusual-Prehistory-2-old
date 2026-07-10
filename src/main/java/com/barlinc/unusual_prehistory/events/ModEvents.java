@@ -33,7 +33,6 @@ public class ModEvents {
         event.put(UP2Entities.CAMEROCERAS.get(), Cameroceras.createAttributes().build());
         event.put(UP2Entities.COELACANTHUS.get(), Coelacanthus.createAttributes().build());
         event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());
-        event.put(UP2Entities.DIICTODON.get(), Diictodon.createAttributes().build());
         event.put(UP2Entities.DIPLOCAULUS.get(), Diplocaulus.createAttributes().build());
         event.put(UP2Entities.DUNKLEOSTEUS.get(), Dunkleosteus.createAttributes().build());
         event.put(UP2Entities.HIBBERTOPTERUS.get(), Hibbertopterus.createAttributes().build());
@@ -46,17 +45,13 @@ public class ModEvents {
 
         // Mesozoic
         event.put(UP2Entities.ANTARCTOPELTA.get(), Antarctopelta.createAttributes().build());
-        event.put(UP2Entities.ANUROGNATHUS.get(), Anurognathus.createAttributes().build());
         event.put(UP2Entities.AQUILOLAMNA.get(), Aquilolamna.createAttributes().build());
         event.put(UP2Entities.AUSTRORAPTOR.get(), Austroraptor.createAttributes().build());
-        event.put(UP2Entities.BANANOGMIUS.get(), Bananogmius.createAttributes().build());
         event.put(UP2Entities.BRACHIOSAURUS.get(), Brachiosaurus.createAttributes().build());
         event.put(UP2Entities.CARNOTAURUS.get(), Carnotaurus.createAttributes().build());
-        event.put(UP2Entities.COELOPHYSIS.get(), Coelophysis.createAttributes().build());
         event.put(UP2Entities.CONCAVENATOR.get(), Concavenator.createAttributes().build());
         event.put(UP2Entities.CRYPTOCLIDUS.get(), Cryptoclidus.createAttributes().build());
         event.put(UP2Entities.DESMATOSUCHUS.get(), Desmatosuchus.createAttributes().build());
-        event.put(UP2Entities.DIMORPHODON.get(), Dimorphodon.createAttributes().build());
         event.put(UP2Entities.DROMAEOSAURUS.get(), Dromaeosaurus.createAttributes().build());
         event.put(UP2Entities.HENODUS.get(), Henodus.createAttributes().build());
         event.put(UP2Entities.HESPERORNIS.get(), Hesperornis.createAttributes().build());

@@ -109,14 +109,10 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation HESPERORNIS = mainLayer("hesperornis");
     public static final ModelLayerLocation AQUILOLAMNA = mainLayer("aquilolamna");
     public static final ModelLayerLocation CAMEROCERAS = mainLayer("cameroceras");
-    public static final ModelLayerLocation BANANOGMIUS = mainLayer("bananogmius");
-    public static final ModelLayerLocation COELOPHYSIS = mainLayer("coelophysis");
     public static final ModelLayerLocation DIRE_WOLF = mainLayer("dire_wolf");
     public static final ModelLayerLocation HENODUS = mainLayer("henodus");
     public static final ModelLayerLocation SALTOPUS = mainLayer("saltopus");
-    public static final ModelLayerLocation DIICTODON = mainLayer("diictodon");
     public static final ModelLayerLocation NIHOHAE = mainLayer("nihohae");
-    public static final ModelLayerLocation DIMORPHODON = mainLayer("dimorphodon");
 
     @SuppressWarnings("SameParameterValue")
     private static ModelLayerLocation registerLayer(String id, String name) {

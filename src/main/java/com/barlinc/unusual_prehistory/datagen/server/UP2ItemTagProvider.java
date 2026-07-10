@@ -163,7 +163,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
                 GRACILE_FOSSIL.get(),
                 SNOW_SHOVEL_FOSSIL.get(),
-                SHORT_WING_FOSSIL.get(),
                 IMPERVIOUS_FOSSIL.get(),
                 FLAT_BACK_FOSSIL.get(),
                 ARM_FOSSIL.get(),
@@ -240,7 +239,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.CAMEROCERAS_EGGS.asItem()
         );
         this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
-                ANUROGNATHUS_EGG.get(),
                 AUSTRORAPTOR_EGG.get(),
                 UP2Blocks.BRACHIOSAURUS_EGG.asItem(),
                 UP2Blocks.CARNOTAURUS_EGG.asItem(),
@@ -291,7 +289,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         // Update 6
         this.tag(UP2ItemTags.AMMONITE_RECIPE_MAPPINGS).add(AMMONITE_SPAWN_EGG.get(), SPIRAL_FOSSIL.get(), UP2Blocks.AMMONITE_EGGS.asItem());
         this.tag(UP2ItemTags.ANTARCTOPELTA_RECIPE_MAPPINGS).add(ANTARCTOPELTA_SPAWN_EGG.get(), SNOW_SHOVEL_FOSSIL.get());
-        this.tag(UP2ItemTags.ANUROGNATHUS_RECIPE_MAPPINGS).add(ANUROGNATHUS_SPAWN_EGG.get(), SHORT_WING_FOSSIL.get(), ANUROGNATHUS_EGG.get());
         this.tag(UP2ItemTags.ARTHROPLEURA_RECIPE_MAPPINGS).add(ARTHROPLEURA_SPAWN_EGG.get(), FORCIPULE_FOSSIL.get());
         this.tag(UP2ItemTags.AUSTRORAPTOR_RECIPE_MAPPINGS).add(AUSTRORAPTOR_SPAWN_EGG.get(), GRACILE_FOSSIL.get(), AUSTRORAPTOR_EGG.get());
         this.tag(UP2ItemTags.BRONTOSCORPIO_RECIPE_MAPPINGS).add(BRONTOSCORPIO_SPAWN_EGG.get(), THUNDEROUS_FOSSIL.get(), BRONTOSCORPIO_EMBRYO.get());
@@ -318,14 +315,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.HESPERORNIS_RECIPE_MAPPINGS).add(HESPERORNIS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.AQUILOLAMNA_RECIPE_MAPPINGS).add(AQUILOLAMNA_SPAWN_EGG.get());
         this.tag(UP2ItemTags.CAMEROCERAS_RECIPE_MAPPINGS).add(CAMEROCERAS_SPAWN_EGG.get(), ROCKET_FOSSIL.get(), UP2Blocks.CAMEROCERAS_EGGS.asItem());
-        this.tag(UP2ItemTags.BANANOGMIUS_RECIPE_MAPPINGS).add(BANANOGMIUS_SPAWN_EGG.get());
-        this.tag(UP2ItemTags.COELOPHYSIS_RECIPE_MAPPINGS).add(COELOPHYSIS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.DIRE_WOLF_RECIPE_MAPPINGS).add(DIRE_WOLF_SPAWN_EGG.get());
         this.tag(UP2ItemTags.HENODUS_RECIPE_MAPPINGS).add(HENODUS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.SALTOPUS_RECIPE_MAPPINGS).add(SALTOPUS_SPAWN_EGG.get());
-        this.tag(UP2ItemTags.DIICTODON_RECIPE_MAPPINGS).add(DIICTODON_SPAWN_EGG.get());
         this.tag(UP2ItemTags.NIHOHAE_RECIPE_MAPPINGS).add(NIHOHAE_SPAWN_EGG.get(), DOLPHIN_FOSSIL.get(), NIHOHAE_EMBRYO.get());
-        this.tag(UP2ItemTags.DIMORPHODON_RECIPE_MAPPINGS).add(DIMORPHODON_SPAWN_EGG.get());
 
         this.tag(UP2ItemTags.PLANTS).add(
                 Blocks.SHORT_GRASS.asItem(),

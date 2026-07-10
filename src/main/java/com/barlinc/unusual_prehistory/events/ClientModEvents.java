@@ -109,7 +109,6 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.CAMEROCERAS.get(), CamerocerasRenderer::new);
         event.registerEntityRenderer(UP2Entities.COELACANTHUS.get(), CoelacanthusRenderer::new);
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.DIICTODON.get(), DiictodonRenderer::new);
         event.registerEntityRenderer(UP2Entities.DIPLOCAULUS.get(), DiplocaulusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusRenderer::new);
         event.registerEntityRenderer(UP2Entities.HIBBERTOPTERUS.get(), HibbertopterusRenderer::new);
@@ -122,17 +121,13 @@ public class ClientModEvents {
 
         // Mesozoic
         event.registerEntityRenderer(UP2Entities.ANTARCTOPELTA.get(), AntarctopeltaRenderer::new);
-        event.registerEntityRenderer(UP2Entities.ANUROGNATHUS.get(), AnurognathusRenderer::new);
         event.registerEntityRenderer(UP2Entities.AQUILOLAMNA.get(), AquilolamnaRenderer::new);
         event.registerEntityRenderer(UP2Entities.AUSTRORAPTOR.get(), AustroraptorRenderer::new);
-        event.registerEntityRenderer(UP2Entities.BANANOGMIUS.get(), BananogmiusRenderer::new);
         event.registerEntityRenderer(UP2Entities.BRACHIOSAURUS.get(), BrachiosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.CARNOTAURUS.get(), CarnotaurusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.COELOPHYSIS.get(), CoelophysisRenderer::new);
         event.registerEntityRenderer(UP2Entities.CONCAVENATOR.get(), ConcavenatorRenderer::new);
         event.registerEntityRenderer(UP2Entities.CRYPTOCLIDUS.get(), CryptoclidusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DESMATOSUCHUS.get(), DesmatosuchusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.DIMORPHODON.get(), DimorphodonRenderer::new);
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS.get(), DromaeosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.HENODUS.get(), HenodusRenderer::new);
         event.registerEntityRenderer(UP2Entities.HESPERORNIS.get(), HesperornisRenderer::new);
@@ -155,7 +150,6 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.TUSOTEUTHIS.get(), TusoteuthisRenderer::new);
         event.registerEntityRenderer(UP2Entities.ULUGHBEGSAURUS.get(), UlughbegsaurusRenderer::new);
 
-        event.registerEntityRenderer(UP2Entities.ANUROGNATHUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.AUSTRORAPTOR_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.PTERODACTYLUS_EGG.get(), ThrownItemRenderer::new);
@@ -211,7 +205,6 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.CAMEROCERAS, CamerocerasModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COELACANTHUS, CoelacanthusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIICTODON, DiictodonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_TIGER, DiplocaulusTigerModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_SWAMPY, DiplocaulusSwampyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_MUDDY, DiplocaulusMuddyModel::createBodyLayer);
@@ -237,18 +230,14 @@ public class ClientModEvents {
 
         // Mesozoic
         event.registerLayerDefinition(UP2ModelLayers.ANTARCTOPELTA, AntarctopeltaModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.ANUROGNATHUS, AnurognathusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.AQUILOLAMNA, AquilolamnaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.AUSTRORAPTOR, AustroraptorModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.BANANOGMIUS, BananogmiusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.BRACHIOSAURUS, BrachiosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.BRACHIOSAURUS_BABY, BrachiosaurusBabyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CARNOTAURUS, CarnotaurusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.COELOPHYSIS, CoelophysisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CONCAVENATOR, ConcavenatorModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CRYPTOCLIDUS, CryptoclidusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DESMATOSUCHUS, DesmatosuchusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIMORPHODON, DimorphodonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DROMAEOSAURUS, DromaeosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HENODUS, HenodusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HESPERORNIS, HesperornisModel::createBodyLayer);

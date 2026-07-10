@@ -36,7 +36,6 @@ public class UP2Items {
     public static final DeferredItem<Item> CAMEROCERAS_SPAWN_EGG = registerSpawnEggItem("cameroceras", UP2Entities.CAMEROCERAS, 0x4ebbc2, 0xf4415f);
     public static final DeferredItem<Item> COELACANTHUS_SPAWN_EGG = registerSpawnEggItem("coelacanthus", UP2Entities.COELACANTHUS, 0xea7a12, 0xa52d14);
     public static final DeferredItem<Item> COTYLORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("cotylorhynchus", UP2Entities.COTYLORHYNCHUS, 0x944e32, 0xebe0c5);
-    public static final DeferredItem<Item> DIICTODON_SPAWN_EGG = registerSpawnEggItem("diictodon", UP2Entities.DIICTODON, 0x663d26, 0x150e0f);
     public static final DeferredItem<Item> DIPLOCAULUS_SPAWN_EGG = registerSpawnEggItem("diplocaulus", UP2Entities.DIPLOCAULUS, 0xe5721e, 0x292733);
     public static final DeferredItem<Item> DUNKLEOSTEUS_SPAWN_EGG = registerSpawnEggItem("dunkleosteus", UP2Entities.DUNKLEOSTEUS, 0x478975, 0x673d35);
     public static final DeferredItem<Item> HIBBERTOPTERUS_SPAWN_EGG = registerSpawnEggItem("hibbertopterus", UP2Entities.HIBBERTOPTERUS, 0xe4b57c, 0x5d3a2f);
@@ -49,16 +48,12 @@ public class UP2Items {
 
     // Mesozoic
     public static final DeferredItem<Item> ANTARCTOPELTA_SPAWN_EGG = registerSpawnEggItem("antarctopelta", UP2Entities.ANTARCTOPELTA, 0x201a17, 0xf3e2db);
-    public static final DeferredItem<Item> ANUROGNATHUS_SPAWN_EGG = registerSpawnEggItem("anurognathus", UP2Entities.ANUROGNATHUS, 0x3f5e30, 0xf2ba31);
     public static final DeferredItem<Item> AQUILOLAMNA_SPAWN_EGG = registerSpawnEggItem("aquilolamna", UP2Entities.AQUILOLAMNA, 0x896a42, 0xfbf6ea);
-    public static final DeferredItem<Item> BANANOGMIUS_SPAWN_EGG = registerSpawnEggItem("bananogmius", UP2Entities.BANANOGMIUS, 0xe5d930, 0x92e7e1);
     public static final DeferredItem<Item> BRACHIOSAURUS_SPAWN_EGG = registerSpawnEggItem("brachiosaurus", UP2Entities.BRACHIOSAURUS, 0x285685, 0x141d26);
     public static final DeferredItem<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x8c2f27, 0x252b33);
-    public static final DeferredItem<Item> COELOPHYSIS_SPAWN_EGG = registerSpawnEggItem("coelophysis", UP2Entities.COELOPHYSIS, 0xb48547, 0x502a20);
     public static final DeferredItem<Item> CONCAVENATOR_SPAWN_EGG = registerSpawnEggItem("concavenator", UP2Entities.CONCAVENATOR, 0x6e3f34, 0xcdbc91);
     public static final DeferredItem<Item> CRYPTOCLIDUS_SPAWN_EGG = registerSpawnEggItem("cryptoclidus", UP2Entities.CRYPTOCLIDUS, 0x786389, 0xb4d6d6);
     public static final DeferredItem<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
-    public static final DeferredItem<Item> DIMORPHODON_SPAWN_EGG = registerSpawnEggItem("dimorphodon", UP2Entities.DIMORPHODON, 0x040408, 0xffffff);
     public static final DeferredItem<Item> DROMAEOSAURUS_SPAWN_EGG = registerSpawnEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS, 0xf9fa5e, 0xebc754);
     public static final DeferredItem<Item> HENODUS_SPAWN_EGG = registerSpawnEggItem("henodus", UP2Entities.HENODUS, 0x7f4617, 0xb2d746);
     public static final DeferredItem<Item> HESPERORNIS_SPAWN_EGG = registerSpawnEggItem("hesperornis", UP2Entities.HESPERORNIS, 0x24274c, 0xf09f57);
@@ -120,14 +115,19 @@ public class UP2Items {
     // region fossils
 
     // Paleozoic
+    public static final DeferredItem<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
+    public static final DeferredItem<Item> GLUTTONOUS_FOSSIL = registerFossilItem("gluttonous"); // coelacanthus
     public static final DeferredItem<Item> BOOMERANG_FOSSIL = registerFossilItem("boomerang"); // diplocaulus
     public static final DeferredItem<Item> GUILLOTINE_FOSSIL = registerFossilItem("guillotine"); // dunkleosteus
+    public static final DeferredItem<Item> PLOW_FOSSIL = registerFossilItem("plow"); // hibbertopterus
     public static final DeferredItem<Item> JAWLESS_FOSSIL = registerFossilItem("jawless"); // jawless fish
     public static final DeferredItem<Item> ANVIL_FOSSIL = registerFossilItem("anvil"); // stethacanthus
     public static final DeferredItem<Item> MOSSY_FOSSIL = registerFossilItem("mossy"); // tartuosteus
 
     // Mesozoic
+    public static final DeferredItem<Item> ARM_FOSSIL = registerFossilItem("arm"); // brachiosaurus
     public static final DeferredItem<Item> FURY_FOSSIL = registerFossilItem("fury"); // carnotaurus
+    public static final DeferredItem<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
     public static final DeferredItem<Item> RUNNER_FOSSIL = registerFossilItem("runner"); // dromaeosaurus
     public static final DeferredItem<Item> PRICKLY_FOSSIL = registerFossilItem("prickly"); // kentrosaurus
     public static final DeferredItem<Item> IMPERATIVE_FOSSIL = registerFossilItem("imperative"); // kimmeridgebrachypteraeschnidium
@@ -138,6 +138,8 @@ public class UP2Items {
     // Cenozoic
     public static final DeferredItem<Item> THERMAL_FOSSIL = registerFossilItem("thermal"); // megalania
     public static final DeferredItem<Item> DOLPHIN_FOSSIL = registerFossilItem("dolphin"); // nihohae
+    public static final DeferredItem<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak"); // psilopterus
+    // todo: talpanas fossil
     public static final DeferredItem<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties())); // talpanas
     public static final DeferredItem<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage"); // telecrex
 
@@ -155,13 +157,13 @@ public class UP2Items {
     // Paleozoic
 
     // Mesozoic
-    public static final DeferredItem<Item> ANUROGNATHUS_EGG = registerEggItem("anurognathus", UP2Entities.ANUROGNATHUS_EGG);
     public static final DeferredItem<Item> AUSTRORAPTOR_EGG = registerEggItem("austroraptor", UP2Entities.AUSTRORAPTOR_EGG);
     public static final DeferredItem<Item> DROMAEOSAURUS_EGG = registerEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS_EGG);
     public static final DeferredItem<Item> METRIORHYNCHUS_EMBRYO = registerEmbryoItem("metriorhynchus", UP2Entities.METRIORHYNCHUS);
 
     // Cenozoic
     public static final DeferredItem<Item> NIHOHAE_EMBRYO = registerEmbryoItem("nihohae", UP2Entities.NIHOHAE);
+    public static final DeferredItem<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
     public static final DeferredItem<Item> TALPANAS_EGG = registerEggItem("talpanas", UP2Entities.TALPANAS_EGG);
     public static final DeferredItem<Item> TELECREX_EGG = registerEggItem("telecrex", UP2Entities.TELECREX_EGG);
 
@@ -222,9 +224,6 @@ public class UP2Items {
 
     // Update 4
 
-    public static final DeferredItem<Item> ARM_FOSSIL = registerFossilItem("arm"); // brachiosaurus
-    public static final DeferredItem<Item> GLUTTONOUS_FOSSIL = registerFossilItem("gluttonous"); // coelacanthus
-    public static final DeferredItem<Item> PLOW_FOSSIL = registerFossilItem("plow"); // hibbertopterus
     public static final DeferredItem<Item> BOAR_TOOTH_FOSSIL = registerFossilItem("boar_tooth"); // kaprosuchus
     public static final DeferredItem<Item> TRUNK_MOUSE_FOSSIL = registerFossilItem("trunk_mouse"); // leptictidium
     public static final DeferredItem<Item> FISH_FOSSIL = registerFossilItem("fish"); // lobe finned fish
@@ -267,11 +266,7 @@ public class UP2Items {
     // Update 5
 
 
-    public static final DeferredItem<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
-    public static final DeferredItem<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
-    public static final DeferredItem<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak"); // psilopterus
 
-    public static final DeferredItem<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 
     public static final DeferredItem<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new UP2MobBucketItem(UP2Entities.AEGIROCASSIS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
@@ -311,7 +306,6 @@ public class UP2Items {
 
     public static final DeferredItem<Item> SPIRAL_FOSSIL = registerFossilItem("spiral"); // ammonite
     public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
-    public static final DeferredItem<Item> SHORT_WING_FOSSIL = registerFossilItem("short_wing"); // anurognathus
     public static final DeferredItem<Item> FORCIPULE_FOSSIL = registerFossilItem("forcipule"); // arthropleura
     public static final DeferredItem<Item> GRACILE_FOSSIL = registerFossilItem("gracile"); // austroraptor
     public static final DeferredItem<Item> THUNDEROUS_FOSSIL = registerFossilItem("thunderous"); // brontoscorpio
@@ -365,10 +359,6 @@ public class UP2Items {
     public static final DeferredItem<Item> FOSSILIZED_METEORITE = registerItem("fossilized_meteorite", () -> new RelicItem(3, 400, 600, new Item.Properties()));
     public static final DeferredItem<Item> CHONDRITE = registerItem("chondrite", () -> new RelicItem(4, 40, 70, new Item.Properties()));
     public static final DeferredItem<Item> PALLASITE = registerItem("pallasite", () -> new RelicItem(4, 40, 70, new Item.Properties()));
-
-    // Future
-    public static final DeferredItem<Item> PETRIFIED_LUCA = registerItemNoLang("petrified_luca", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> LUCA = registerItemNoLang("luca", () -> new Item(new Item.Properties()));
 
     private static <I extends Item> DeferredItem<I> registerItem(String name, Supplier<? extends I> supplier) {
         DeferredItem<I> item = ITEMS.register(name, supplier);

@@ -36,7 +36,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(CAMEROCERAS_SPAWN_EGG.get());
                         output.accept(COELACANTHUS_SPAWN_EGG.get());
                         output.accept(COTYLORHYNCHUS_SPAWN_EGG.get());
-                        output.accept(DIICTODON_SPAWN_EGG.get());
                         output.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         output.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
                         output.accept(HIBBERTOPTERUS_SPAWN_EGG.get());
@@ -49,17 +48,13 @@ public class UnusualPrehistory2Tab {
 
                         // Mesozoic
                         output.accept(ANTARCTOPELTA_SPAWN_EGG.get());
-                        output.accept(ANUROGNATHUS_SPAWN_EGG.get());
                         output.accept(AQUILOLAMNA_SPAWN_EGG.get());
                         output.accept(AUSTRORAPTOR_SPAWN_EGG.get());
-                        output.accept(BANANOGMIUS_SPAWN_EGG.get());
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
-                        output.accept(COELOPHYSIS_SPAWN_EGG.get());
                         output.accept(CONCAVENATOR_SPAWN_EGG.get());
                         output.accept(CRYPTOCLIDUS_SPAWN_EGG.get());
                         output.accept(DESMATOSUCHUS_SPAWN_EGG.get());
-                        output.accept(DIMORPHODON_SPAWN_EGG.get());
                         output.accept(DROMAEOSAURUS_SPAWN_EGG.get());
                         output.accept(HENODUS_SPAWN_EGG.get());
                         output.accept(HESPERORNIS_SPAWN_EGG.get());
@@ -161,7 +156,6 @@ public class UnusualPrehistory2Tab {
 
                         // Mesozoic
                         output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta
-                        output.accept(SHORT_WING_FOSSIL.get()); // anurognathus
                         output.accept(GRACILE_FOSSIL.get()); // austroraptor
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
@@ -253,7 +247,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());
 
                         // Mesozoic
-                        output.accept(ANUROGNATHUS_EGG.get());
                         output.accept(AUSTRORAPTOR_EGG.get());
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());

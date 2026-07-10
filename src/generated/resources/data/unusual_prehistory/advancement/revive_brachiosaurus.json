@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_anurognathus",
+  "parent": "unusual_prehistory:jurassic_root",
   "criteria": {
     "revive_brachiosaurus": {
       "conditions": {

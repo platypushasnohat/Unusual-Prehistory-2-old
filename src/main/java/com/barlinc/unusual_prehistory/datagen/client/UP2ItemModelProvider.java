@@ -32,9 +32,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         this.generatedItem(LIVING_OOZE_BUCKET);
 
-        this.generatedItem(PETRIFIED_LUCA);
-        this.generatedItem(LUCA);
-
         this.generatedItem(UNKNOWN_FOSSIL);
         this.generatedItem(UNKNOWN_EGG);
 
@@ -181,7 +178,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.generatedItem(
                 SPIRAL_FOSSIL,
                 SNOW_SHOVEL_FOSSIL,
-                SHORT_WING_FOSSIL,
                 FORCIPULE_FOSSIL,
                 GRACILE_FOSSIL,
                 THUNDEROUS_FOSSIL,
@@ -205,7 +201,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
                 UP2Blocks.AMMONITE_EGGS,
                 UP2Blocks.CAMEROCERAS_EGGS,
-                ANUROGNATHUS_EGG,
                 AUSTRORAPTOR_EGG,
                 BRONTOSCORPIO_EMBRYO,
                 UP2Blocks.CONCAVENATOR_EGG,

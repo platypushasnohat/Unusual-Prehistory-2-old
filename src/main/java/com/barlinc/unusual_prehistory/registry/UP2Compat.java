@@ -94,7 +94,6 @@ public class UP2Compat {
         registerEggDispenserBehaviour(UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS_EGG::get);
 
         // Update 6
-        registerEggDispenserBehaviour(UP2Items.ANUROGNATHUS_EGG, UP2Entities.ANUROGNATHUS_EGG::get);
         registerEggDispenserBehaviour(UP2Items.AUSTRORAPTOR_EGG, UP2Entities.AUSTRORAPTOR_EGG::get);
     }
 
