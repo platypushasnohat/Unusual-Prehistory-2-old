@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
@@ -8,13 +9,20 @@ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigatio
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.entity.variant.UP2VariantMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -29,6 +37,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +45,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class Dromaeosaurus extends PrehistoricMob {
+public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
+
+    private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.STRING);
 
     public int leapCooldown = 120 + this.getRandom().nextInt(120);
 
@@ -82,6 +93,38 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, this.defaultVariant().location().toString());
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        this.saveVariant(compoundTag);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.loadVariant(compoundTag);
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/dromaeosaurus/dromaeosaurus_yellow.png");
+    }
+
+    @Override
+    public String getVariantRawId() {
+        return this.entityData.get(VARIANT);
+    }
+    @Override
+    public void setVariantRawId(String id) {
+        this.entityData.set(VARIANT, id);
+    }
+
+    @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         SmoothGroundNavigation navigation = new SmoothGroundNavigation(this, level);
         navigation.setCanOpenDoors(true);
@@ -114,11 +157,15 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
     }
 
+    @Nullable
     @Override
-    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.DROMAEOSAURUS.get().create(level);
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+        Dromaeosaurus baby = UP2Entities.DROMAEOSAURUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
     }
-
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.FALL);
@@ -165,6 +212,14 @@ public class Dromaeosaurus extends PrehistoricMob {
         return UP2SoundEvents.DROMAEOSAURUS_DEATH.get();
     }
 
+    @Override
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
+    }
+
     // Goals
     private static class DromaeosaurusAttackGoal extends AttackGoal {
 
@@ -193,16 +248,15 @@ public class Dromaeosaurus extends PrehistoricMob {
                 this.dromaeosaurus.getLookControl().setLookAt(target, 30F, 30F);
                 this.dromaeosaurus.getNavigation().moveTo(target, 1.0D);
                 if (this.dromaeosaurus.getAttackState() == 1) {
-                    this.tickAttack();
-                } else if (distance <= this.getAttackReachSqr(target)) {
+                    this.tickAttack(target);
+                } else if (distance <= this.getAttackReachSqr(target, 1.75D)) {
                     this.dromaeosaurus.setAttackState(1);
                 }
             }
         }
 
-        private void tickAttack() {
+        private void tickAttack(LivingEntity target) {
             this.timer++;
-            LivingEntity target = dromaeosaurus.getTarget();
             if (timer == 1) dromaeosaurus.setPose(UP2Poses.ATTACKING.get());
             if (timer == 6) {
                 if (this.isInAttackRange(target, 1.5D)) {
@@ -215,11 +269,6 @@ public class Dromaeosaurus extends PrehistoricMob {
                 this.dromaeosaurus.setPose(Pose.STANDING);
                 this.dromaeosaurus.setAttackState(0);
             }
-        }
-
-        @Override
-        protected double getAttackReachSqr(LivingEntity target) {
-            return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
         }
     }
 

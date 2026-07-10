@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "unusual_prehistory:block/mesonite",
-    "side": "unusual_prehistory:block/mesonite",
-    "top": "unusual_prehistory:block/mesonite"
-  }
-}

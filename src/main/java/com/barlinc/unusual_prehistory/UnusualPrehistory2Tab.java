@@ -28,7 +28,6 @@ public class UnusualPrehistory2Tab {
                     .displayItems((parameters, output) -> {
 
                         // region spawn eggs
-
                         // Paleozoic
                         output.accept(AEGIROCASSIS_SPAWN_EGG.get());
                         output.accept(ARTHROPLEURA_SPAWN_EGG.get());
@@ -108,11 +107,9 @@ public class UnusualPrehistory2Tab {
                         // Other
                         output.accept(LINGCOD_SPAWN_EGG.get());
                         output.accept(LIVING_OOZE_SPAWN_EGG.get());
-
-                        // end region
+                        // endregion
 
                         // region fossils
-
                         output.accept(UP2Blocks.DIRT_MATRIX.get());
                         output.accept(UP2Blocks.MUD_MATRIX.get());
                         output.accept(UP2Blocks.GRAVEL_MATRIX.get());
@@ -218,11 +215,9 @@ public class UnusualPrehistory2Tab {
                         output.accept(GINKGO_FOSSIL.get());
                         output.accept(LEPIDODENDRON_FOSSIL.get());
                         output.accept(METASEQUOIA_FOSSIL.get());
-
-                        // end region
+                        // endregion
 
                         // region revival
-
                         output.accept(PALEOPEDIA.get());
 
                         output.accept(ORGANIC_OOZE.get());
@@ -411,11 +406,9 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.DUSK_METASEQUOIA_LEAVES.get());
                         output.accept(UP2Blocks.METASEQUOIA_SAPLING.get());
                         output.accept(UP2Blocks.NEEDLE_LITTER.get());
-
-                        // end region
+                        // endregion
 
                         // region misc
-
                         // Paleozoic
                         output.accept(BABY_AEGIROCASSIS_BUCKET.get());
                         output.accept(COELACANTHUS_BUCKET.get());
@@ -509,8 +502,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.PURPLE_REINFORCED_GLASS.get());
                         output.accept(UP2Blocks.MAGENTA_REINFORCED_GLASS.get());
                         output.accept(UP2Blocks.PINK_REINFORCED_GLASS.get());
-
-                        // end region
+                        // endregion
 
                     }).build());
 

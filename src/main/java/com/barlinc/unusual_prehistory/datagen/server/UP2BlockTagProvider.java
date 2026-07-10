@@ -260,12 +260,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         // Minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),
-                PALEOSTONE.get(),
-                PALEOSTONE_STAIRS.get(),
-                PALEOSTONE_SLAB.get(),
-                MESONITE.get(),
-                MESONITE_STAIRS.get(),
-                MESONITE_SLAB.get(),
                 FOSSILIZED_BONE_BLOCK.get(),
                 FOSSILIZED_BONE_BARK.get(),
                 FOSSILIZED_BONE_VERTEBRA.get(),
@@ -347,15 +341,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.SLABS).add(
-                PALEOSTONE_SLAB.get(),
-                MESONITE_SLAB.get(),
                 POLISHED_PETRIFIED_WOOD_SLAB.get(),
                 LEEDSICHTHYS_SLICE_SLAB.get()
         );
 
         this.tag(BlockTags.STAIRS).add(
-                PALEOSTONE_STAIRS.get(),
-                MESONITE_STAIRS.get(),
                 POLISHED_PETRIFIED_WOOD_STAIRS.get(),
                 LEEDSICHTHYS_SLICE_STAIRS.get()
         );

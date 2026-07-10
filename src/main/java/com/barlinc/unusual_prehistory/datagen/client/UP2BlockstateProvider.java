@@ -33,14 +33,6 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.block(ASPHALT);
 
-        this.block(PALEOSTONE);
-        this.stairsBlock(PALEOSTONE.get(), PALEOSTONE_STAIRS.get());
-        this.slabBlock(PALEOSTONE.get(), PALEOSTONE_SLAB.get());
-
-        this.block(MESONITE);
-        this.stairsBlock(MESONITE.get(), MESONITE_STAIRS.get());
-        this.slabBlock(MESONITE.get(), MESONITE_SLAB.get());
-
         this.crossBlockWithPot(BENNETTITALES, POTTED_BENNETTITALES);
         this.crossBlockWithPot(COOKSONIA, POTTED_COOKSONIA);
         this.crossBlockWithPot(HORSETAIL, POTTED_HORSETAIL);

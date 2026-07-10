@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic;
 
-import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.DromaeosaurusModel;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Dromaeosaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
@@ -14,14 +13,12 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, DromaeosaurusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/dromaeosaurus/yellow.png");
-
     public DromaeosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new DromaeosaurusModel(context.bakeLayer(UP2ModelLayers.DROMAEOSAURUS)), 0.4F);
     }
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Dromaeosaurus entity) {
-        return TEXTURE;
+        return entity.getVariantTexture();
     }
 }

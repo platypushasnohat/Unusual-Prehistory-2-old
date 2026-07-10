@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "unusual_prehistory:block/paleostone",
-    "side": "unusual_prehistory:block/paleostone",
-    "top": "unusual_prehistory:block/paleostone"
-  }
-}

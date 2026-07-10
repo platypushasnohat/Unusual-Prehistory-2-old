@@ -129,6 +129,9 @@ public class UP2Entities {
     public static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, Consumer<EntityType.Builder<E>> builderConsumer) {
         DeferredHolder<EntityType<?>, EntityType<E>> entity = registerEntityNoLang(name, factory, entityClassification, builderConsumer);
         ENTITY_TRANSLATIONS.add(entity);
+        if (entityClassification != MobCategory.MISC) {
+            UP2MobVariants.register(name);
+        }
         return entity;
     }
 

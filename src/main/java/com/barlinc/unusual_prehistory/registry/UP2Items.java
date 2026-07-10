@@ -108,7 +108,7 @@ public class UP2Items {
     public static final DeferredItem<Item> LINGCOD_SPAWN_EGG = registerSpawnEggItem("lingcod", UP2Entities.LINGCOD, 0x6a584c, 0x362a31);
     public static final DeferredItem<Item> LIVING_OOZE_SPAWN_EGG = registerSpawnEggItem("living_ooze", UP2Entities.LIVING_OOZE, 0x51da69, 0x055b2f);
     public static final DeferredItem<Item> UNICORN_SPAWN_EGG = registerSpawnEggItem("unicorn", UP2Entities.UNICORN, 0x6f5848, 0xe5d6b7);
-    // end region
+    // endregion
 
     // region fossils
     // Paleozoic fossils
@@ -173,7 +173,7 @@ public class UP2Items {
 
     // Recently Extinct fossils
     public static final DeferredItem<Item> STRIPED_PELT = registerItem("striped_pelt", () -> new Item(new Item.Properties())); // thylacine
-    // end region
+    // endregion
 
     // region revival
     public static final DeferredItem<Item> PALEOPEDIA = registerItem("paleopedia", () -> new PaleopediaItem(new Item.Properties().stacksTo(1)));
@@ -229,7 +229,7 @@ public class UP2Items {
     public static final DeferredItem<Item> METASEQUOIA_HANGING_SIGN = registerItem("metasequoia_hanging_sign", () -> new HangingSignItem(UP2Blocks.METASEQUOIA.hangingSign().get(), UP2Blocks.METASEQUOIA.hangingWallSign().get(), (new Item.Properties()).stacksTo(16)));
     public static final DeferredItem<Item> METASEQUOIA_BOAT = registerItem("metasequoia_boat", () -> new BoatItem(false, UP2EnumProxy.METASEQUOIA_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> METASEQUOIA_CHEST_BOAT = registerItemNoLang("metasequoia_chest_boat", () -> new BoatItem(true, UP2EnumProxy.METASEQUOIA_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
-    // end region
+    // endregion
 
     // region misc
     // Paleozoic items
@@ -317,7 +317,7 @@ public class UP2Items {
     public static final DeferredItem<Item> PERIOD_NEOGENE = registerItem("period_neogene", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PERIOD_QUATERNARY = registerItem("period_quaternary", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PERIOD_HOLOCENE = registerItem("period_holocene", () -> new Item(new Item.Properties()));
-    // end region
+    // endregion
 
     // region to remove
     public static final DeferredItem<Item> QUILLWORT_FOSSIL = registerFossilItem("quillwort");
@@ -329,7 +329,7 @@ public class UP2Items {
     public static final DeferredItem<Item> PROTOTAXITES_FOSSIL = registerFossilItem("prototaxites");
     public static final DeferredItem<Item> METASEQUOIA_FOSSIL = registerFossilItem("metasequoia");
     public static final DeferredItem<Item> DRYOPHYLLUM_FOSSIL = registerFossilItem("dryophyllum");
-    // end region
+    // endregion
 
     private static <I extends Item> DeferredItem<I> registerItem(String name, Supplier<? extends I> supplier) {
         DeferredItem<I> item = ITEMS.register(name, supplier);

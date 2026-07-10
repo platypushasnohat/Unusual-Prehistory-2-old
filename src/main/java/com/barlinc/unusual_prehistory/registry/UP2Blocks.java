@@ -163,14 +163,6 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new MetasequoiaSaplingBlock(UP2TreeGrowers.METASEQUOIA, UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
     public static final DeferredBlock<Block> POTTED_METASEQUOIA_SAPLING = registerBlockWithoutItem("potted_metasequoia_sapling", () -> new FlowerPotBlock(METASEQUOIA_SAPLING.get(), registerFlowerPot()));
 
-    public static final DeferredBlock<Block> PALEOSTONE = registerBlock("paleostone", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final DeferredBlock<Block> PALEOSTONE_STAIRS = registerBlock("paleostone_stairs", () -> new StairBlock(PALEOSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(PALEOSTONE.get())));
-    public static final DeferredBlock<Block> PALEOSTONE_SLAB = registerBlock("paleostone_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(PALEOSTONE.get())));
-
-    public static final DeferredBlock<Block> MESONITE = registerBlock("mesonite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final DeferredBlock<Block> MESONITE_STAIRS = registerBlock("mesonite_stairs", () -> new StairBlock(MESONITE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(MESONITE.get())));
-    public static final DeferredBlock<Block> MESONITE_SLAB = registerBlock("mesonite_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MESONITE.get())));
-
     public static final DeferredBlock<Block> REINFORCED_GLASS = registerBlock("reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.NONE)));
     public static final DeferredBlock<Block> TINTED_REINFORCED_GLASS = registerBlock("tinted_reinforced_glass", ()-> new TintedConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GRAY)));
     public static final DeferredBlock<Block> WHITE_REINFORCED_GLASS = registerBlock("white_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.SNOW)));

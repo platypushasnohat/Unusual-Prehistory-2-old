@@ -91,14 +91,6 @@ public class UP2LootTableProvider extends LootTableProvider {
         public void generate() {
             this.dropSelf(ASPHALT.get());
 
-            this.dropSelf(PALEOSTONE.get());
-            this.dropSelf(PALEOSTONE_STAIRS.get());
-            this.add(PALEOSTONE_SLAB.get(), this::createSlabItemTable);
-
-            this.dropSelf(MESONITE.get());
-            this.dropSelf(MESONITE_STAIRS.get());
-            this.add(MESONITE_SLAB.get(), this::createSlabItemTable);
-
             this.add(FOSSILIZED_BONE_BLOCK.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
             this.add(FOSSILIZED_BONE_BARK.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
             this.add(FOSSILIZED_BONE_VERTEBRA.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));

@@ -71,6 +71,7 @@ public class UnusualPrehistory2 {
         UnusualPrehistory2Tab.CREATIVE_TABS.register(modEventBus);
 
         modEventBus.addListener(UP2BlockEntities::addBlockEntities);
+        modEventBus.addListener(UP2MobVariants::registerVariantRegistries);
         PROXY.commonInit();
     }
 

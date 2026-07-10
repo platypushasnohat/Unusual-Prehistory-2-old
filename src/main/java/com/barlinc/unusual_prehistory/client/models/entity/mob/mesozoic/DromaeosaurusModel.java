@@ -90,26 +90,26 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
         PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(23, 18).addBox(-1.5F, -0.01F, -4.0F, 3.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, -4.0F));
 
         PartDefinition arm_left = body.addOrReplaceChild("arm_left", CubeListBuilder.create().texOffs(35, 23).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
-                .texOffs(30, -7).addBox(0.99F, 1.0F, -3.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0025F))
+                .texOffs(30, -7).addBox(0.99F, 1.0F, -3.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0F))
                 .texOffs(15, 19).addBox(-1.0F, 2.0F, -3.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(2, 28).addBox(-1.0F, 2.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(3.0F, 1.0F, -6.5F));
 
         PartDefinition arm_right = body.addOrReplaceChild("arm_right", CubeListBuilder.create().texOffs(35, 23).mirror().addBox(-1.0F, -1.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(30, -7).mirror().addBox(-0.99F, 1.0F, -3.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0025F)).mirror(false)
+                .texOffs(30, -7).mirror().addBox(-0.99F, 1.0F, -3.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(15, 19).mirror().addBox(-1.0F, 2.0F, -3.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(2, 28).mirror().addBox(-1.0F, 2.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.0F, 1.0F, -6.5F));
 
         PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create(), PartPose.offset(0.0F, -4.0F, 1.5F));
 
-        PartDefinition tail_r1 = tail1.addOrReplaceChild("tail_r1", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-7.0F, 0.0F, 0.0F, 7.0F, 0.0F, 15.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3491F));
+        PartDefinition tail_r1 = tail1.addOrReplaceChild("tail_r1", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-7.0F, 0.0F, 0.0F, 7.0F, 0.0F, 15.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3491F));
 
-        PartDefinition tail_r2 = tail1.addOrReplaceChild("tail_r2", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 7.0F, 0.0F, 15.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.3491F));
+        PartDefinition tail_r2 = tail1.addOrReplaceChild("tail_r2", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 7.0F, 0.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.3491F));
 
         PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 15.0F));
 
-        PartDefinition tail_r3 = tail2.addOrReplaceChild("tail_r3", CubeListBuilder.create().texOffs(-24, 0).mirror().addBox(-7.0F, 0.0F, 0.0F, 7.0F, 0.0F, 24.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3491F));
+        PartDefinition tail_r3 = tail2.addOrReplaceChild("tail_r3", CubeListBuilder.create().texOffs(-24, 0).mirror().addBox(-7.0F, 0.0F, 0.0F, 7.0F, 0.0F, 24.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3491F));
 
-        PartDefinition tail_r4 = tail2.addOrReplaceChild("tail_r4", CubeListBuilder.create().texOffs(-24, 0).addBox(0.0F, 0.0F, 0.0F, 7.0F, 0.0F, 24.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.3491F));
+        PartDefinition tail_r4 = tail2.addOrReplaceChild("tail_r4", CubeListBuilder.create().texOffs(-24, 0).addBox(0.0F, 0.0F, 0.0F, 7.0F, 0.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.3491F));
 
         PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -117,17 +117,17 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 
         PartDefinition leg_left2 = leg_left1.addOrReplaceChild("leg_left2", CubeListBuilder.create().texOffs(42, 29).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 3.0F, 2.5F));
 
-        PartDefinition leg_left3 = leg_left2.addOrReplaceChild("leg_left3", CubeListBuilder.create().texOffs(41, 4).addBox(-1.0F, 0.09F, -4.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 6.9F, 1.0F));
+        PartDefinition leg_left3 = leg_left2.addOrReplaceChild("leg_left3", CubeListBuilder.create().texOffs(41, 4).addBox(-1.0F, 0.09F, -4.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 6.9F, 1.0F));
 
-        PartDefinition claw_left = leg_left3.addOrReplaceChild("claw_left", CubeListBuilder.create().texOffs(45, -2).addBox(0.0F, -2.91F, -1.0F, 0.0F, 3.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offset(-1.0F, 0.0F, -2.0F));
+        PartDefinition claw_left = leg_left3.addOrReplaceChild("claw_left", CubeListBuilder.create().texOffs(45, -2).addBox(0.0F, -2.91F, -1.0F, 0.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 0.0F, -2.0F));
 
         PartDefinition leg_right1 = leg_control.addOrReplaceChild("leg_right1", CubeListBuilder.create().texOffs(22, 23).mirror().addBox(-2.0F, -2.0F, -2.5F, 4.0F, 7.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.5F, 0.0F, 0.0F));
 
         PartDefinition leg_right2 = leg_right1.addOrReplaceChild("leg_right2", CubeListBuilder.create().texOffs(42, 29).mirror().addBox(-1.0F, -1.0F, 0.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 3.0F, 2.5F));
 
-        PartDefinition leg_right3 = leg_right2.addOrReplaceChild("leg_right3", CubeListBuilder.create().texOffs(41, 4).mirror().addBox(-3.0F, 0.09F, -4.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 6.9F, 1.0F));
+        PartDefinition leg_right3 = leg_right2.addOrReplaceChild("leg_right3", CubeListBuilder.create().texOffs(41, 4).mirror().addBox(-3.0F, 0.09F, -4.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 6.9F, 1.0F));
 
-        PartDefinition claw_right = leg_right3.addOrReplaceChild("claw_right", CubeListBuilder.create().texOffs(45, -2).mirror().addBox(0.0F, -2.91F, -1.0F, 0.0F, 3.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(1.0F, 0.0F, -2.0F));
+        PartDefinition claw_right = leg_right3.addOrReplaceChild("claw_right", CubeListBuilder.create().texOffs(45, -2).mirror().addBox(0.0F, -2.91F, -1.0F, 0.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(1.0F, 0.0F, -2.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
 	}
@@ -144,12 +144,14 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 		this.animateSmooth(entity.fallAnimationState, DromaeosaurusAnimations.JUMP, ageInTicks, partialTicks);
 		this.animateSmooth(entity.eepyAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks, partialTicks);
 
-        if (this.young) this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
+        if (this.young) {
+            this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
+        }
 
-        this.animateHead(entity, this.neck, netHeadYaw, headPitch);
+        this.faceTarget(entity, netHeadYaw, headPitch, 1.5F, this.neck, this.head);
         float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.25F, this.tail1.yRot, tailYaw * 0.2F);
-        this.tail2.yRot = Mth.lerp(0.25F, this.tail2.yRot, tailYaw * 0.15F);
+        this.tail1.yRot += entity.getTailYaw(partialTicks) * 0.7F * Mth.DEG_TO_RAD;
+        this.tail2.yRot += entity.getTailYaw(partialTicks) * 0.8F * Mth.DEG_TO_RAD;
 	}
 
 	@Override
