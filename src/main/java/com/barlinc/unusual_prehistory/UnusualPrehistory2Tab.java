@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -411,12 +412,31 @@ public class UnusualPrehistory2Tab {
                         // region misc
                         // Paleozoic
                         output.accept(BABY_AEGIROCASSIS_BUCKET.get());
-                        output.accept(COELACANTHUS_BUCKET.get());
-                        output.accept(DIPLOCAULUS_BUCKET.get());
-                        output.accept(DUNKLEOSTEUS_BUCKET.get());
+                        output.accept(getVariantBucket(COELACANTHUS_BUCKET.get(), 0));
+                        output.accept(getVariantBucket(COELACANTHUS_BUCKET.get(), 1));
+                        output.accept(getVariantBucket(COELACANTHUS_BUCKET.get(), 2));
+                        output.accept(getVariantBucket(COELACANTHUS_BUCKET.get(), 3));
+                        output.accept(getVariantBucket(COELACANTHUS_BUCKET.get(), 4));
+                        output.accept(getVariantBucket(COELACANTHUS_BUCKET.get(), 5));
+                        output.accept(getVariantBucket(COELACANTHUS_BUCKET.get(), 6));
+                        output.accept(getVariantBucket(DIPLOCAULUS_BUCKET.get(), 0));
+                        output.accept(getVariantBucket(DIPLOCAULUS_BUCKET.get(), 1));
+                        output.accept(getVariantBucket(DIPLOCAULUS_BUCKET.get(), 2));
+                        output.accept(getVariantBucket(DIPLOCAULUS_BUCKET.get(), 3));
+                        output.accept(getVariantBucket(DUNKLEOSTEUS_BUCKET.get(), 0));
+                        output.accept(getVariantBucket(DUNKLEOSTEUS_BUCKET.get(), 1));
+                        output.accept(getVariantBucket(DUNKLEOSTEUS_BUCKET.get(), 2));
                         output.accept(HYNERPETON_BUCKET.get());
-                        output.accept(JAWLESS_FISH_BUCKET.get());
-                        output.accept(LOBE_FINNED_FISH_BUCKET.get());
+                        output.accept(getVariantBucket(JAWLESS_FISH_BUCKET.get(), 0));
+                        output.accept(getVariantBucket(JAWLESS_FISH_BUCKET.get(), 1));
+                        output.accept(getVariantBucket(JAWLESS_FISH_BUCKET.get(), 2));
+                        output.accept(getVariantBucket(JAWLESS_FISH_BUCKET.get(), 3));
+                        output.accept(getVariantBucket(JAWLESS_FISH_BUCKET.get(), 4));
+                        output.accept(getVariantBucket(LOBE_FINNED_FISH_BUCKET.get(), 0));
+                        output.accept(getVariantBucket(LOBE_FINNED_FISH_BUCKET.get(), 1));
+                        output.accept(getVariantBucket(LOBE_FINNED_FISH_BUCKET.get(), 2));
+                        output.accept(getVariantBucket(LOBE_FINNED_FISH_BUCKET.get(), 3));
+                        output.accept(getVariantBucket(LOBE_FINNED_FISH_BUCKET.get(), 4));
                         output.accept(STETHACANTHUS_BUCKET.get());
 
                         output.accept(SWEET_GROG_BOTTLE.get());
@@ -513,6 +533,16 @@ public class UnusualPrehistory2Tab {
         compoundTag.putString("id", "minecraft:painting");
         compoundTag.putString("variant", painting.location().toString());
         itemStack.set(DataComponents.ENTITY_DATA, CustomData.of(compoundTag));
+        return itemStack;
+    }
+
+    public static ItemStack getVariantBucket(Item item, int variant) {
+        ItemStack itemStack = new ItemStack(item);
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.putInt("Variant", variant);
+        CustomData data = CustomData.of(compoundTag);
+        itemStack.set(DataComponents.CUSTOM_DATA, data);
+        itemStack.set(DataComponents.BUCKET_ENTITY_DATA, data);
         return itemStack;
     }
 }
