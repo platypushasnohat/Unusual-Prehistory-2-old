@@ -426,6 +426,9 @@ public class UnusualPrehistory2Tab {
                         output.accept(LOBE_FINNED_FISH_BUCKET.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
 
+                        output.accept(SWEET_GROG_BOTTLE.get());
+                        output.accept(FOUL_GROG_BOTTLE.get());
+
                         output.accept(UP2Blocks.COTYLORHYNCHUS_PLUSHIE.get());
                         output.accept(UP2Blocks.HIBBERTOPTERUS_PLUSHIE.get());
                         output.accept(UP2Blocks.TARTUOSTEUS_PLUSHIE.get());
@@ -435,9 +438,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         output.accept(ONCHOPRISTIS_BUCKET.get());
                         output.accept(PTERODACTYLUS_POT.get());
-
-                        output.accept(SWEET_GROG_BOTTLE.get());
-                        output.accept(FOUL_GROG_BOTTLE.get());
 
                         output.accept(LEEDSICHTHYS_SLICE.get());
                         output.accept(UP2Blocks.LEEDSICHTHYS_SLICE_BLOCK.get());
