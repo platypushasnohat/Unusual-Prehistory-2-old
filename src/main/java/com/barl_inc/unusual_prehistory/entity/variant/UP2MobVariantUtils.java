@@ -30,11 +30,43 @@ public class UP2MobVariantUtils {
         }
         Registry<UP2MobVariant> registry = maybeRegistry.get();
         Holder<Biome> biome = level.getBiome(pos);
-        List<Holder.Reference<UP2MobVariant>> pool = registry.holders().filter(holder -> holder.value().weight() > 0).filter(holder -> holder.value().biomes().map(biomes -> biomes.contains(biome)).orElse(false)).toList();
+
+        List<Holder.Reference<UP2MobVariant>> pool = registry.holders()
+                .filter(holder -> holder.value().weight() > 0)
+                .filter(holder -> holder.value().biomes().map(biomes -> biomes.contains(biome)).orElse(false))
+                .filter(holder -> getTime(holder.value().time(), level))
+                .filter(holder -> getWeather(holder.value().weather(), level))
+                .filter(holder -> getSpawnHeight(holder.value(), pos, level))
+                .toList();
+
         if (pool.isEmpty()) {
             pool = registry.holders().filter(holder -> holder.value().weight() > 0 && holder.value().biomes().isEmpty()).toList();
         }
         return weightedChoice(highestPriority(pool), level.getRandom());
+    }
+
+    private static boolean getTime(VariantTime time, ServerLevelAccessor level) {
+        return switch (time) {
+            case ANY -> true;
+            case DAY -> level.getLevel().isDay();
+            case NIGHT -> level.getLevel().isNight();
+        };
+    }
+
+    private static boolean getWeather(VariantWeather weather, ServerLevelAccessor level) {
+        return switch (weather) {
+            case ANY -> true;
+            case CLEAR -> !level.getLevel().isRaining();
+            case RAIN -> level.getLevel().isRaining() && !level.getLevel().isThundering();
+            case THUNDER -> level.getLevel().isThundering();
+        };
+    }
+
+    private static boolean getSpawnHeight(UP2MobVariant variant, BlockPos pos, ServerLevelAccessor level) {
+        int y = pos.getY();
+        int minY = level.getMinBuildHeight();
+        int maxY = level.getMaxBuildHeight() - 1;
+        return y >= variant.minSpawnHeight().orElse(minY) && y <= variant.maxSpawnHeight().orElse(maxY);
     }
 
     private static List<Holder.Reference<UP2MobVariant>> highestPriority(List<Holder.Reference<UP2MobVariant>> pool) {

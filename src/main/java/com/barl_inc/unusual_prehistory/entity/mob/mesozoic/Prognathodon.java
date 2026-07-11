@@ -48,7 +48,7 @@ public class Prognathodon extends PrehistoricAquaticMob implements LeapingMob {
     private static final float MAX_ROLL = 15.0F;
     private static final float ROLL_PER_YAW = 1.0F;
     private static final float MAX_TAIL_YAW = 60.0F;
-    private static final float TAIL_YAW_MULITPLIER = 0.2F;
+    private static final float TAIL_YAW_MULTIPLIER = 0.4F;
 
     private static final int IDLE_TONGUE = 1;
     private static final int IDLE_YAWN = 2;
@@ -183,7 +183,7 @@ public class Prognathodon extends PrehistoricAquaticMob implements LeapingMob {
     public void tick() {
         super.tick();
         this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
-        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULITPLIER);
+        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULTIPLIER);
     }
 
     @Override
@@ -337,11 +337,11 @@ public class Prognathodon extends PrehistoricAquaticMob implements LeapingMob {
         }
 
         private void biteNearbyEntities() {
-            List<LivingEntity> nearbyEntities = this.prognathodon.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this.prognathodon, this.prognathodon.getBoundingBox().inflate(3.5D));
+            List<LivingEntity> nearbyEntities = this.prognathodon.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this.prognathodon, this.prognathodon.getBoundingBox().inflate(2.75D));
             if (!nearbyEntities.isEmpty()) {
                 nearbyEntities.stream().filter(entity -> entity != this.prognathodon).limit(3).forEach(entity -> {
                     entity.hurt(entity.damageSources().mobAttack(this.prognathodon), (float) this.prognathodon.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    entity.knockback(1.5F, Mth.sin(this.prognathodon.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.prognathodon.getYRot() * ((float) Math.PI / 180F)));
+                    entity.knockback(1.2F, Mth.sin(this.prognathodon.getYRot() * ((float) Math.PI / 180.0F)), -Mth.cos(this.prognathodon.getYRot() * ((float) Math.PI / 180F)));
                     if (entity.isDamageSourceBlocked(this.prognathodon.damageSources().mobAttack(this.prognathodon)) && entity instanceof Player player) {
                         player.disableShield();
                     }
