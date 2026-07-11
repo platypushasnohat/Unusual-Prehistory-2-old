@@ -27,7 +27,7 @@ public class UP2MobVariants {
     }
 
     public static ResourceKey<Registry<UP2MobVariant>> registryFor(String mobName) {
-        return ResourceKey.createRegistryKey(UnusualPrehistory2.modPrefix(mobName + "_variant"));
+        return ResourceKey.createRegistryKey(UnusualPrehistory2.modPrefix("mob_variant/" + mobName));
     }
 
     public static ResourceKey<Registry<UP2MobVariant>> registryFor(EntityType<?> type) {
