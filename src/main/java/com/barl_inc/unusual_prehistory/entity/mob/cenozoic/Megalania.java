@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.cenozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -426,12 +428,6 @@ public class Megalania extends PrehistoricAmphibiousMob {
         super.onSyncedDataUpdated(key);
     }
 
-    @Override
-    @Nullable
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.MEGALANIA.get().create(level);
-    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
@@ -455,11 +451,28 @@ public class Megalania extends PrehistoricAmphibiousMob {
         this.playSound(UP2SoundEvents.MEGALANIA_STEP.get(), 0.6F, 1.0F);
     }
 
+    @Nullable
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Megalania baby = UP2Entities.MEGALANIA.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/megalania/megalania_temperate.png");
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         this.entityData.set(PREV_TEMPERATURE_STATE, 0);
         this.setTemperatureState(TemperatureStates.TEMPERATE);
-        return super.finalizeSpawn(levelAccessor, difficulty, spawnType, spawnData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals

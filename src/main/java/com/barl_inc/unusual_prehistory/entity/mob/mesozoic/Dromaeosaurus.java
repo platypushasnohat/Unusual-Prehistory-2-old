@@ -9,16 +9,11 @@ import com.barl_inc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigati
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barl_inc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barl_inc.unusual_prehistory.entity.utils.UP2Poses;
-import com.barl_inc.unusual_prehistory.entity.variant.UP2VariantMob;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barl_inc.unusual_prehistory.tags.UP2EntityTags;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -44,9 +39,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
-
-    private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.STRING);
+public class Dromaeosaurus extends PrehistoricMob {
 
     public int leapCooldown = 120 + this.getRandom().nextInt(120);
 
@@ -92,38 +85,6 @@ public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(VARIANT, this.defaultVariant().location().toString());
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        this.saveVariant(compoundTag);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.loadVariant(compoundTag);
-    }
-
-    @Override
-    public ResourceLocation fallbackVariantTexture() {
-        return UnusualPrehistory2.modPrefix("textures/entity/mob/dromaeosaurus/dromaeosaurus_yellow.png");
-    }
-
-    @Override
-    public String getVariantRawId() {
-        return this.entityData.get(VARIANT);
-    }
-    @Override
-    public void setVariantRawId(String id) {
-        this.entityData.set(VARIANT, id);
-    }
-
-    @Override
     protected PathNavigation createNavigation(Level level) {
         SmoothGroundNavigation navigation = new SmoothGroundNavigation(this, level);
         navigation.setCanOpenDoors(true);
@@ -154,16 +115,6 @@ public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger() && !this.isEepy(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        Dromaeosaurus baby = UP2Entities.DROMAEOSAURUS.get().create(level);
-        if (baby != null) {
-            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
-        }
-        return baby;
     }
 
     @Override
@@ -210,6 +161,21 @@ public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
     @Override
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.DROMAEOSAURUS_DEATH.get();
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Dromaeosaurus baby = UP2Entities.DROMAEOSAURUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/dromaeosaurus/dromaeosaurus_yellow.png");
     }
 
     @Nullable

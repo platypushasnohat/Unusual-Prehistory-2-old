@@ -7,6 +7,7 @@ import com.barl_inc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigati
 import com.barl_inc.unusual_prehistory.entity.utils.PrehistoricMobInteractions;
 import com.barl_inc.unusual_prehistory.entity.utils.PrehistoricRideableMob;
 import com.barl_inc.unusual_prehistory.entity.utils.SmoothAnimationState;
+import com.barl_inc.unusual_prehistory.entity.variant.UP2VariantMob;
 import com.barl_inc.unusual_prehistory.registry.UP2Particles;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,7 @@ import net.neoforged.neoforge.common.CommonHooks;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public abstract class PrehistoricMob extends TamableAnimal implements PrehistoricRideableMob, PrehistoricMobInteractions {
+public abstract class PrehistoricMob extends TamableAnimal implements PrehistoricRideableMob, PrehistoricMobInteractions, UP2VariantMob {
     // region data
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
@@ -64,6 +65,8 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     protected static final EntityDataAccessor<Integer> SITTING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     protected static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.STRING);
 
     protected int eepyTicks;
 
@@ -117,6 +120,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         builder.define(SITTING, false);
         builder.define(SITTING_TICKS, 0);
         builder.define(PACIFIED, false);
+        builder.define(VARIANT, this.defaultVariant().location().toString());
     }
 
     @Override
@@ -132,6 +136,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         compoundTag.putBoolean("Sitting", this.isSitting());
         compoundTag.putInt("SittingTicks", this.getSittingTicks());
         compoundTag.putBoolean("Pacified", this.isPacified());
+        this.saveVariant(compoundTag);
     }
 
     @Override
@@ -147,6 +152,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         this.setSitting(compoundTag.getBoolean("Sitting"));
         this.setSittingTicks(compoundTag.getInt("SittingTicks"));
         this.setPacified(compoundTag.getBoolean("Pacified"));
+        this.loadVariant(compoundTag);
     }
 
     // Idle and attack states
@@ -264,8 +270,13 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         this.entityData.set(COMMAND, command);
     }
 
-    public boolean isFollowingOwner() {
-        return this.getCommand() == 2;
+    @Override
+    public String getVariantRawId() {
+        return this.entityData.get(VARIANT);
+    }
+    @Override
+    public void setVariantRawId(String id) {
+        this.entityData.set(VARIANT, id);
     }
     // endregion
 
@@ -538,6 +549,10 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     public boolean canOwnerCommand(Player ownerPlayer, InteractionHand hand) {
         return false;
+    }
+
+    public boolean isFollowingOwner() {
+        return this.getCommand() == 2;
     }
     // endregion
 

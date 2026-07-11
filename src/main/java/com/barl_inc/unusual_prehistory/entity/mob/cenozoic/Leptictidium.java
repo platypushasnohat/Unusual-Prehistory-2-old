@@ -1,7 +1,9 @@
 package com.barl_inc.unusual_prehistory.entity.mob.cenozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barl_inc.unusual_prehistory.entity.mob.mesozoic.Dromaeosaurus;
 import com.barl_inc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barl_inc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
@@ -9,9 +11,11 @@ import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barl_inc.unusual_prehistory.tags.UP2EntityTags;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -25,6 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -168,12 +173,6 @@ public class Leptictidium extends PrehistoricMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.LEPTICTIDIUM.get().create(level);
-    }
-
-    @Nullable
-    @Override
     protected SoundEvent getAmbientSound() {
         return UP2SoundEvents.LEPTICTIDIUM_IDLE.get();
     }
@@ -190,9 +189,27 @@ public class Leptictidium extends PrehistoricMob {
         return UP2SoundEvents.LEPTICTIDIUM_DEATH.get();
     }
 
+    @Nullable
     @Override
-    public int getAmbientSoundInterval() {
-        return 150;
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Leptictidium baby = UP2Entities.LEPTICTIDIUM.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/leptictidium/leptictidium.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals
@@ -273,19 +290,18 @@ public class Leptictidium extends PrehistoricMob {
 
                 if (leptictidium.getAttackState() == 1) {
                     this.leptictidium.getNavigation().stop();
-                    this.tickAttack();
+                    this.tickAttack(target);
                 } else {
                     this.leptictidium.getNavigation().moveTo(target, 1.7D);
-                    if (distance <= this.getAttackReachSqr(target) && leptictidium.attackCooldown == 0) {
+                    if (distance <= this.getAttackReachSqr(target, 1.5D) && leptictidium.attackCooldown == 0) {
                         this.leptictidium.setAttackState(1);
                     }
                 }
             }
         }
 
-        protected void tickAttack() {
+        protected void tickAttack(LivingEntity target) {
             this.timer++;
-            LivingEntity target = leptictidium.getTarget();
             if (timer == 1) leptictidium.setPose(UP2Poses.ATTACKING.get());
             if (timer == 8) {
                 if (this.isInAttackRange(target, 1.5D)) {
@@ -299,11 +315,6 @@ public class Leptictidium extends PrehistoricMob {
                 this.leptictidium.setAttackState(0);
                 this.leptictidium.attackCooldown = 5 + leptictidium.getRandom().nextInt(5);
             }
-        }
-
-        @Override
-        protected double getAttackReachSqr(LivingEntity target) {
-            return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
         }
     }
 }

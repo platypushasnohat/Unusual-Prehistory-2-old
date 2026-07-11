@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.cenozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.mob.other.Lingcod;
 import com.barl_inc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -16,10 +17,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,6 +40,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -296,13 +300,27 @@ public class KingLingcod extends AbstractLingcod {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        KingLingcod kingLingcod = UP2Entities.KING_LINGCOD.get().create(serverLevel);
-        if (kingLingcod != null && this.getBondedEntity() == null && kingLingcod.getBondedEntity() == null) {
-            this.setBondedWithUUID(kingLingcod.getUUID());
-            kingLingcod.setBondedWithUUID(this.getUUID());
+    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob mob) {
+        KingLingcod baby = UP2Entities.KING_LINGCOD.get().create(serverLevel);
+        if (baby != null && this.getBondedEntity() == null && baby.getBondedEntity() == null) {
+            this.setBondedWithUUID(baby.getUUID());
+            baby.setBondedWithUUID(this.getUUID());
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-        return kingLingcod;
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/lingcod/king_lingcod.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     private static class KingLingcodAttackGoal extends AttackGoal {
@@ -428,7 +446,6 @@ public class KingLingcod extends AbstractLingcod {
     private static class BondedWithHurtTargetGoal extends TargetGoal {
 
         protected final KingLingcod kingLingcod;
-        @Nullable
         private LivingEntity bondedLastHurt;
         private int timestamp;
 
@@ -468,7 +485,6 @@ public class KingLingcod extends AbstractLingcod {
     private static class BondedWithHurtByTargetGoal extends TargetGoal {
 
         protected final KingLingcod kingLingcod;
-        @Nullable
         protected LivingEntity bondedLastHurtBy;
         private int timestamp;
 

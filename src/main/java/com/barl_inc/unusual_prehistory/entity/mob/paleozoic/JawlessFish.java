@@ -5,7 +5,6 @@ import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLook
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
-import com.barl_inc.unusual_prehistory.entity.variant.UP2VariantMob;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2Items;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
@@ -13,11 +12,7 @@ import com.barl_inc.unusual_prehistory.tags.UP2BlockTags;
 import com.barl_inc.unusual_prehistory.tags.UP2EntityTags;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import com.barl_inc.unusual_prehistory.utils.UP2MobUtils;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -35,7 +30,6 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -44,10 +38,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucketable, UP2VariantMob {
+public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucketable {
     // region data
-    private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.STRING);
-
     private static final float MAX_TILT = 85.0F;
     private static final float MAX_ROLL = 20.0F;
     private static final float ROLL_PER_YAW = 2.0F;
@@ -65,35 +57,8 @@ public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucke
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(VARIANT, this.defaultVariant().location().toString());
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        this.saveVariant(compoundTag);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.loadVariant(compoundTag);
-    }
-
-    @Override
     public ResourceLocation fallbackVariantTexture() {
         return UnusualPrehistory2.modPrefix("textures/entity/mob/jawless_fish/cephalaspis.png");
-    }
-
-    @Override
-    public String getVariantRawId() {
-        return this.entityData.get(VARIANT);
-    }
-    @Override
-    public void setVariantRawId(String id) {
-        this.entityData.set(VARIANT, id);
     }
 
     @Override
@@ -108,10 +73,6 @@ public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucke
     @Override
     public void saveToBucketTag(ItemStack bucket) {
         UP2MobUtils.savePrehistoricDataToBucket(this, bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, this::saveVariant);
-        CompoundTag custom = bucket.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        this.saveVariant(custom);
-        bucket.set(DataComponents.CUSTOM_DATA, CustomData.of(custom));
     }
 
     @Override
@@ -155,7 +116,7 @@ public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucke
     @Override
     public void addFollowers(Stream<? extends PrehistoricSchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
-            if (this.getVariantRawId().equals(((JawlessFish) entity2).getVariantRawId()) && !this.isBaby()) {
+            if (this.getVariantRawId().equals(entity2.getVariantRawId()) && !this.isBaby()) {
                 entity2.startFollowing(this);
             }
         });

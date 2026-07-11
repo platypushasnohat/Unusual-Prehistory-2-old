@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.cenozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
@@ -16,14 +17,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowBoatGoal;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +46,7 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
     private static final float MAX_ROLL = 25.0F;
     private static final float ROLL_PER_YAW = 2.0F;
     private static final float MAX_TAIL_YAW = 20.0F;
-    private static final float TAIL_YAW_MULITPLIER = 0.15F;
+    private static final float TAIL_YAW_MULTIPLIER = 0.15F;
 
     public int attackCooldown = 0;
 
@@ -133,7 +135,7 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
         }
 
         this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
-        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULITPLIER);
+        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULTIPLIER);
     }
 
     @Override
@@ -186,12 +188,6 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    @Nullable
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return UP2Entities.NIHOHAE.get().create(level);
-    }
-
-    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.DOLPHIN_HURT;
     }
@@ -206,5 +202,28 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
     @Nullable
     protected SoundEvent getAmbientSound() {
         return this.isInWater() ? SoundEvents.DOLPHIN_AMBIENT_WATER : SoundEvents.DOLPHIN_AMBIENT;
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Nihohae baby = UP2Entities.NIHOHAE.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/nihohae/nihohae.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 }

@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.cenozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricBabyPanicGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
@@ -11,14 +12,13 @@ import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barl_inc.unusual_prehistory.tags.UP2EntityTags;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -29,6 +29,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -96,11 +97,6 @@ public class DireWolf extends PrehistoricMob {
     }
 
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        return UP2Entities.DIRE_WOLF.get().create(level);
-    }
-
-    @Override
     public Vec3 getEepyParticleVec() {
         return new Vec3(0.0D, -this.getBbHeight() * 0.35F, this.getBbWidth() * 1.3F).yRot(-yBodyRot * ((float) Math.PI / 180F));
     }
@@ -137,5 +133,28 @@ public class DireWolf extends PrehistoricMob {
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
         this.playSound(UP2SoundEvents.DIRE_WOLF_STEP.get(), 0.3F, 1.0F);
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        DireWolf baby = UP2Entities.DIRE_WOLF.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/dire_wolf/dire_wolf.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 }

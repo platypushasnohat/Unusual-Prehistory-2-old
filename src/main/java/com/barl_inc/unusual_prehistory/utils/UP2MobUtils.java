@@ -49,6 +49,7 @@ public class UP2MobUtils {
             if (mob.getOwnerUUID() != null) {
                 compoundTag.putUUID("Owner", mob.getOwnerUUID());
             }
+            mob.saveVariant(compoundTag);
         });
     }
 
@@ -82,5 +83,7 @@ public class UP2MobUtils {
                 mob.setTame(false, true);
             }
         }
+
+        mob.loadVariant(compoundTag);
     }
 }
