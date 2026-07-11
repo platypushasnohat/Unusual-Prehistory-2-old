@@ -1,0 +1,42 @@
+package com.barl_inc.unusual_prehistory.mixins.minecraft;
+
+import com.barl_inc.unusual_prehistory.entity.utils.UP2Poses;
+import net.minecraft.world.entity.Pose;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.gen.Invoker;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@Mixin(Pose.class)
+public class PoseMixin {
+
+    @Invoker("<init>")
+    private static Pose unusualPrehistory$newPose(String internalName, int internalIndex, int index) {
+        throw new AssertionError();
+    }
+
+    @Shadow
+    @Mutable
+    @Final
+    private static Pose[] $VALUES;
+
+    @Inject(method = "<clinit>", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/Pose;$VALUES:[Lnet/minecraft/world/entity/Pose;", shift = At.Shift.AFTER))
+    private static void unusualPrehistory$addCustomEntityPoses(CallbackInfo ci) {
+        List<Pose> poses = new ArrayList<>(Arrays.asList($VALUES));
+        Pose last = poses.get(poses.size() - 1);
+        int i = 1;
+        for (UP2Poses pose : UP2Poses.values()) {
+            poses.add(unusualPrehistory$newPose(pose.name(), last.ordinal() + i, last.id() + i));
+            i++;
+        }
+        $VALUES = poses.toArray(new Pose[0]);
+    }
+}

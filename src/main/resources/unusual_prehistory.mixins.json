@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.barlinc.unusual_prehistory.mixins",
+  "package": "com.barl_inc.unusual_prehistory.mixins",
   "compatibilityLevel": "JAVA_21",
   "refmap": "unusual_prehistory.refmap.json",
   "mixins": [

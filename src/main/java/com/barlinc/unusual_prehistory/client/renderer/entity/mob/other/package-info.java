@@ -1,9 +1,0 @@
-@FieldsAreNonnullByDefault
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.other;
-
-import com.mojang.blaze3d.FieldsAreNonnullByDefault;
-import com.mojang.blaze3d.MethodsReturnNonnullByDefault;
-
-import javax.annotation.ParametersAreNonnullByDefault;

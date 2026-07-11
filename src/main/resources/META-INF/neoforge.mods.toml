@@ -2,7 +2,7 @@ modLoader = "javafml"
 loaderVersion = "${loader_version_range}"
 
 license = "${mod_license}"
-issueTrackerURL = "https://github.com"
+issueTrackerURL = "https://github.com/platypushasnohat/Unusual-Prehistory-2/issues"
 
 [[mods]]
 modId = "${mod_id}"

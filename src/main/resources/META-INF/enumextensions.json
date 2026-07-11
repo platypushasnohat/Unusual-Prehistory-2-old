@@ -5,7 +5,7 @@
       "name": "UNUSUAL_PREHISTORY_GINKGO",
       "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
       "parameters": {
-        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "class": "com/barl_inc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "GINKGO_BOAT_TYPE"
       }
     },
@@ -14,7 +14,7 @@
       "name": "UNUSUAL_PREHISTORY_LEPIDODENDRON",
       "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
       "parameters": {
-        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "class": "com/barl_inc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "LEPIDODENDRON_BOAT_TYPE"
       }
     },
@@ -23,7 +23,7 @@
       "name": "UNUSUAL_PREHISTORY_DRYOPHYLLUM",
       "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
       "parameters": {
-        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "class": "com/barl_inc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "DRYOPHYLLUM_BOAT_TYPE"
       }
     },
@@ -32,7 +32,7 @@
       "name": "UNUSUAL_PREHISTORY_METASEQUOIA",
       "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
       "parameters": {
-        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "class": "com/barl_inc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "METASEQUOIA_BOAT_TYPE"
       }
     },
@@ -42,7 +42,7 @@
       "name": "UNUSUAL_PREHISTORY_PARALYSIS",
       "constructor": "(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;)V",
       "parameters": {
-        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "class": "com/barl_inc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "PARALYSIS_HEART_TYPE"
       }
     },
@@ -52,7 +52,7 @@
       "name": "UNUSUAL_PREHISTORY_FOSSIL",
       "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
       "parameters": {
-        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "class": "com/barl_inc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "FOSSIL"
       }
     },
@@ -61,7 +61,7 @@
       "name": "UNUSUAL_PREHISTORY_RELIC",
       "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
       "parameters": {
-        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "class": "com/barl_inc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "RELIC"
       }
     }
