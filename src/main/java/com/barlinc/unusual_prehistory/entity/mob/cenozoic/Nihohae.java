@@ -56,7 +56,6 @@ public class Nihohae extends PrehistoricAquaticMob implements LeapingMob {
     public final SmoothAnimationState roll1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState roll2AnimationState = new SmoothAnimationState(1.0F);
 
-
     public Nihohae(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F);

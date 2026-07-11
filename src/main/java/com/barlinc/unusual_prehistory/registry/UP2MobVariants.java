@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public final class UP2MobVariants {
+public class UP2MobVariants {
 
     public static final Set<ResourceKey<Registry<UP2MobVariant>>> REGISTRIES = new HashSet<>();
 

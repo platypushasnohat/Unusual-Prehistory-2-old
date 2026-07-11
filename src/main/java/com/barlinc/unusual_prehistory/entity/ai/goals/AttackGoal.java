@@ -97,4 +97,9 @@ public class AttackGoal extends Goal {
         double scale = Math.max(x * x + y * y, 0.001D);
         entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
     }
+
+    protected void lookAtTarget(LivingEntity target, float yaw, float pitch) {
+        this.mob.getLookControl().setLookAt(target, yaw, pitch);
+        this.mob.lookAt(target, yaw, pitch);
+    }
 }
