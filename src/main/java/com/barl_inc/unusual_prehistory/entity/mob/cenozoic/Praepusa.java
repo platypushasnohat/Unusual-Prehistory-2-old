@@ -297,18 +297,18 @@
      }
 
      @Override
-     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-         if (DATA_POSE.equals(accessor)) {
+     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+         if (DATA_POSE.equals(key)) {
              if (this.getPose() == UP2Poses.MITOSIS.get()) {
                  this.mitosisTicks = 40;
              }
          }
-         if (IDLE_STATE.equals(accessor)) {
+         if (IDLE_STATE.equals(key)) {
              if (this.getIdleState() == 2) {
                  this.slapAlt = this.getRandom().nextBoolean();
              }
          }
-         super.onSyncedDataUpdated(accessor);
+         super.onSyncedDataUpdated(key);
      }
 
      public void handleEntityEvent(byte id) {

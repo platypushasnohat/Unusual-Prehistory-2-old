@@ -332,8 +332,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.POKING.get()) {
                 this.pokeTicks = 20;
             }
@@ -341,7 +341,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
                 this.attackAlt = this.getRandom().nextBoolean();
             }
         }
-        if (IDLE_STATE.equals(accessor)) {
+        if (IDLE_STATE.equals(key)) {
             if (this.getIdleState() == 1) {
                 this.digAlt = this.getRandom().nextBoolean();
             }
@@ -349,7 +349,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
                 this.preenAlt = this.getRandom().nextBoolean();
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

@@ -99,8 +99,8 @@ public class Prognathodon extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
-        if (IDLE_STATE.equals(accessor)) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (IDLE_STATE.equals(key)) {
             if (this.getIdleState() == IDLE_NIP) {
                 this.nipAlt = this.getRandom().nextBoolean();
             }

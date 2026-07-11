@@ -322,8 +322,8 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.START_FLYING.get()) {
                 this.leapStartTicks = 120;
             }
@@ -331,7 +331,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
                 this.leapTicks = 60;
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     private void tickMultipart() {

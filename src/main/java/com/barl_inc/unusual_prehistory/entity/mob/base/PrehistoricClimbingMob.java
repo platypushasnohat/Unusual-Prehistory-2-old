@@ -138,15 +138,15 @@ public abstract class PrehistoricClimbingMob extends PrehistoricMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         if (this.level().isClientSide) {
-            if (CLIMB_DIRECTION.equals(accessor)) {
+            if (CLIMB_DIRECTION.equals(key)) {
                 if (entityData.get(CLIMB_DIRECTION) != Direction.UP) {
                     this.prevClimbDirection = entityData.get(CLIMB_DIRECTION);
                 }
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     protected static class ClimbingLookControl extends PrehistoricLookControl {

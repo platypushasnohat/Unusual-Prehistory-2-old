@@ -309,16 +309,16 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
-        if (BOOST_TIME.equals(accessor) && this.level().isClientSide) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (BOOST_TIME.equals(key) && this.level().isClientSide) {
             this.steering.onSynced();
         }
-        if (SEGMENTS.equals(accessor)) {
+        if (SEGMENTS.equals(key)) {
             this.refreshDimensions();
             Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(10.0F + (10.0F * this.getSegments()));
             this.heal(this.getMaxHealth());
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

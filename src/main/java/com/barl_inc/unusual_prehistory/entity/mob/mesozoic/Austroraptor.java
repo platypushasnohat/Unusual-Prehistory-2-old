@@ -216,8 +216,9 @@ public class Austroraptor extends PrehistoricAmphibiousMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (IDLE_STATE.equals(accessor)) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (IDLE_STATE.equals(key)) {
             if (this.getIdleState() == 2) {
                 this.preenAlt = this.getRandom().nextBoolean();
             }
@@ -225,7 +226,7 @@ public class Austroraptor extends PrehistoricAmphibiousMob {
     }
 
     @Override
-    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+    public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
         return UP2Entities.AUSTRORAPTOR.get().create(level);
     }
 

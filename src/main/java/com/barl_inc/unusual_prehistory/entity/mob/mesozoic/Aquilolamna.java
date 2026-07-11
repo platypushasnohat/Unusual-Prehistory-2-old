@@ -42,7 +42,7 @@ public class Aquilolamna extends PrehistoricAquaticMob implements Bucketable {
     private static final float MAX_ROLL = 45.0F;
     private static final float ROLL_PER_YAW = 2.0F;
     private static final float MAX_TAIL_YAW = 20.0F;
-    private static final float TAIL_YAW_MULITPLIER = 0.25F;
+    private static final float TAIL_YAW_MULTIPLIER = 0.25F;
 
     public Aquilolamna(EntityType<? extends Aquilolamna> entityType, Level level) {
         super(entityType, level);
@@ -82,7 +82,7 @@ public class Aquilolamna extends PrehistoricAquaticMob implements Bucketable {
     public void tick() {
         super.tick();
         this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
-        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULITPLIER);
+        this.tickTailYaw(MAX_TAIL_YAW, TAIL_YAW_MULTIPLIER);
     }
 
     @Override

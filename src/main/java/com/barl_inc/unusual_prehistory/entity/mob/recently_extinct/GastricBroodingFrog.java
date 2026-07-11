@@ -485,13 +485,13 @@ public class GastricBroodingFrog extends PrehistoricAmphibiousMob implements Buc
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.attackTicks = 10;
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

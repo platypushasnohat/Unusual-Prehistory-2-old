@@ -97,11 +97,11 @@ public class LobeFinnedFish extends PrehistoricSchoolingAquaticMob implements Bu
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (VARIANT.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (VARIANT.equals(key)) {
             this.refreshDimensions();
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

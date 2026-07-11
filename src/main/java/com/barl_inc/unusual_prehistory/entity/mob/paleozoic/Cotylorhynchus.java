@@ -259,13 +259,13 @@ public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.BURPING.get()) {
                 this.burpTicks = 40;
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

@@ -392,8 +392,8 @@ public class Megalania extends PrehistoricAmphibiousMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (TEMPERATURE_STATE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (TEMPERATURE_STATE.equals(key)) {
             if (this.getTemperatureState().equals(TemperatureStates.COLD)) {
                 Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.14F);
                 Objects.requireNonNull(this.getAttribute(Attributes.FOLLOW_RANGE)).setBaseValue(10.0D);
@@ -423,7 +423,7 @@ public class Megalania extends PrehistoricAmphibiousMob {
                 }
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

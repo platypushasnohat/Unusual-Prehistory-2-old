@@ -362,14 +362,14 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.attackTicks = 15;
                 this.attackAlt = this.getRandom().nextBoolean();
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

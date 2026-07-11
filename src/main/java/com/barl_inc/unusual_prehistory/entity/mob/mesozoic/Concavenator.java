@@ -646,11 +646,11 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
-        if (SAND_SWIMMING.equals(accessor)) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (SAND_SWIMMING.equals(key)) {
             this.refreshDimensions();
         }
-        if (DATA_POSE.equals(accessor)) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.START_SWIMMING.get()) {
                 this.sandSwimStartTicks = 20;
             }
@@ -658,24 +658,24 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
                 this.sandSwimEndTicks = 20;
             }
         }
-        if (ARMOR_TYPE.equals(accessor)) {
+        if (ARMOR_TYPE.equals(key)) {
             if (this.getArmorType() == ArmorType.NONE) {
                 Objects.requireNonNull(this.getAttribute(Attributes.ARMOR)).setBaseValue(1.0D);
             } else {
                 Objects.requireNonNull(this.getAttribute(Attributes.ARMOR)).setBaseValue(15.0D);
             }
         }
-        if (PACK_LEADER.equals(accessor)) {
+        if (PACK_LEADER.equals(key)) {
             Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(36.0D);
             Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(7.0D);
             this.heal(36.0F);
         }
-        if (IDLE_STATE.equals(accessor)) {
+        if (IDLE_STATE.equals(key)) {
             if (this.getIdleState() == 1) {
                 this.scratchAlt = this.getRandom().nextBoolean();
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     public void handleEntityEvent(byte id) {

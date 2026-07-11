@@ -226,13 +226,13 @@ public class Rhizodus extends PrehistoricAmphibiousMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (SIZE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (SIZE.equals(key)) {
             this.refreshDimensions();
             this.setYRot(yHeadRot);
             this.yBodyRot = yHeadRot;
         }
-        if (DATA_POSE.equals(accessor)) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.attackAlt = this.getRandom().nextBoolean();
             }

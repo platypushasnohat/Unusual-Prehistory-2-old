@@ -581,14 +581,14 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     // Data
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
-        if (EEPY.equals(accessor)) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (EEPY.equals(key)) {
             this.refreshDimensions();
         }
-        else if (SITTING.equals(accessor)) {
+        else if (SITTING.equals(key)) {
             this.refreshDimensions();
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

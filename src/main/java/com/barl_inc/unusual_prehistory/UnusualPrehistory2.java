@@ -75,11 +75,11 @@ public class UnusualPrehistory2 {
         PROXY.commonInit();
     }
 
-    public void commonSetup(final FMLCommonSetupEvent event) {
+    public void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(UP2Compat::registerCompat);
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(PROXY::clientInit);
     }
 

@@ -173,18 +173,18 @@ public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, V
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (SIZE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (SIZE.equals(key)) {
             this.refreshDimensions();
             this.setYRot(this.yHeadRot);
             this.yBodyRot = this.yHeadRot;
         }
-        if (DATA_POSE.equals(accessor)) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.absorbTicks = 10;
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

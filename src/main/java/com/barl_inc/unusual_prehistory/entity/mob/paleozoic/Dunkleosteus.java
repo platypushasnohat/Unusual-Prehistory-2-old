@@ -119,12 +119,12 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, V
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (VARIANT.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (VARIANT.equals(key)) {
             this.refreshDimensions();
             this.setupSizeAttributes();
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     private void setupSizeAttributes() {

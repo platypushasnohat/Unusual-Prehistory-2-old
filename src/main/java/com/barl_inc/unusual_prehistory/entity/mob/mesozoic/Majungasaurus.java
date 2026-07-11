@@ -234,18 +234,18 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.attackAlt = this.getRandom().nextBoolean();
             }
         }
-        if (IDLE_STATE.equals(accessor)) {
+        if (IDLE_STATE.equals(key)) {
             if (this.getIdleState() == 3) {
                 this.sniffAlt = this.getRandom().nextBoolean();
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

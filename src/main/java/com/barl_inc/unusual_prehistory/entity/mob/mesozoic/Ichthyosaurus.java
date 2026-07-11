@@ -298,12 +298,12 @@ public class Ichthyosaurus extends PrehistoricSchoolingAquaticMob implements Lea
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (!this.firstTick && DASHING.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (!this.firstTick && DASHING.equals(key)) {
             this.dashCooldown = this.dashCooldown == 0 ? 80 : this.dashCooldown;
             this.rollAlt = this.getRandom().nextBoolean();
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     @Override

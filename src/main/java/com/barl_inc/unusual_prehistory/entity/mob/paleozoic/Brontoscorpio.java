@@ -183,8 +183,8 @@
      }
 
      @Override
-     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-         if (DATA_POSE.equals(accessor)) {
+     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+         if (DATA_POSE.equals(key)) {
              if (this.getPose() == UP2Poses.WARNING.get()) {
                  this.warnTicks = 60;
              }
@@ -192,7 +192,7 @@
                  this.attackAlt = this.getRandom().nextBoolean();
              }
          }
-         if (IDLE_STATE.equals(accessor)) {
+         if (IDLE_STATE.equals(key)) {
              if (this.getIdleState() == 1) {
                  this.snipAlt = this.getRandom().nextBoolean();
              }

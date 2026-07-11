@@ -195,8 +195,8 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.WARNING.get()) {
                 this.warnTicks = 60;
             }

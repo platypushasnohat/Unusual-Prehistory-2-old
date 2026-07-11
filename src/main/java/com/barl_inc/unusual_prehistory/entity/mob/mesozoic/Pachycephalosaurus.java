@@ -165,13 +165,13 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.RECOVERING.get()) {
                 this.recoverTicks = 70;
             }
         }
-        super.onSyncedDataUpdated(accessor);
+        super.onSyncedDataUpdated(key);
     }
 
     public void handleEntityEvent(byte id) {

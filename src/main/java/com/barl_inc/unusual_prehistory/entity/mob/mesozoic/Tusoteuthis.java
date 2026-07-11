@@ -248,8 +248,8 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.WARNING.get()) {
                 this.warnTicks = 25;
             }

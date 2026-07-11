@@ -187,8 +187,8 @@ public class Lorrainosaurus extends PrehistoricAmphibiousMob implements Grabbing
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (DATA_POSE.equals(key)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.attackAlt = this.getRandom().nextBoolean();
             }
@@ -199,7 +199,7 @@ public class Lorrainosaurus extends PrehistoricAmphibiousMob implements Grabbing
                 this.grabTicks = this.getGrabTime();
             }
         }
-        if (IDLE_STATE.equals(accessor)) {
+        if (IDLE_STATE.equals(key)) {
             if (this.getIdleState() == 2) {
                 this.nipAlt = this.getRandom().nextBoolean();
             }

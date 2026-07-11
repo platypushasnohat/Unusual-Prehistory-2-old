@@ -252,11 +252,11 @@
      }
 
      @Override
-     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-         if (PLOW_TIME.equals(accessor) && this.level().isClientSide) {
+     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+         if (PLOW_TIME.equals(key) && this.level().isClientSide) {
              this.steering.onSynced();
          }
-         super.onSyncedDataUpdated(accessor);
+         super.onSyncedDataUpdated(key);
      }
 
      @Override
