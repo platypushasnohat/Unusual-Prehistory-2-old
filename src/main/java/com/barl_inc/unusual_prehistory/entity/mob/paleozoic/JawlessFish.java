@@ -1,12 +1,11 @@
 package com.barl_inc.unusual_prehistory.entity.mob.paleozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
-import com.barl_inc.unusual_prehistory.entity.ai.goals.AquaticNibbleBlockGoal;
-import com.barl_inc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
-import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
-import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
+import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricSchoolingAquaticMob;
+import com.barl_inc.unusual_prehistory.entity.variant.UP2VariantMob;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2Items;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
@@ -19,6 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -40,18 +40,21 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucketable, VariantHolder<JawlessFish.JawlessFishVariant> {
+public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucketable, UP2VariantMob {
+    // region data
+    private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.STRING);
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.INT);
+    private static final float MAX_TILT = 85.0F;
+    private static final float MAX_ROLL = 20.0F;
+    private static final float ROLL_PER_YAW = 2.0F;
 
     public JawlessFish(EntityType<? extends PrehistoricSchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 10, 0.02F);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
@@ -62,13 +65,71 @@ public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucke
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, this.defaultVariant().location().toString());
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        this.saveVariant(compoundTag);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.loadVariant(compoundTag);
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/jawless_fish/cephalaspis.png");
+    }
+
+    @Override
+    public String getVariantRawId() {
+        return this.entityData.get(VARIANT);
+    }
+    @Override
+    public void setVariantRawId(String id) {
+        this.entityData.set(VARIANT, id);
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
+    public void saveToBucketTag(ItemStack bucket) {
+        UP2MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, this::saveVariant);
+        CompoundTag custom = bucket.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        this.saveVariant(custom);
+        bucket.set(DataComponents.CUSTOM_DATA, CustomData.of(custom));
+    }
+
+    @Override
+    public void loadFromBucketTag(CompoundTag compoundTag) {
+        UP2MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.loadVariant(compoundTag);
+    }
+    // endregion
+
+    // region behavior
+    @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 2.0D, 10, 7));
+        this.goalSelector.addGoal(1, new AquaticPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
         this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.JAWLESS_FISH_FOOD_BLOCKS));
-        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 20, 10, 7));
+        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 20));
         this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
     }
 
@@ -78,7 +139,7 @@ public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucke
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             UP2MobUtils.travelInWater(this, travelVector);
         } else {
@@ -94,74 +155,36 @@ public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucke
     @Override
     public void addFollowers(Stream<? extends PrehistoricSchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
-            if (this.getVariant() == ((JawlessFish) entity2).getVariant() && !this.isBaby()) {
+            if (this.getVariantRawId().equals(((JawlessFish) entity2).getVariantRawId()) && !this.isBaby()) {
                 entity2.startFollowing(this);
             }
         });
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant().getId());
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setVariant(JawlessFishVariant.byId(compoundTag.getInt("Variant")));
-    }
-
-    @Override
-    public @NotNull JawlessFishVariant getVariant() {
-        return JawlessFishVariant.byId(this.entityData.get(VARIANT));
-    }
-
-    @Override
-    public void setVariant(JawlessFishVariant variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, JawlessFishVariant.values().length));
-    }
-
-    @Override
-    public boolean fromBucket() {
-        return false;
-    }
-
-    @Override
-    public void setFromBucket(boolean fromBucket) {
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
+    public ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.JAWLESS_FISH_BUCKET.get());
     }
 
     @Override
-    public @NotNull SoundEvent getPickupSound() {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
+    }
+
+    @Override
+    public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
     }
 
     @Override
-    public void saveToBucketTag(@NotNull ItemStack bucket) {
-        UP2MobUtils.savePrehistoricDataToBucket(this, bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
-    }
-
-    @Override
-    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-        UP2MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
-        this.setVariant(JawlessFishVariant.byId(compoundTag.getInt("Variant")));
-    }
-
-    @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+    protected SoundEvent getFlopSound() {
+        return UP2SoundEvents.JAWLESS_FISH_FLOP.get();
     }
 
     @Override
@@ -170,58 +193,55 @@ public class JawlessFish extends PrehistoricSchoolingAquaticMob implements Bucke
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.JAWLESS_FISH_HURT.get();
-    }
-
-    @Override
-    protected SoundEvent getFlopSound() {
-        return UP2SoundEvents.JAWLESS_FISH_FLOP.get();
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        JawlessFish jawlessFish = UP2Entities.JAWLESS_FISH.get().create(serverLevel);
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        JawlessFish jawlessFish = UP2Entities.JAWLESS_FISH.get().create(level);
         if (jawlessFish != null) {
-            jawlessFish.setVariant(this.getVariant());
+            jawlessFish.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
         return jawlessFish;
     }
+    // endregion
 
-    public enum JawlessFishVariant {
-        ARANDASPIS(0),
-        CEPHALASPIS(1),
-        DORYASPIS(2),
-        FURCACAUDA(3),
-        SACABAMBASPIS(4);
+    // region animations
+    @Override
+    public void setupAnimationStates() {
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+    }
 
-        private final int variant;
-
-        JawlessFishVariant(int variant) {
-            this.variant = variant;
-        }
-
-        public int getId() {
-            return this.variant;
-        }
-
-        public static JawlessFishVariant byId(int id) {
-            if (id < 0 || id >= JawlessFishVariant.values().length) {
-                id = 0;
-            }
-            return JawlessFishVariant.values()[id];
+    @Override
+    public void calculateEntityAnimation(boolean includeHeight) {
+        float f = (float) Mth.length(this.getX() - this.xo, this.isInWater() ? this.getY() - this.yo : 0.0D, this.getZ() - this.zo);
+        if (this.isBaby()) {
+            this.updateWalkAnimation(f * 0.5F);
+        } else {
+            this.updateWalkAnimation(f);
         }
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
-        if (spawnType == MobSpawnType.BUCKET) {
-            return spawnGroupData;
-        } else {
-            this.setVariant(JawlessFishVariant.byId(level.getRandom().nextInt(JawlessFishVariant.values().length)));
-        }
-        return spawnGroupData;
+    protected void updateWalkAnimation(float partialTick) {
+        float f = Math.min(partialTick * 25.0F, 1.0F);
+        this.walkAnimation.update(f, 0.4F);
     }
+    // endregion
+
+    // region spawning
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        if (spawnType == MobSpawnType.BUCKET) {
+            return data;
+        }
+        this.pickVariantForSpawn(level);
+        return data;
+    }
+    // endregion
 }

@@ -1,37 +1,32 @@
 package com.barl_inc.unusual_prehistory.client.models.entity.mob.paleozoic;
 
-import com.barl_inc.unusual_prehistory.client.animations.entity.mob.paleozoic.JawlessFishAnimations;
-import com.barl_inc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barl_inc.unusual_prehistory.entity.mob.paleozoic.JawlessFish;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class JawlessFishCephalaspisModel extends UP2Model<JawlessFish> {
+public class JawlessFishCephalaspisModel extends JawlessFishModel {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
 	private final ModelPart body_sideways;
 	private final ModelPart body;
-	private final ModelPart left_fin;
-	private final ModelPart right_fin;
+	private final ModelPart pectoralfin_left;
+	private final ModelPart pectoralfin_right;
 	private final ModelPart tail1;
 	private final ModelPart tail2;
 
 	public JawlessFishCephalaspisModel(ModelPart root) {
-        super(0.5F, 24);
-        this.root = root.getChild("root");
+        super();
+		this.root = root.getChild("root");
 		this.swim_control = this.root.getChild("swim_control");
 		this.body_sideways = this.swim_control.getChild("body_sideways");
 		this.body = this.body_sideways.getChild("body");
-		this.left_fin = this.body.getChild("left_fin");
-		this.right_fin = this.body.getChild("right_fin");
+		this.pectoralfin_left = this.body.getChild("pectoralfin_left");
+		this.pectoralfin_right = this.body.getChild("pectoralfin_right");
 		this.tail1 = this.body.getChild("tail1");
 		this.tail2 = this.tail1.getChild("tail2");
 	}
@@ -50,9 +45,9 @@ public class JawlessFishCephalaspisModel extends UP2Model<JawlessFish> {
 				.texOffs(0, 0).addBox(-2.0F, -0.05F, -1.0F, 4.0F, 3.0F, 6.0F, new CubeDeformation(0.0F))
 				.texOffs(10, 12).addBox(0.0F, -2.0F, 4.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition left_fin = body.addOrReplaceChild("left_fin", CubeListBuilder.create().texOffs(0, 0).addBox(0.05F, 0.0F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, 2.0F, 1.0F, 0.0F, 0.48F, 0.0F));
+		PartDefinition pectoralfin_left = body.addOrReplaceChild("pectoralfin_left", CubeListBuilder.create().texOffs(0, 0).addBox(0.05F, 0.0F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, 2.0F, 1.0F, 0.0F, 0.48F, 0.0F));
 
-		PartDefinition right_fin = body.addOrReplaceChild("right_fin", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-0.05F, 0.0F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-2.0F, 2.0F, 1.0F, 0.0F, -0.48F, 0.0F));
+		PartDefinition pectoralfin_right = body.addOrReplaceChild("pectoralfin_right", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-0.05F, 0.0F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-2.0F, 2.0F, 1.0F, 0.0F, -0.48F, 0.0F));
 
 		PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(0, 1).addBox(0.0F, -1.5F, 0.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.5F, 5.0F));
 
@@ -62,16 +57,12 @@ public class JawlessFishCephalaspisModel extends UP2Model<JawlessFish> {
 	}
 
 	@Override
-	public void setupAnim(JawlessFish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(JawlessFishAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
-        this.animateIdle(entity.swimIdleAnimationState, JawlessFishAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
-        this.animate(entity.flopAnimationState, JawlessFishAnimations.FLOP, ageInTicks);
-        this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
+	public ModelPart root() {
+		return this.root;
 	}
 
 	@Override
-	public @NotNull ModelPart root() {
-		return this.root;
+	public ModelPart swimControl() {
+		return this.swim_control;
 	}
 }

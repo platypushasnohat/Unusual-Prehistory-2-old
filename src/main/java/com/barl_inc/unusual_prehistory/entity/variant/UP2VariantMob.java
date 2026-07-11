@@ -56,6 +56,10 @@ public interface UP2VariantMob {
         return this.getVariantHolder().map(holder -> holder.value().babyTexture()).orElseGet(this::fallbackVariantTexture);
     }
 
+    default Optional<String> getVariantModelKey() {
+        return this.getVariantHolder().flatMap(holder -> holder.value().modelKey());
+    }
+
     default void saveVariant(CompoundTag tag) {
         tag.putString(VARIANT_TAG, this.getVariantId().toString());
     }

@@ -40,7 +40,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -125,7 +124,7 @@ public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+    protected PathNavigation createNavigation(Level level) {
         SmoothGroundNavigation navigation = new SmoothGroundNavigation(this, level);
         navigation.setCanOpenDoors(true);
         navigation.setCanPassDoors(true);
@@ -159,20 +158,21 @@ public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
         Dromaeosaurus baby = UP2Entities.DROMAEOSAURUS.get().create(level);
         if (baby != null) {
             baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
         return baby;
     }
+
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.FALL);
     }
 
     @Override
-    protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
     }
 
     @Override
@@ -181,7 +181,7 @@ public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
     }
 
     @Override
-    public void travel(@NotNull Vec3 vec3) {
+    public void travel(Vec3 vec3) {
         if (this.refuseToMove() && this.onGround()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
             vec3 = vec3.multiply(0.0, 1.0, 0.0);
@@ -202,7 +202,7 @@ public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.DROMAEOSAURUS_HURT.get();
     }
 
@@ -212,8 +212,8 @@ public class Dromaeosaurus extends PrehistoricMob implements UP2VariantMob {
         return UP2SoundEvents.DROMAEOSAURUS_DEATH.get();
     }
 
-    @Override
     @Nullable
+    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         this.pickVariantForSpawn(level);

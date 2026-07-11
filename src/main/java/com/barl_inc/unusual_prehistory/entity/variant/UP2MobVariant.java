@@ -23,7 +23,8 @@ public final class UP2MobVariant {
             VariantTime.CODEC.optionalFieldOf("time", VariantTime.ANY).forGetter(UP2MobVariant::time),
             VariantWeather.CODEC.optionalFieldOf("weather", VariantWeather.ANY).forGetter(UP2MobVariant::weather),
             Codec.INT.optionalFieldOf("min_spawn_height").forGetter(UP2MobVariant::minSpawnHeight),
-            Codec.INT.optionalFieldOf("max_spawn_height").forGetter(UP2MobVariant::maxSpawnHeight)
+            Codec.INT.optionalFieldOf("max_spawn_height").forGetter(UP2MobVariant::maxSpawnHeight),
+            Codec.STRING.optionalFieldOf("model_key").forGetter(UP2MobVariant::modelKey)
     ).apply(instance, UP2MobVariant::new));
 
     private final ResourceLocation texture;
@@ -35,8 +36,9 @@ public final class UP2MobVariant {
     private final VariantWeather weather;
     private final Optional<Integer> minSpawnHeight;
     private final Optional<Integer> maxSpawnHeight;
+    private final Optional<String> modelKey;
 
-    public UP2MobVariant(ResourceLocation texture, Optional<ResourceLocation> babyTexture, Optional<HolderSet<Biome>> biomes, int weight, int priority, VariantTime time, VariantWeather weather, Optional<Integer> minSpawnHeight, Optional<Integer> maxSpawnHeight) {
+    public UP2MobVariant(ResourceLocation texture, Optional<ResourceLocation> babyTexture, Optional<HolderSet<Biome>> biomes, int weight, int priority, VariantTime time, VariantWeather weather, Optional<Integer> minSpawnHeight, Optional<Integer> maxSpawnHeight, Optional<String> modelKey) {
         this.texture = texture;
         this.babyTexture = babyTexture;
         this.biomes = biomes;
@@ -46,6 +48,7 @@ public final class UP2MobVariant {
         this.weather = weather;
         this.minSpawnHeight = minSpawnHeight;
         this.maxSpawnHeight = maxSpawnHeight;
+        this.modelKey = modelKey;
     }
 
     public ResourceLocation texture() {
@@ -82,6 +85,10 @@ public final class UP2MobVariant {
 
     public Optional<Integer> maxSpawnHeight() {
         return this.maxSpawnHeight;
+    }
+
+    public Optional<String> modelKey() {
+        return this.modelKey;
     }
 
     private static ResourceLocation fullTextureId(ResourceLocation texture) {

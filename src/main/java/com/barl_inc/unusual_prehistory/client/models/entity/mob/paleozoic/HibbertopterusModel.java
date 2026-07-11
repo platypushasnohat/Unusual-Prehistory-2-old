@@ -166,7 +166,6 @@ public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-
         this.animateWalk(HibbertopterusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
 		this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
         this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, partialTicks, limbSwingAmount, 4);
