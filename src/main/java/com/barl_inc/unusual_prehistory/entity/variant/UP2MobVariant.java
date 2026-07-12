@@ -59,6 +59,14 @@ public final class UP2MobVariant {
         return this.babyTexture.map(UP2MobVariant::fullTextureId).orElse(this.texture);
     }
 
+    public ResourceLocation rawTexture() {
+        return this.texture;
+    }
+
+    public ResourceLocation rawBabyTexture() {
+        return this.texture;
+    }
+
     public Optional<HolderSet<Biome>> biomes() {
         return this.biomes;
     }
@@ -91,7 +99,7 @@ public final class UP2MobVariant {
         return this.modelKey;
     }
 
-    private static ResourceLocation fullTextureId(ResourceLocation texture) {
+    public static ResourceLocation fullTextureId(ResourceLocation texture) {
         return texture.withPath(path -> "textures/" + path + ".png");
     }
 }

@@ -19,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -395,21 +396,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricWallAttachingFly
         };
     }
 
-    @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        if (spawnType == MobSpawnType.BUCKET) {
-            return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-        } else {
-            this.setBaseColor(level.getRandom().nextInt(16));
-            this.setPattern(level.getRandom().nextInt(7));
-            this.setPatternColor(level.getRandom().nextInt(16));
-            this.setWingColor(level.getRandom().nextInt(16));
-            this.setHasPattern(level.getRandom().nextInt(3) == 0);
-        }
-        this.switchNavigator(true);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-    }
-
     public int getBaseColor() {
         return this.entityData.get(BASE_COLOR);
     }
@@ -472,20 +458,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricWallAttachingFly
         if (!this.isBaby()) {
             this.switchNavigator(true);
         }
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        Kimmeridgebrachypteraeschnidium dragonfly = UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get().create(level);
-        if (dragonfly != null) {
-            dragonfly.setBaseColor(this.getBaseColor());
-            dragonfly.setHasPattern(this.hasPattern());
-            dragonfly.setPattern(this.getPattern());
-            dragonfly.setPatternColor(this.getPatternColor());
-            dragonfly.setWingColor(this.getWingColor());
-        }
-        return dragonfly;
     }
 
     @Override
@@ -580,6 +552,34 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricWallAttachingFly
     @Override
     protected float getSoundVolume() {
         return 0.5F;
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        return null;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/kimmeridgebrachypteraeschnidium/base/base_0.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        if (spawnType == MobSpawnType.BUCKET) {
+            return data;
+        } else {
+            this.setBaseColor(level.getRandom().nextInt(16));
+            this.setPattern(level.getRandom().nextInt(7));
+            this.setPatternColor(level.getRandom().nextInt(16));
+            this.setWingColor(level.getRandom().nextInt(16));
+            this.setHasPattern(level.getRandom().nextInt(3) == 0);
+        }
+        this.switchNavigator(true);
+        return data;
     }
 
     // Goals

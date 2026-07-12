@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
@@ -20,11 +21,13 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -38,6 +41,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -373,12 +377,6 @@ public class Desmatosuchus extends PrehistoricMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.DESMATOSUCHUS.get().create(level);
-    }
-
-    @Nullable
-    @Override
     protected SoundEvent getAmbientSound() {
         return UP2SoundEvents.DESMATOSUCHUS_IDLE.get();
     }
@@ -433,6 +431,29 @@ public class Desmatosuchus extends PrehistoricMob {
             }
             return DirtType.values()[id];
         }
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Desmatosuchus baby = UP2Entities.DESMATOSUCHUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/desmatosuchus/desmatosuchus.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals

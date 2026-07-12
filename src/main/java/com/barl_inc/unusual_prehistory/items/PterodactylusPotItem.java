@@ -32,11 +32,8 @@ import java.util.function.IntFunction;
 
 public class PterodactylusPotItem extends Item {
 
-    private final IntFunction<String> variantNameGetter;
-
-    public PterodactylusPotItem(Properties properties, @Nullable IntFunction<String> variantNameGetter) {
+    public PterodactylusPotItem(Properties properties) {
         super(properties);
-        this.variantNameGetter = variantNameGetter;
     }
 
     @Override
@@ -72,24 +69,24 @@ public class PterodactylusPotItem extends Item {
         }
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, List<Component> components, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, components, flag);
-
-        if (variantNameGetter == null) return;
-        ChatFormatting[] grayChatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-        CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
-
-        if (customdata.isEmpty() || !customdata.contains("BucketVariantTag")) return;
-
-        int variantId = customdata.copyTag().getInt("BucketVariantTag");
-        String variantName = variantNameGetter.apply(variantId);
-
-        EntityType<?> type = UP2Entities.PTERODACTYLUS.get();
-        ResourceLocation key = EntityType.getKey(type);
-
-        String translationKey = "entity." + key.getNamespace() + "." + key.getPath() + ".variant_" + variantName;
-
-        components.add(Component.translatable(translationKey).withStyle(grayChatFormatting));
-    }
+//    @Override
+//    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, List<Component> components, @NotNull TooltipFlag flag) {
+//        super.appendHoverText(stack, context, components, flag);
+//
+//        if (variantNameGetter == null) return;
+//        ChatFormatting[] grayChatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
+//        CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
+//
+//        if (customdata.isEmpty() || !customdata.contains("BucketVariantTag")) return;
+//
+//        int variantId = customdata.copyTag().getInt("BucketVariantTag");
+//        String variantName = variantNameGetter.apply(variantId);
+//
+//        EntityType<?> type = UP2Entities.PTERODACTYLUS.get();
+//        ResourceLocation key = EntityType.getKey(type);
+//
+//        String translationKey = "entity." + key.getNamespace() + "." + key.getPath() + ".variant_" + variantName;
+//
+//        components.add(Component.translatable(translationKey).withStyle(grayChatFormatting));
+//    }
 }

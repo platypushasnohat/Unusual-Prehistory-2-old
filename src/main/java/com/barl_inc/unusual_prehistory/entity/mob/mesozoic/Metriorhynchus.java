@@ -1,5 +1,6 @@
  package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+ import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
  import com.barl_inc.unusual_prehistory.entity.accessor.LivingEntityAccessor;
  import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
@@ -21,10 +22,12 @@
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
+ import net.minecraft.resources.ResourceLocation;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.FluidTags;
+ import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
@@ -42,6 +45,7 @@
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelReader;
+ import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.level.pathfinder.PathType;
@@ -326,14 +330,26 @@
          this.playSound(SoundEvents.FROG_STEP, 0.3F, 0.9F);
      }
 
+     @Nullable
      @Override
-     public int getAmbientSoundInterval() {
-         return 200;
+     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+         Metriorhynchus baby = UP2Entities.METRIORHYNCHUS.get().create(level);
+         if (baby != null) {
+             baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+         }
+         return baby;
+     }
+
+     @Override
+     public ResourceLocation fallbackVariantTexture() {
+         return UnusualPrehistory2.modPrefix("textures/entity/mob/metriorhynchus/metriorhynchus.png");
      }
 
      @Nullable
      @Override
-     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-         return UP2Entities.METRIORHYNCHUS.get().create(level);
+     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+         this.pickVariantForSpawn(level);
+         return data;
      }
  }

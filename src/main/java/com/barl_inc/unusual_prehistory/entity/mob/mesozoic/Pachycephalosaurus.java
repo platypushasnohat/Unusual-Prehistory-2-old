@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -41,9 +43,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<Pachycephalosaurus.PachycephalosaurusVariant> {
+public class Pachycephalosaurus extends PrehistoricMob {
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> FIGHT_COOLDOWN = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FIGHT_PARTNER = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.BOOLEAN);
@@ -203,7 +204,6 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
         builder.define(CHARGE_COOLDOWN, 0);
         builder.define(FIGHT_COOLDOWN, 800);
         builder.define(FIGHT_PARTNER, false);
@@ -214,7 +214,6 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putInt("FightCooldown", this.getFightCooldown());
         compoundTag.putInt("FindTargetCooldown", this.getFindTargetCooldown());
     }
@@ -222,19 +221,8 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setVariant(PachycephalosaurusVariant.byId(compoundTag.getInt("Variant")));
         this.setFightCooldown(compoundTag.getInt("FightCooldown"));
         this.setFindTargetCooldown(compoundTag.getInt("FindTargetCooldown"));
-    }
-
-    @Override
-    public @NotNull PachycephalosaurusVariant getVariant() {
-        return PachycephalosaurusVariant.byId(this.entityData.get(VARIANT));
-    }
-
-    @Override
-    public void setVariant(PachycephalosaurusVariant variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, PachycephalosaurusVariant.values().length));
     }
 
     public void setChargeCooldown(int cooldown) {
@@ -281,16 +269,6 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        Pachycephalosaurus pachycephalosaurus = UP2Entities.PACHYCEPHALOSAURUS.get().create(level);
-        if (pachycephalosaurus != null) {
-            pachycephalosaurus.setVariant(this.getVariant());
-        }
-        return pachycephalosaurus;
-    }
-
-    @Nullable
-    @Override
     protected SoundEvent getAmbientSound() {
         return UP2SoundEvents.PACHYCEPHALOSAURUS_IDLE.get();
     }
@@ -312,38 +290,27 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
         this.playSound(UP2SoundEvents.PACHYCEPHALOSAURUS_STEP.get(), 0.15F, 1.0F);
     }
 
+    @Nullable
     @Override
-    public int getAmbientSoundInterval() {
-        return 200;
-    }
-
-    public enum PachycephalosaurusVariant {
-        LAVENDER(0),
-        MAROON(1),
-        FOREST(2);
-
-        private final int id;
-
-        PachycephalosaurusVariant(int id) {
-            this.id = id;
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Pachycephalosaurus baby = UP2Entities.PACHYCEPHALOSAURUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-
-        public int getId() {
-            return this.id;
-        }
-
-        public static PachycephalosaurusVariant byId(int id) {
-            if (id < 0 || id >= PachycephalosaurusVariant.values().length) {
-                id = 0;
-            }
-            return PachycephalosaurusVariant.values()[id];
-        }
+        return baby;
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        this.setVariant(PachycephalosaurusVariant.byId(level.getRandom().nextInt(PachycephalosaurusVariant.values().length)));
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/pachycephalosaurus/pachycephalosaurus_lavender.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals

@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
@@ -15,9 +16,11 @@ import com.barl_inc.unusual_prehistory.tags.UP2EntityTags;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import com.barl_inc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -32,6 +35,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
@@ -157,12 +161,6 @@ public class Cryptoclidus extends PrehistoricAmphibiousMob {
         return stack.is(UP2ItemTags.DIET_PISCIVORE);
     }
 
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.CRYPTOCLIDUS.get().create(level);
-    }
-
     @Override
     @Nullable
     protected SoundEvent getAmbientSound() {
@@ -185,6 +183,29 @@ public class Cryptoclidus extends PrehistoricAmphibiousMob {
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
         if (this.isInWaterOrBubble()) return;
         this.playSound(UP2SoundEvents.CRYPTOCLIDUS_STEP.get(), 0.25F, 1.0F);
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Cryptoclidus baby = UP2Entities.CRYPTOCLIDUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/cryptoclidus/cryptoclidus.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals

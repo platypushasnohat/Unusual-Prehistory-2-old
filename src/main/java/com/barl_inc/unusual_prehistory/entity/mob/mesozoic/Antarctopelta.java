@@ -1,19 +1,21 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricBabyPanicGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barl_inc.unusual_prehistory.entity.mob.cenozoic.WoollyMammoth;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -22,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -88,12 +91,6 @@ public class Antarctopelta extends PrehistoricMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.ANTARCTOPELTA.get().create(level);
-    }
-
-    @Nullable
-    @Override
     protected SoundEvent getAmbientSound() {
         return UP2SoundEvents.ANTARCTOPELTA_IDLE.get();
     }
@@ -115,8 +112,26 @@ public class Antarctopelta extends PrehistoricMob {
         this.playSound(UP2SoundEvents.ANTARCTOPELTA_STEP.get(), 0.15F, 1.0F);
     }
 
+    @Nullable
     @Override
-    public int getAmbientSoundInterval() {
-        return 200;
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Antarctopelta baby = UP2Entities.ANTARCTOPELTA.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/antarctopelta/antarctopelta.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 }

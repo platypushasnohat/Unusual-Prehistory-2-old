@@ -58,17 +58,17 @@ public class NeoEvents {
     public static void onEntityJoinWorld(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Mob mob) {
-            if (mob instanceof Evoker evoker) {
-                evoker.goalSelector.addGoal(6, new WololoSpellGoal<>(evoker, Ulughbegsaurus.class, (livingEntity) -> ((Ulughbegsaurus) livingEntity).getVariant() == Ulughbegsaurus.UlughbegsaurusVariant.BLUE) {
-                    @Override
-                    protected void performSpellCasting() {
-                        LivingEntity wololoTarget = evokerAccess.unusualPrehistory$getLivingWololoTarget();
-                        if (wololoTarget != null && wololoTarget.isAlive() && wololoTarget instanceof Ulughbegsaurus ulughbegsaurus) {
-                            ulughbegsaurus.setVariant(Ulughbegsaurus.UlughbegsaurusVariant.RED);
-                        }
-                    }
-                });
-            }
+//            if (mob instanceof Evoker evoker) {
+//                evoker.goalSelector.addGoal(6, new WololoSpellGoal<>(evoker, Ulughbegsaurus.class, (livingEntity) -> ((Ulughbegsaurus) livingEntity).getVariant() == Ulughbegsaurus.UlughbegsaurusVariant.BLUE) {
+//                    @Override
+//                    protected void performSpellCasting() {
+//                        LivingEntity wololoTarget = evokerAccess.unusualPrehistory$getLivingWololoTarget();
+//                        if (wololoTarget != null && wololoTarget.isAlive() && wololoTarget instanceof Ulughbegsaurus ulughbegsaurus) {
+//                            ulughbegsaurus.setVariant(Ulughbegsaurus.UlughbegsaurusVariant.RED);
+//                        }
+//                    }
+//                });
+//            }
             if (mob instanceof Guardian guardian) {
                 guardian.goalSelector.addGoal(3, new AvoidEntityGoal<>(guardian, Dunkleosteus.class, 12.0F, 1.5D, 1.5D));
             }

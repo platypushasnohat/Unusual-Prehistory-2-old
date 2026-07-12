@@ -1,8 +1,9 @@
 package com.barl_inc.unusual_prehistory.entity.mob.cenozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
-import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricBreedableMob;
+import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barl_inc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
@@ -14,9 +15,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -30,6 +33,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -38,14 +42,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class Talpanas extends PrehistoricBreedableMob {
+public class Talpanas extends PrehistoricMob {
 
     public static final EntityDataAccessor<Integer> LIGHT_THRESHOLD = SynchedEntityData.defineId(Talpanas.class, EntityDataSerializers.INT);
 
     public final SmoothAnimationState flapAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState peckAnimationState = new SmoothAnimationState();
 
-    public Talpanas(EntityType<? extends PrehistoricBreedableMob> entityType, Level level) {
+    public Talpanas(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 1.0F);
         this.setPathfindingMalus(PathType.LAVA, 1.0F);
@@ -73,13 +77,12 @@ public class Talpanas extends PrehistoricBreedableMob {
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, Player.class, 4.0F, 1.5D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 4.0F, 1.5D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
         this.goalSelector.addGoal(3, new TalpanasSeekShelterGoal(this));
-        this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
-        this.goalSelector.addGoal(6, new PrehistoricWanderGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 3.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new EepyGoal(this));
-        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, true, 0.005F, this::canPeckBlock));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
+        this.goalSelector.addGoal(5, new PrehistoricWanderGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 3.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new EepyGoal(this));
+        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 40, 1, true, 0.005F, this::canPeckBlock));
     }
 
     @Override
@@ -200,12 +203,6 @@ public class Talpanas extends PrehistoricBreedableMob {
         return stack.is(UP2ItemTags.DIET_HERBIVORE);
     }
 
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.TALPANAS.get().create(serverLevel);
-    }
-
     @Override
     @Nullable
     protected SoundEvent getAmbientSound() {
@@ -222,6 +219,29 @@ public class Talpanas extends PrehistoricBreedableMob {
     @Nullable
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.TALPANAS_DEATH.get();
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Talpanas baby = UP2Entities.TALPANAS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/talpanas/talpanas.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals

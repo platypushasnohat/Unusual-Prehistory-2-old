@@ -51,9 +51,15 @@ public interface UP2VariantMob {
     default ResourceLocation getVariantTexture() {
         return this.getVariantHolder().map(holder -> holder.value().texture()).orElseGet(this::fallbackVariantTexture);
     }
-
     default ResourceLocation getVariantBabyTexture() {
         return this.getVariantHolder().map(holder -> holder.value().babyTexture()).orElseGet(this::fallbackVariantTexture);
+    }
+
+    default ResourceLocation getVariantTextureRaw() {
+        return this.getVariantHolder().map(holder -> holder.value().rawTexture()).orElseGet(this::fallbackVariantTexture);
+    }
+    default ResourceLocation getVariantBabyTextureRaw() {
+        return this.getVariantHolder().map(holder -> holder.value().rawBabyTexture()).orElseGet(this::fallbackVariantTexture);
     }
 
     default Optional<String> getVariantModelKey() {

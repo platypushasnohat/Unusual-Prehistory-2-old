@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.accessor.LivingEntityAccessor;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
@@ -19,8 +20,10 @@ import com.barl_inc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -33,6 +36,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -309,12 +313,6 @@ public class Lorrainosaurus extends PrehistoricAmphibiousMob implements Grabbing
         return entityData.get(GRAB_TIME);
     }
 
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return UP2Entities.LORRAINOSAURUS.get().create(level);
-    }
-
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return UP2SoundEvents.LORRAINOSAURUS_HURT.get();
@@ -330,5 +328,28 @@ public class Lorrainosaurus extends PrehistoricAmphibiousMob implements Grabbing
     @Nullable
     protected SoundEvent getAmbientSound() {
         return UP2SoundEvents.LORRAINOSAURUS_IDLE.get();
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Lorrainosaurus baby = UP2Entities.LORRAINOSAURUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/lorrainosaurus/lorrainosaurus.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 }

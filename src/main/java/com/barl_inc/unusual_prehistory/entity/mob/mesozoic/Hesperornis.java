@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
@@ -19,6 +20,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -43,10 +45,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Hesperornis extends PrehistoricAmphibiousMob implements VariantHolder<Hesperornis.HesperornisVariant> {
+public class Hesperornis extends PrehistoricAmphibiousMob {
 
     private static final EntityDataAccessor<Integer> SWIM_TYPE = SynchedEntityData.defineId(Hesperornis.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Hesperornis.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SWIMMING_DIMENSIONS = EntityDimensions.scalable(0.8F, 1.1F).withEyeHeight(0.9F);
 
@@ -189,20 +190,17 @@ public class Hesperornis extends PrehistoricAmphibiousMob implements VariantHold
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(SWIM_TYPE, 0);
-        builder.define(VARIANT, 0);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("SwimType", this.getSwimType());
-        compoundTag.putInt("Variant", this.getVariant().getId());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         this.setSwimType(compoundTag.getInt("SwimType"));
-        this.setVariant(HesperornisVariant.byId(compoundTag.getInt("Variant")));
     }
 
     public int getSwimType() {
@@ -210,21 +208,6 @@ public class Hesperornis extends PrehistoricAmphibiousMob implements VariantHold
     }
     public void setSwimType(int swimType) {
         this.entityData.set(SWIM_TYPE, Mth.clamp(swimType, 0, 3));
-    }
-
-    @Override
-    public @NotNull HesperornisVariant getVariant() {
-        return HesperornisVariant.byId(entityData.get(VARIANT));
-    }
-    @Override
-    public void setVariant(HesperornisVariant variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, HesperornisVariant.values().length));
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.HESPERORNIS.get().create(level);
     }
 
     @Override
@@ -253,33 +236,26 @@ public class Hesperornis extends PrehistoricAmphibiousMob implements VariantHold
         this.playSound(UP2SoundEvents.HESPERORNIS_STEP.get(), 0.25F, 1.0F);
     }
 
-    public enum HesperornisVariant {
-        ORANGE(0),
-        RED(1);
-
-        private final int id;
-
-        HesperornisVariant(int id) {
-            this.id = id;
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Hesperornis baby = UP2Entities.HESPERORNIS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-
-        public int getId() {
-            return this.id;
-        }
-
-        public static HesperornisVariant byId(int id) {
-            if (id < 0 || id >= HesperornisVariant.values().length) {
-                id = 0;
-            }
-            return HesperornisVariant.values()[id];
-        }
+        return baby;
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnData) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-        this.setVariant(HesperornisVariant.byId(level.getRandom().nextInt(HesperornisVariant.values().length)));
-        this.setSwimType(level.getRandom().nextInt(4));
-        return spawnData;
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/hesperornis/hesperornis_orange.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 }

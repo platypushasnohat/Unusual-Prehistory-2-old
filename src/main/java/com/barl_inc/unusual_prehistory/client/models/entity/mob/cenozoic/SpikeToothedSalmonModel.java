@@ -103,8 +103,6 @@ public class SpikeToothedSalmonModel extends UP2Model<SpikeToothedSalmon> {
         this.animateIdleSmooth(entity.swimIdleAnimationState, SpikeToothedSalmonAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
 		this.animateSmooth(entity.flopAnimationState, SpikeToothedSalmonAnimations.FLOP, ageInTicks,partialTicks);
 		this.animateSmooth(entity.attackAnimationState, SpikeToothedSalmonAnimations.ATTACK_BLEND, ageInTicks,partialTicks);
-        this.animateSmooth(entity.attackZombieAnimationState, SpikeToothedSalmonAnimations.ATTACK_BLEND_UNDEAD, ageInTicks,partialTicks);
-        this.animateSmooth(entity.zombieAnimationState, SpikeToothedSalmonAnimations.UNDEAD_BLEND, ageInTicks,partialTicks);
 
         if (entity.isInWaterOrBubble() || entity.isLeaping()) {
             this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);

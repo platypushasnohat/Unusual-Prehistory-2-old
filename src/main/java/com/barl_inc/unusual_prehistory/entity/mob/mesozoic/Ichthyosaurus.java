@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
@@ -17,6 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -352,12 +354,6 @@ public class Ichthyosaurus extends PrehistoricSchoolingAquaticMob implements Lea
         return this.entityData.get(TAME_ATTEMPTS);
     }
 
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.ICHTHYOSAURUS.get().create(level);
-    }
-
     @Override
     @Nullable
     protected SoundEvent getAmbientSound() {
@@ -381,15 +377,27 @@ public class Ichthyosaurus extends PrehistoricSchoolingAquaticMob implements Lea
         return UP2SoundEvents.ICHTHYOSAURUS_FLOP.get();
     }
 
+    @Nullable
     @Override
-    public int getAmbientSoundInterval() {
-        return 180;
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Ichthyosaurus baby = UP2Entities.ICHTHYOSAURUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
+        }
+        return baby;
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData data) {
-        this.setXRot(0.0F);
-        return super.finalizeSpawn(level, difficulty, spawnType, data);
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/ichthyosaurus/ichthyosaurus.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     private static class SwimWithPlayerGoal extends Goal {

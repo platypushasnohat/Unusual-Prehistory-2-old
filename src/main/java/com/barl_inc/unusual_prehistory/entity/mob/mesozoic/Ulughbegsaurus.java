@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -51,10 +52,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob, VariantHolder<Ulughbegsaurus.UlughbegsaurusVariant>, TargetsItems {
+public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob, TargetsItems {
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> RAINBOW = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
 
@@ -164,34 +163,19 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             this.setEatTicks(60);
             return InteractionResult.SUCCESS;
         }
-        else if (!this.isRainbow() && itemStack.is(Tags.Items.DYES)) {
-            UlughbegsaurusVariant variant = UlughbegsaurusVariant.byDye(itemStack);
-            if (variant != null && variant.getId() != this.getVariant().getId()) {
-                if (!player.getAbilities().instabuild) {
-                    itemStack.shrink(1);
-                }
-                this.setVariant(variant);
-                this.gameEvent(GameEvent.ENTITY_INTERACT);
-                this.playSound(SoundEvents.DYE_USE);
-                return InteractionResult.SUCCESS;
-            }
-        }
         else {
             return type;
         }
-        return type;
     }
 
     @Override
     public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
-        return player.isShiftKeyDown() && (!itemStack.is(Tags.Items.DYES) || this.isRainbow());
+        return player.isShiftKeyDown();
     }
 
     @Override
     public boolean canOwnerMount(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
-        return !this.isBaby() && (!itemStack.is(Tags.Items.DYES) || this.isRainbow());
+        return !this.isBaby() && !player.isShiftKeyDown();
     }
 
     private void spawnEatingParticles(ItemStack itemStack) {
@@ -375,36 +359,20 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
         builder.define(TAME_ATTEMPTS, 0);
-        builder.define(RAINBOW, false);
         builder.define(LEAPING, false);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putInt("TameAttempts", this.getTameAttempts());
-        compoundTag.putBoolean("Rainbow", this.isRainbow());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setVariant(UlughbegsaurusVariant.byId(compoundTag.getInt("Variant")));
         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
-        this.setRainbow(compoundTag.getBoolean("Rainbow"));
-    }
-
-    @Override
-    public @NotNull UlughbegsaurusVariant getVariant() {
-        return UlughbegsaurusVariant.byId(this.entityData.get(VARIANT));
-    }
-
-    @Override
-    public void setVariant(UlughbegsaurusVariant variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, UlughbegsaurusVariant.values().length));
     }
 
     public void setTameAttempts(int tameAttempts) {
@@ -415,14 +383,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         return this.entityData.get(TAME_ATTEMPTS);
     }
 
-    public boolean isRainbow() {
-        return this.entityData.get(RAINBOW);
-    }
-
-    public void setRainbow(boolean rainbow) {
-        this.entityData.set(RAINBOW, rainbow);
-    }
-
     @Override
     public boolean isLeaping() {
         return this.entityData.get(LEAPING);
@@ -431,16 +391,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     public void setLeaping(boolean leaping) {
         this.entityData.set(LEAPING, leaping);
-    }
-
-    @Override
-    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        Ulughbegsaurus ulughbegsaurus = UP2Entities.ULUGHBEGSAURUS.get().create(level);
-        if (ulughbegsaurus != null) {
-            ulughbegsaurus.setVariant(this.getVariant());
-            ulughbegsaurus.setRainbow(this.isRainbow());
-        }
-        return ulughbegsaurus;
     }
 
     @Nullable
@@ -466,94 +416,27 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         this.playSound(UP2SoundEvents.ULUGHBEGSAURUS_STEP.get(), this.isBaby() ? 0.3F : 1.0F, this.isBaby() ? 1.2F : 1.0F);
     }
 
-    public enum UlughbegsaurusVariant {
-        WHITE(0, Tags.Items.DYES_WHITE),
-        LIGHT_GRAY(1, Tags.Items.DYES_LIGHT_GRAY),
-        GRAY(2, Tags.Items.DYES_GRAY),
-        BLACK(3, Tags.Items.DYES_BLACK),
-        BROWN(4, Tags.Items.DYES_BROWN),
-        RED(5, Tags.Items.DYES_RED),
-        ORANGE(6, Tags.Items.DYES_ORANGE),
-        YELLOW(7, Tags.Items.DYES_YELLOW),
-        LIME(8, Tags.Items.DYES_LIME),
-        GREEN(9, Tags.Items.DYES_GREEN),
-        CYAN(10, Tags.Items.DYES_CYAN),
-        LIGHT_BLUE(11, Tags.Items.DYES_LIGHT_BLUE),
-        BLUE(12, Tags.Items.DYES_BLUE),
-        PURPLE(13, Tags.Items.DYES_PURPLE),
-        MAGENTA(14, Tags.Items.DYES_MAGENTA),
-        PINK(15, Tags.Items.DYES_PINK),
-
-        // Dye Depot compat
-        MAROON(16, UP2ItemTags.MAROON_DYES),
-        ROSE(17, UP2ItemTags.ROSE_DYES),
-        CORAL(18, UP2ItemTags.CORAL_DYES),
-        GINGER(19, UP2ItemTags.GINGER_DYES),
-        TAN(20, UP2ItemTags.TAN_DYES),
-        BEIGE(21, UP2ItemTags.BEIGE_DYES),
-        OLIVE(22, UP2ItemTags.OLIVE_DYES),
-        AMBER(23, UP2ItemTags.AMBER_DYES),
-        FOREST(24, UP2ItemTags.FOREST_DYES),
-        VERDANT(25, UP2ItemTags.VERDANT_DYES),
-        TEAL(26, UP2ItemTags.TEAL_DYES),
-        AQUA(27, UP2ItemTags.AQUA_DYES),
-        MINT(28, UP2ItemTags.MINT_DYES),
-        NAVY(29, UP2ItemTags.NAVY_DYES),
-        SLATE(30, UP2ItemTags.SLATE_DYES),
-        INDIGO(31, UP2ItemTags.INDIGO_DYES);
-
-        private final int id;
-        private final TagKey<Item> dye;
-
-        UlughbegsaurusVariant(int id, TagKey<Item> dye) {
-            this.id = id;
-            this.dye = dye;
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Ulughbegsaurus baby = UP2Entities.ULUGHBEGSAURUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-
-        public int getId() {
-            return this.id;
-        }
-
-        public TagKey<Item> getDye() {
-            return this.dye;
-        }
-
-        public static UlughbegsaurusVariant byDye(ItemStack stack) {
-            for (UlughbegsaurusVariant variant : values()) {
-                if (stack.is(variant.getDye())) {
-                    return variant;
-                }
-            }
-            return null;
-        }
-
-        public static UlughbegsaurusVariant byId(int id) {
-            if (id < 0 || id >= UlughbegsaurusVariant.values().length) {
-                id = 0;
-            }
-            return UlughbegsaurusVariant.values()[id];
-        }
-    }
-
-    public static UlughbegsaurusVariant getRandomNaturalColor(RandomSource random) {
-        int i = random.nextInt(100);
-        if (i < 10) return UlughbegsaurusVariant.ORANGE;
-        else if (i < 20) return UlughbegsaurusVariant.BROWN;
-        else if (i < 30) return UlughbegsaurusVariant.WHITE;
-        else if (i < 38) return UlughbegsaurusVariant.YELLOW;
-        else if (UP2LoadedMods.isDyeDepotLoaded()) {
-            if (i < 42) return UlughbegsaurusVariant.NAVY;
-            else if (i < 52) return UlughbegsaurusVariant.TAN;
-            else if (i < 62) return UlughbegsaurusVariant.OLIVE;
-        }
-        return UlughbegsaurusVariant.BLUE;
+        return baby;
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        this.setVariant(getRandomNaturalColor(level.getRandom()));
-        if (level.getRandom().nextFloat() < 0.01F) this.setRainbow(true);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/ulughbegsaurus/ulughbegsaurus.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals

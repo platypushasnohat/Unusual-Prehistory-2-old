@@ -249,7 +249,7 @@ public class UP2Items {
     public static final DeferredItem<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE = registerItemNoLang("kimmeridgebrachypteraeschnidium_bottle", () -> new KimmeridgebrachypteraeschnidiumBottleItem(new Item.Properties()));
     public static final DeferredItem<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET = registerItemNoLang("kimmeridgebrachypteraeschnidium_nymph_bucket", () -> new UP2MobBucketItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
     public static final DeferredItem<Item> ONCHOPRISTIS_BUCKET = registerItemNoLang("onchopristis_bucket", () -> new UP2MobBucketItem(UP2Entities.ONCHOPRISTIS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
-    public static final DeferredItem<Item> PTERODACTYLUS_POT = registerItemNoLang("pterodactylus_pot", () -> new PterodactylusPotItem(new Item.Properties().stacksTo(1), VariantHelper.nameOf(Pterodactylus.PterodactylusVariant::byId)));
+    public static final DeferredItem<Item> PTERODACTYLUS_POT = registerItemNoLang("pterodactylus_pot", () -> new PterodactylusPotItem(new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> LEEDSICHTHYS_SLICE = registerItem("leedsichthys_slice", () -> new Item(registerFoodValue(UP2FoodValues.LEEDSICHTHYS_SLICE)));
 

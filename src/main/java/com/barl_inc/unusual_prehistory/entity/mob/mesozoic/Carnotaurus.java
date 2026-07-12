@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -49,9 +51,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnotaurus.CarnotaurusVariant>, PlushableMob {
-
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Carnotaurus.class, EntityDataSerializers.INT);
+public class Carnotaurus extends PrehistoricMob implements PlushableMob {
 
     public int chargeCooldown = 100;
     public int roarCooldown = 100;
@@ -249,49 +249,11 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
 
     private void roarEffect() {
         for (int i = 0; i < 10; ++i) {
-            double d0 = this.random.nextGaussian() * 0.02D;
-            double d1 = this.random.nextGaussian() * 0.02D;
-            double d2 = this.random.nextGaussian() * 0.02D;
+            double d0 = this.getRandom().nextGaussian() * 0.02D;
+            double d1 = this.getRandom().nextGaussian() * 0.02D;
+            double d2 = this.getRandom().nextGaussian() * 0.02D;
             this.level().addParticle(ParticleTypes.ANGRY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
         }
-    }
-
-    @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant().getId());
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setVariant(CarnotaurusVariant.byId(compoundTag.getInt("Variant")));
-    }
-
-    @Override
-    public @NotNull CarnotaurusVariant getVariant() {
-        return CarnotaurusVariant.byId(this.entityData.get(VARIANT));
-    }
-
-    @Override
-    public void setVariant(CarnotaurusVariant variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, CarnotaurusVariant.values().length));
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        Carnotaurus carnotaurus = UP2Entities.CARNOTAURUS.get().create(level);
-        if (carnotaurus != null) {
-            carnotaurus.setVariant(this.getVariant());
-        }
-        return carnotaurus;
     }
 
     @Nullable
@@ -317,40 +279,27 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
         this.playSound(UP2SoundEvents.CARNOTAURUS_STEP.get(), this.isBaby() ? 0.25F : 1.0F, this.isBaby() ? 1.2F : 0.9F);
     }
 
+    @Nullable
     @Override
-    public int getAmbientSoundInterval() {
-        return 180;
-    }
-
-    public enum CarnotaurusVariant {
-        DEMON(0),
-        GOLDEN_EMPEROR(1);
-
-        private final int id;
-
-        CarnotaurusVariant(int id) {
-            this.id = id;
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Carnotaurus baby = UP2Entities.CARNOTAURUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-
-        public int getId() {
-            return this.id;
-        }
-
-        public static CarnotaurusVariant byId(int id) {
-            if (id < 0 || id >= CarnotaurusVariant.values().length) {
-                id = 0;
-            }
-            return CarnotaurusVariant.values()[id];
-        }
+        return baby;
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        if (level.getRandom().nextFloat() < 0.25F) {
-            this.setVariant(CarnotaurusVariant.GOLDEN_EMPEROR);
-        }
-        else this.setVariant(CarnotaurusVariant.DEMON);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/carnotaurus/carnotaurus_demon.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals

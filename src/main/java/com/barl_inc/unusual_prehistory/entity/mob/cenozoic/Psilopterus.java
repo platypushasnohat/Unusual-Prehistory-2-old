@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.cenozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricMob;
@@ -17,6 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -411,11 +413,12 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        Psilopterus psilopterus = UP2Entities.PSILOPTERUS.get().create(level);
-        if (psilopterus != null) {
-            psilopterus.setPackLeader(this.isPackLeader());
+        Psilopterus baby = UP2Entities.PSILOPTERUS.get().create(level);
+        if (baby != null) {
+            baby.setPackLeader(this.isPackLeader());
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-        return psilopterus;
+        return baby;
     }
 
     @Nullable
@@ -437,16 +440,18 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     @Override
-    public int getAmbientSoundInterval() {
-        return 160;
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/psilopterus/psilopterus.png");
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         var nearbyPsilopterus = level.getEntitiesOfClass(Psilopterus.class, this.getBoundingBox().inflate(16.0D));
         boolean hasPackLeader = nearbyPsilopterus.stream().anyMatch(Psilopterus::isPackLeader);
         this.setPackLeader(nearbyPsilopterus.size() >= 3 && !hasPackLeader);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     private static class PsilopterusAttackGoal extends AttackGoal {

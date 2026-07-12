@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.FlyingPanicGoal;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -54,9 +56,8 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 @SuppressWarnings("deprecation")
-public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable, VariantHolder<Pterodactylus.PterodactylusVariant> {
+public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Pterodactylus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HANGING = SynchedEntityData.defineId(Pterodactylus.class, EntityDataSerializers.BOOLEAN);
 
     private boolean validHangingPos = false;
@@ -225,30 +226,7 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable, V
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
         builder.define(HANGING, false);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant().getId());
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setVariant(PterodactylusVariant.byId(compoundTag.getInt("Variant")));
-    }
-
-    @Override
-    public @NotNull PterodactylusVariant getVariant() {
-        return PterodactylusVariant.byId(this.entityData.get(VARIANT));
-    }
-
-    @Override
-    public void setVariant(PterodactylusVariant variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, PterodactylusVariant.values().length));
     }
 
     public boolean isHanging() {
@@ -281,13 +259,11 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable, V
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
         UP2MobUtils.savePrehistoricDataToBucket(this, bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
     }
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
         UP2MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
-        this.setVariant(PterodactylusVariant.byId(compoundTag.getInt("Variant")));
     }
 
     @Override
@@ -340,56 +316,31 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable, V
     }
 
     @Override
-    public int getAmbientSoundInterval() {
-        return 180;
-    }
-
-    @Override
     protected float getSoundVolume() {
-        return 0.7F;
+        return 0.5F;
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-        Pterodactylus pterodactylus = UP2Entities.PTERODACTYLUS.get().create(level);
-        if (pterodactylus != null) {
-            pterodactylus.setVariant(this.getVariant());
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Pterodactylus baby = UP2Entities.PTERODACTYLUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-        return pterodactylus;
-    }
-
-    public enum PterodactylusVariant {
-        BROWN(0),
-        BANANA(1);
-
-        private final int id;
-
-        PterodactylusVariant(int id) {
-            this.id = id;
-        }
-
-        public int getId() {
-            return this.id;
-        }
-
-        public static PterodactylusVariant byId(int id) {
-            if (id < 0 || id >= PterodactylusVariant.values().length) {
-                id = 0;
-            }
-            return PterodactylusVariant.values()[id];
-        }
+        return baby;
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-        if (spawnType == MobSpawnType.BUCKET) {
-            return spawnData;
-        } else {
-            this.setVariant(PterodactylusVariant.byId(level.getRandom().nextInt(PterodactylusVariant.values().length)));
-        }
-        return spawnData;
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/pterodactylus/pterodactylus_chocolate.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals

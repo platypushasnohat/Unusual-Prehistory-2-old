@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barl_inc.unusual_prehistory.entity.utils.PlushableMob;
@@ -15,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -41,9 +43,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majungasaurus.MajungasaurusVariant>, PlushableMob {
+public class Majungasaurus extends PrehistoricMob implements PlushableMob {
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
 
     private int attackCooldown = 0;
@@ -258,52 +259,18 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
         builder.define(CAMO, false);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant().getId());
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setVariant(MajungasaurusVariant.byId(compoundTag.getInt("Variant")));
-    }
-
-    @Override
-    public @NotNull MajungasaurusVariant getVariant() {
-        return MajungasaurusVariant.byId(this.entityData.get(VARIANT));
-    }
-
-    @Override
-    public void setVariant(MajungasaurusVariant variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, MajungasaurusVariant.values().length));
     }
 
     public boolean isCamo() {
         return this.entityData.get(CAMO);
     }
-
     public void setCamo(boolean camo) {
         this.entityData.set(CAMO, camo);
     }
 
     public void camoCooldown() {
         this.camoCooldown = 40 + this.getRandom().nextInt(40);
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        Majungasaurus majungasaurus = UP2Entities.MAJUNGASAURUS.get().create(level);
-        if (majungasaurus != null) {
-            majungasaurus.setVariant(this.getVariant());
-        }
-        return majungasaurus;
     }
 
     @Override
@@ -341,36 +308,27 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         return this.isCamo() ? MovementEmission.NONE : super.getMovementEmission();
     }
 
-    public enum MajungasaurusVariant {
-        CHAMELEON(0),
-        DUSKLURKER(1);
-
-        private final int id;
-
-        MajungasaurusVariant(int id) {
-            this.id = id;
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Majungasaurus baby = UP2Entities.MAJUNGASAURUS.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-
-        public int getId() {
-            return this.id;
-        }
-
-        public static MajungasaurusVariant byId(int id) {
-            if (id < 0 || id >= MajungasaurusVariant.values().length) {
-                id = 0;
-            }
-            return MajungasaurusVariant.values()[id];
-        }
+        return baby;
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        if (level.getRandom().nextBoolean() && level.getLevel().isNight()) {
-            this.setVariant(MajungasaurusVariant.DUSKLURKER);
-        } else {
-            this.setVariant(MajungasaurusVariant.CHAMELEON);
-        }
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/majungasaurus/majungasaurus.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        this.pickVariantForSpawn(level);
+        return data;
     }
 
     // Goals
