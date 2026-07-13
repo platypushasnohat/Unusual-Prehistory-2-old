@@ -7,7 +7,6 @@ import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.ai.navigation.SmoothFlyingNavigation;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricWallAttachingFlyingMob;
 import com.barl_inc.unusual_prehistory.entity.utils.SmoothAnimationState;
-import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2Items;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;

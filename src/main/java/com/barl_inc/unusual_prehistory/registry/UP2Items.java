@@ -1,8 +1,10 @@
 package com.barl_inc.unusual_prehistory.registry;
 
 import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
-import com.barl_inc.unusual_prehistory.entity.mob.mesozoic.Pterodactylus;
-import com.barl_inc.unusual_prehistory.entity.mob.paleozoic.*;
+import com.barl_inc.unusual_prehistory.entity.mob.paleozoic.Coelacanthus;
+import com.barl_inc.unusual_prehistory.entity.mob.paleozoic.Diplocaulus;
+import com.barl_inc.unusual_prehistory.entity.mob.paleozoic.Dunkleosteus;
+import com.barl_inc.unusual_prehistory.entity.mob.paleozoic.LobeFinnedFish;
 import com.barl_inc.unusual_prehistory.entity.mob.recently_extinct.GastricBroodingFrog;
 import com.barl_inc.unusual_prehistory.items.*;
 import com.barl_inc.unusual_prehistory.tags.UP2BannerPatternTags;

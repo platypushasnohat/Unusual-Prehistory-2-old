@@ -4,7 +4,6 @@ import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricBabyPanicGoal;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barl_inc.unusual_prehistory.entity.mob.cenozoic.WoollyMammoth;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;

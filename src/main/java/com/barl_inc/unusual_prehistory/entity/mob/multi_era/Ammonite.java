@@ -1,5 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.mob.multi_era;
 
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barl_inc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
@@ -13,16 +14,15 @@ import com.barl_inc.unusual_prehistory.registry.UP2Items;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import com.barl_inc.unusual_prehistory.utils.UP2MobUtils;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -34,7 +34,6 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -42,11 +41,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.stream.Stream;
 
-public class Ammonite extends PrehistoricSchoolingAquaticMob implements Bucketable, VariantHolder<Ammonite.AmmoniteVariant> {
+public class Ammonite extends PrehistoricSchoolingAquaticMob implements Bucketable {
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Ammonite.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> HIDE_TICKS = SynchedEntityData.defineId(Ammonite.class, EntityDataSerializers.INT);
 
     private int hideCooldown = 0;
@@ -158,7 +157,7 @@ public class Ammonite extends PrehistoricSchoolingAquaticMob implements Bucketab
     @Override
     public void addFollowers(Stream<? extends PrehistoricSchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
-            if (this.getVariant() == ((Ammonite) entity2).getVariant() && !this.isBaby()) {
+            if (Objects.equals(this.getVariantRawId(), entity2.getVariantRawId()) && !this.isBaby()) {
                 entity2.startFollowing(this);
             }
         });
@@ -167,29 +166,7 @@ public class Ammonite extends PrehistoricSchoolingAquaticMob implements Bucketab
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
         builder.define(HIDE_TICKS, 0);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant().getId());
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setVariant(AmmoniteVariant.byId(compoundTag.getInt("Variant")));
-    }
-
-    @Override
-    public @NotNull Ammonite.AmmoniteVariant getVariant() {
-        return AmmoniteVariant.byId(this.entityData.get(VARIANT));
-    }
-    @Override
-    public void setVariant(AmmoniteVariant variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, AmmoniteVariant.values().length));
     }
 
     public int getHideTicks() {
@@ -221,13 +198,11 @@ public class Ammonite extends PrehistoricSchoolingAquaticMob implements Bucketab
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
         UP2MobUtils.savePrehistoricDataToBucket(this, bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
     }
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
         UP2MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
-        this.setVariant(AmmoniteVariant.byId(compoundTag.getInt("Variant")));
     }
 
     @Override
@@ -263,52 +238,33 @@ public class Ammonite extends PrehistoricSchoolingAquaticMob implements Bucketab
 
     @Override
     public float getSoundVolume() {
-        return 0.6F;
+        return 0.5F;
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        Ammonite ammonite = UP2Entities.AMMONITE.get().create(serverLevel);
-        if (ammonite != null) {
-            ammonite.setVariant(this.getVariant());
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        Ammonite baby = UP2Entities.AMMONITE.get().create(level);
+        if (baby != null) {
+            baby.setVariantRawId(this.inheritVariantFrom(mob, this.getRandom()));
         }
-        return ammonite;
-    }
-
-    public enum AmmoniteVariant {
-        CRIOCERATITES(0),
-        HOPLITES(1),
-        NOSTOCERAS(2),
-        PINACOCERAS(3),
-        TROPITES(4);
-
-        private final int variant;
-
-        AmmoniteVariant(int variant) {
-            this.variant = variant;
-        }
-
-        public int getId() {
-            return this.variant;
-        }
-
-        public static AmmoniteVariant byId(int id) {
-            if (id < 0 || id >= AmmoniteVariant.values().length) {
-                id = 0;
-            }
-            return AmmoniteVariant.values()[id];
-        }
+        return baby;
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    public ResourceLocation fallbackVariantTexture() {
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/ammonite/hoplites.png");
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         if (spawnType == MobSpawnType.BUCKET) {
-            return spawnGroupData;
+            return data;
         } else {
-            this.setVariant(AmmoniteVariant.byId(level.getRandom().nextInt(AmmoniteVariant.values().length)));
+            this.pickVariantForSpawn(level);
         }
-        return spawnGroupData;
+        return data;
     }
 }

@@ -3,7 +3,6 @@ package com.barl_inc.unusual_prehistory.entity.mob.cenozoic;
 import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.entity.ai.goals.*;
 import com.barl_inc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barl_inc.unusual_prehistory.entity.mob.mesozoic.Dromaeosaurus;
 import com.barl_inc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barl_inc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
